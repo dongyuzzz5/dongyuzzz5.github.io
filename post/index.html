@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://dongyuzzz5.github.io/post/'>
 
-<link rel="stylesheet" href="/scss/style.min.3c1d66d06ad88afaa0334a3be833043361ae7551d20815582e6d9d8ca5bc7444.css"><meta property='og:title' content="Posts">
+<link rel="stylesheet" href="/scss/style.min.a703af6cb2d60e5f4539f433e8ca2659a5011a91a7909389328a3b42135e3e2c.css"><meta property='og:title' content="Posts">
 <meta property='og:description' content="ctf?坎公骑冠剑！">
 <meta property='og:url' content='https://dongyuzzz5.github.io/post/'>
 <meta property='og:site_name' content='Dongyu'>
@@ -1764,13 +1764,20 @@ console.log(home);
 const ap = new APlayer({
     container: document.getElementById('aplayer'),
     lrcType: 3,
+    listMaxHeight: '160px',
     audio:  [{
         name: '海浪、海鸥与你',
         artist: 'AnRain安林',
         url: home + 'music/AnRain安林 - 海浪、海鸥与你/song.mp3',
         cover: home + 'music/AnRain安林 - 海浪、海鸥与你/cover.png',
         lrc: home + 'music/AnRain安林 - 海浪、海鸥与你/lyric.lrc'
-    }, {
+    },{
+        name: '老派约会之必要',
+        artist: 'MC 张天赋',
+        url: home + 'music/MC 张天赋 - 老派约会之必要/song.mp3',
+        cover: home + 'music/MC 张天赋 - 老派约会之必要/cover.png',
+        lrc: home + 'music/MC 张天赋 - 老派约会之必要/lyric.lrc'
+    },{
         name: 'Love Story',
         artist: 'ALisa',
         url: home + 'music/ALisa - Love Story/song.mp3',
@@ -1812,11 +1819,22 @@ const ap = new APlayer({
 </script>
 
 <style>
-  body {
+[data-scheme="light"] {
+body {
     background: url(/background/640.png) no-repeat center top;
     background-size: cover;
     background-attachment: fixed;
   }
+}
+  
+[data-scheme="dark"] {
+body {
+    background: url(/background/backphoto.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+
 </style>
 <div id="custom-footer">
 	
