@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
-<title>Test</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="积累密码题中一些经典题目的解题代码">
+<title>Crypto代码积累(AES)</title>
 
-<link rel='canonical' href='https://dongyuzzz5.github.io/p/test/'>
+<link rel='canonical' href='https://dongyuzzz5.github.io/p/crypto/'>
 
-<link rel="stylesheet" href="/scss/style.min.16fa87a31e3042196c0dad5ae0fe261a9ce47dc901c62a395389afc73daefb27.css"><meta property='og:title' content="Test">
-<meta property='og:description' content="">
-<meta property='og:url' content='https://dongyuzzz5.github.io/p/test/'>
+<link rel="stylesheet" href="/scss/style.min.8c956573fc4324fcc52d46092f32127a364e84d7caf16ad017c6fff40e8b94fe.css"><meta property='og:title' content="Crypto代码积累(AES)">
+<meta property='og:description' content="积累密码题中一些经典题目的解题代码">
+<meta property='og:url' content='https://dongyuzzz5.github.io/p/crypto/'>
 <meta property='og:site_name' content='Dongyu'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-08T00:54:20&#43;08:00'/><meta property='article:modified_time' content='2026-01-08T00:54:20&#43;08:00'/>
-<meta name="twitter:title" content="Test">
-<meta name="twitter:description" content=""><div class="loading">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Crypto' /><meta property='article:tag' content='AES' /><meta property='article:published_time' content='2026-01-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/crypto/111.png' />
+<meta name="twitter:title" content="Crypto代码积累(AES)">
+<meta name="twitter:description" content="积累密码题中一些经典题目的解题代码"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/crypto/111.png' /><div class="loading">
     <div class="spinner">
         
         <div></div>
@@ -333,20 +334,93 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一-aes-128-cbc">一. AES-128-CBC</a>
+      <ol>
+        <li><a href="#1-须知条件">1. 须知条件</a></li>
+        <li><a href="#2-代码">2. 代码</a></li>
+      </ol>
+    </li>
+    <li><a href="#二-aes-256-cbc">二. AES-256-CBC</a>
+      <ol>
+        <li><a href="#1-须知条件-1">1. 须知条件</a></li>
+        <li><a href="#2-代码-1">2. 代码</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/crypto/">
+                <img src="/p/crypto/111_hu_a02bd01e74b38b06.png"
+                        srcset="/p/crypto/111_hu_a02bd01e74b38b06.png 800w, /p/crypto/111_hu_6ec78dd22caef3dc.png 1600w"
+                        width="800" 
+                        height="600" 
+                        loading="lazy"
+                        alt="Featured image of post Crypto代码积累(AES)" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #e74c3c; color: #fff;">
+            
+                CTF
+            </a>
+        
+  
+    <a class="tag" href="/tags/crypto">Crypto</a>
+  
+    <a class="tag" href="/tags/aes">AES</a>
+  
+    </header>
+    
+
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/test/">Test</a>
+            <a href="/p/crypto/">Crypto代码积累(AES)</a>
         </h2>
     
+        
+        <h3 class="article-subtitle">
+            积累密码题中一些经典题目的解题代码
+        </h3>
         
     </div>
 
@@ -366,7 +440,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-01-08T00:54:20&#43;08:00'>2026-01-08</time>
+                <time class="article-time--published" datetime='2026-01-21T00:00:00Z'>2026-01-21</time>
             </div>
         
 
@@ -382,12 +456,158 @@
     <section class="article-content">
     
     
-    
+    <h2 id="一-aes-128-cbc">一. AES-128-CBC
+</h2><h3 id="1-须知条件">1. 须知条件
+</h3><blockquote>
+<p>(1) ciphertext = ebd91f0fc53e3d9e2fa5e5ecec1d2ea878a068f6db0c871ac6d14b83bfdb764f<br>
+(2) iv = 25ef3189e66193cf3e70f74d3f7b18f0<br>
+(3) key = 00112233445566778899aabbccddeeff</p>
+</blockquote>
+<h3 id="2-代码">2. 代码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3  </span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">unpad</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">KEY_HEX</span> <span class="o">=</span> <span class="s2">&#34;00112233445566778899aabbccddeeff&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">IV_HEX</span> <span class="o">=</span> <span class="s2">&#34;25ef3189e66193cf3e70f74d3f7b18f0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">CIPHER_HEX</span> <span class="o">=</span> <span class="s2">&#34;ebd91f0fc53e3d9e2fa5e5ecec1d2ea878a068f6db0c871ac6d14b83bfdb764f&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">KEY_HEX</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">iv</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">IV_HEX</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ct</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">CIPHER_HEX</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pt_padded</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pt</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">pt_padded</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="二-aes-256-cbc">二. AES-256-CBC
+</h2><h3 id="1-须知条件-1">1. 须知条件
+</h3><blockquote>
+<p>(1) ciphertext = 5435496e404858cfa2ba08e8ac4f421fd43c289ee54f699da3e403ceff19d8d0<br>
+(2) iv 为 key 的前 16 字节<br>
+(3) 这是个pin (对PIN码哈希生成32字节的AES-256密钥)</p>
+</blockquote>
+<h3 id="2-代码-1">2. 代码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">hashlib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">unpad</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 密文（16进制格式）</span>
+</span></span><span class="line"><span class="cl"><span class="n">ciphertext_hex</span> <span class="o">=</span> <span class="s2">&#34;5435496e404858cfa2ba08e8ac4f421fd43c289ee54f699da3e403ceff19d8d0&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">ciphertext</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">ciphertext_hex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 尝试用 PIN 解密</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">decrypt_with_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 1. 用 SHA256 对PIN码哈希生成32字节的AES-256密钥</span>
+</span></span><span class="line"><span class="cl">    <span class="n">key</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>  <span class="c1"># sha256固定输出32字节，刚好满足AES-256的密钥长度要求</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 2. IV(初始化向量) 是 Key 的前 16 字节</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iv</span> <span class="o">=</span> <span class="n">key</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 3. 解密（AES-256-CBC 模式）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 解密后去除PKCS7填充，AES分组长度固定16字节</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plaintext</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">),</span> <span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>  <span class="c1"># 明文为UTF-8编码的文本</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">UnicodeDecodeError</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 解密失败的常见原因：PIN错误、填充错误、明文编码不符</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 暴力枚举 4位纯数字PIN码 (范围：0000 ~ 9999)</span>
+</span></span><span class="line"><span class="cl"><span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pin_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">pin</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&#34;</span>  <span class="c1"># 格式化补零为4位，如 12 → 0012，999 → 0999</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">decrypt_with_pin</span><span class="p">(</span><span class="n">pin_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">plaintext</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;✅ 成功解密！PIN: </span><span class="si">{</span><span class="n">pin_str</span><span class="si">}</span><span class="s2">, 明文: </span><span class="si">{</span><span class="n">plaintext</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;❌ 未找到匹配的 PIN 爆破范围内&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+            <a href="/tags/crypto/">Crypto</a>
+        
+            <a href="/tags/aes/">AES</a>
+        
+    </section>
+
 
     </footer>
 
@@ -943,6 +1163,7 @@ const ap = new APlayer({
         }, 500);
     };
 </script>
+
 <style>
 [data-scheme="light"] {
 body {
