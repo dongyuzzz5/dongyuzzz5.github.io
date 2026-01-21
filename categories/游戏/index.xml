@@ -1,38 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Dongyu</title>
-        <link>https://dongyuzzz5.github.io/</link>
-        <description>Recent content on Dongyu</description>
+        <title>游戏 on Dongyu</title>
+        <link>https://dongyuzzz5.github.io/categories/%E6%B8%B8%E6%88%8F/</link>
+        <description>Recent content in 游戏 on Dongyu</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
-        <lastBuildDate>Thu, 08 Jan 2026 00:54:20 +0800</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Test</title>
-        <link>https://dongyuzzz5.github.io/p/test/</link>
-        <pubDate>Thu, 08 Jan 2026 00:54:20 +0800</pubDate>
-        
-        <guid>https://dongyuzzz5.github.io/p/test/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MyFirstBlog</title>
-        <link>https://dongyuzzz5.github.io/p/myfirstblog/</link>
-        <pubDate>Tue, 06 Jan 2026 20:28:04 +0800</pubDate>
-        
-        <guid>https://dongyuzzz5.github.io/p/myfirstblog/</guid>
-        <description>&lt;p&gt;Hello world&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>归档</title>
-        <link>https://dongyuzzz5.github.io/archives/</link>
-        <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://dongyuzzz5.github.io/archives/</guid>
-        <description></description>
-        </item>
-        <item>
+        <lastBuildDate>Tue, 06 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/categories/%E6%B8%B8%E6%88%8F/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>坎公骑冠剑</title>
         <link>https://dongyuzzz5.github.io/p/test-chinese/</link>
         <pubDate>Tue, 06 Jan 2026 00:00:00 +0000</pubDate>
@@ -79,30 +54,6 @@
 &lt;p&gt;相册语法来自 &lt;a class=&#34;link&#34; href=&#34;https://typlog.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Typlog&lt;/a&gt;&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>分类与标签</title>
-        <link>https://dongyuzzz5.github.io/cats-tags/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://dongyuzzz5.github.io/cats-tags/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>搜索</title>
-        <link>https://dongyuzzz5.github.io/search/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://dongyuzzz5.github.io/search/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>友情链接</title>
-        <link>https://dongyuzzz5.github.io/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://dongyuzzz5.github.io/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</guid>
-        <description></description>
         </item>
         
     </channel>
