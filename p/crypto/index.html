@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="积累密码题中一些经典题目的解题代码">
-<title>Crypto代码积累(AES)</title>
+<title>Crypto代码积累(一) --- AES</title>
 
 <link rel='canonical' href='https://dongyuzzz5.github.io/p/crypto/'>
 
-<link rel="stylesheet" href="/scss/style.min.8c956573fc4324fcc52d46092f32127a364e84d7caf16ad017c6fff40e8b94fe.css"><meta property='og:title' content="Crypto代码积累(AES)">
+<link rel="stylesheet" href="/scss/style.min.0039268af39867ef37b2345bd248dcb251a4ed1de53e5f50bf3dc4d594ea3160.css"><meta property='og:title' content="Crypto代码积累(一) --- AES">
 <meta property='og:description' content="积累密码题中一些经典题目的解题代码">
 <meta property='og:url' content='https://dongyuzzz5.github.io/p/crypto/'>
 <meta property='og:site_name' content='Dongyu'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Crypto' /><meta property='article:tag' content='AES' /><meta property='article:published_time' content='2026-01-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/crypto/111.png' />
-<meta name="twitter:title" content="Crypto代码积累(AES)">
+<meta name="twitter:title" content="Crypto代码积累(一) --- AES">
 <meta name="twitter:description" content="积累密码题中一些经典题目的解题代码"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/crypto/111.png' /><div class="loading">
     <div class="spinner">
@@ -116,6 +116,7 @@
     
     initLoading();
 </script>
+
 
     </head>
     <body class="
@@ -368,6 +369,18 @@
         <li><a href="#2-代码-1">2. 代码</a></li>
       </ol>
     </li>
+    <li><a href="#三-aes-128-cbc-密文base64编码">三. AES-128-CBC (密文base64编码)</a>
+      <ol>
+        <li><a href="#1-须知条件-2">1. 须知条件</a></li>
+        <li><a href="#2-代码-2">2. 代码</a></li>
+      </ol>
+    </li>
+    <li><a href="#四-aes-128-ctr">四. AES-128-CTR</a>
+      <ol>
+        <li><a href="#1-须知条件-3">1. 须知条件</a></li>
+        <li><a href="#2-代码-3">2. 代码</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -388,7 +401,7 @@
                         width="800" 
                         height="600" 
                         loading="lazy"
-                        alt="Featured image of post Crypto代码积累(AES)" />
+                        alt="Featured image of post Crypto代码积累(一) --- AES" />
                 
             </a>
         </div>
@@ -414,7 +427,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/crypto/">Crypto代码积累(AES)</a>
+            <a href="/p/crypto/">Crypto代码积累(一) --- AES</a>
         </h2>
     
         
@@ -594,6 +607,160 @@
 </span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;❌ 未找到匹配的 PIN 爆破范围内&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="三-aes-128-cbc-密文base64编码">三. AES-128-CBC (密文base64编码)
+</h2><h3 id="1-须知条件-2">1. 须知条件
+</h3><blockquote>
+<p>(1) ciphertext = l60f2FRTj/w6MlIhLWv/rlzEkIhsopz0VcY4W01XvVU= (base64编码)<br>
+(2) iv = 1229002635654321<br>
+(3) key = hellomyaeskeyyyy</p>
+</blockquote>
+<h3 id="2-代码-2">2. 代码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 给定的参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">IV</span> <span class="o">=</span> <span class="s2">&#34;1229002635654321&#34;</span>  <span class="c1"># 初始化向量</span>
+</span></span><span class="line"><span class="cl"><span class="n">KEY</span> <span class="o">=</span> <span class="s2">&#34;hellomyaeskeyyyy&#34;</span>  <span class="c1"># AES密钥</span>
+</span></span><span class="line"><span class="cl"><span class="n">ENCRYPTED_FLAG</span> <span class="o">=</span> <span class="s2">&#34;l60f2FRTj/w6MlIhLWv/rlzEkIhsopz0VcY4W01XvVU=&#34;</span>  <span class="c1"># Base64编码的密文</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">decrypt_aes_cbc</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">iv</span><span class="p">,</span> <span class="n">ciphertext_b64</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Base64解码</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">ciphertext_b64</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 初始化AES-CBC解密器</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 解密</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 去除填充（原代码使用空格填充）</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">plaintext</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 解密并输出flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="n">decrypt_aes_cbc</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span> <span class="n">IV</span><span class="p">,</span> <span class="n">ENCRYPTED_FLAG</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Flag:&#34;</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="四-aes-128-ctr">四. AES-128-CTR
+</h2><h3 id="1-须知条件-3">1. 须知条件
+</h3><blockquote>
+<p>(1) ciphertext = ad49684af40fb9d2372d32e0df4c8fc1afc843af873f36e79f98c57a81<br>
+(2) nonce(计算器前缀) = 6874f1abe89d9025<br>
+(3) key = SHA256(PIN || Salt) (取前16字节)</p>
+</blockquote>
+<h3 id="2-代码-3">2. 代码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util</span> <span class="kn">import</span> <span class="n">Counter</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">hashlib</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">derive_16byte_key</span><span class="p">(</span><span class="n">pin</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">salt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;生成16字节密钥（取SHA256的前16字节）&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">full_key</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">((</span><span class="n">pin</span> <span class="o">+</span> <span class="n">salt</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">full_key</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>  <span class="c1"># 取前16字节作为AES-128密钥</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">decrypt_ctr</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">nonce</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;AES-CTR解密（使用16字节密钥）&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ctr</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">nonce</span><span class="p">,</span> <span class="n">initial_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CTR</span><span class="p">,</span> <span class="n">counter</span><span class="o">=</span><span class="n">ctr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">brute_force_decrypt</span><span class="p">(</span><span class="n">ciphertext_hex</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nonce_hex</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;暴力破解PIN和salt组合&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ciphertext</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">ciphertext_hex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nonce</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">nonce_hex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 完整5位PIN范围 00000-99999，补零格式化</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pin_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">pin</span><span class="si">:</span><span class="s2">05d</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">salt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">salt_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">salt</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 进度提示</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">pin</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">salt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;尝试中: PIN=</span><span class="si">{</span><span class="n">pin_str</span><span class="si">}</span><span class="s2">, Salt=</span><span class="si">{</span><span class="n">salt_str</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 生成密钥并解密，无多余异常捕获</span>
+</span></span><span class="line"><span class="cl">            <span class="n">key</span> <span class="o">=</span> <span class="n">derive_16byte_key</span><span class="p">(</span><span class="n">pin_str</span><span class="p">,</span> <span class="n">salt_str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">plaintext</span> <span class="o">=</span> <span class="n">decrypt_ctr</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">ciphertext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="sa">b</span><span class="s2">&#34;flag{&#34;</span> <span class="ow">in</span> <span class="n">plaintext</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">✅ 解密成功！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;PIN: </span><span class="si">{</span><span class="n">pin_str</span><span class="si">}</span><span class="s2">, Salt: </span><span class="si">{</span><span class="n">salt_str</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;明文: </span><span class="si">{</span><span class="n">plaintext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;❌ 未找到正确组合&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ciphertext_hex</span> <span class="o">=</span> <span class="s2">&#34;ad49684af40fb9d2372d32e0df4c8fc1afc843af873f36e79f98c57a81&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nonce_hex</span> <span class="o">=</span> <span class="s2">&#34;6874f1abe89d9025&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;开始暴力破解...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">brute_force_decrypt</span><span class="p">(</span><span class="n">ciphertext_hex</span><span class="p">,</span> <span class="n">nonce_hex</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div>
 </section>
 
@@ -683,15 +850,23 @@
         &copy; 
         
         2026 Dongyu
+
+
+
+
+
+
+
+
+<p>发布了 2 篇文章 | 共 1403 字</p>
     </section>
     
-    <section class="powerby">
-        
-            一起玩坎特伯雷公主与骑士唤醒冠军之剑的奇幻冒险 <br/>
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.33.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
-    </section>
+   
+
+
 </footer>
+
+
 
 
     
@@ -1014,7 +1189,7 @@ const ap = new APlayer({
 <style>
     .highlight {
          
-        max-height: 400px;
+        max-height: 330px;
         overflow: hidden;
     }
 
@@ -1128,7 +1303,265 @@ const ap = new APlayer({
     })
 </script>
 
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
 
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+
+}
+
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = '/js/fish.js';   
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
+
+<div id="toast-stack"></div>
+
+<script>
+ 
+(() => {
+  const toastStack = document.getElementById('toast-stack');
+  let toastCount = 0;
+  const MAX_TOAST = 5;
+  const DURATION  = 2500;
+
+   
+  let lastText = '';
+  let lastTime = 0;
+
+  window.pushToast = function (msg = '✅ 哎嘿！复制成功 🍬') {
+    const now = Date.now();
+    if (msg === lastText && now - lastTime < 500) return; 
+    lastText = msg;
+    lastTime = now;
+
+     
+    if (toastCount >= MAX_TOAST) toastStack.firstElementChild?.closeToast();
+
+    const item = document.createElement('div');
+    item.className = 'snack-left-top';
+    item.textContent = msg;
+
+    let closeTimer = null;
+    function closeToast() {
+      if (item.isClosing) return;
+      item.isClosing = true;
+      item.classList.remove('show');
+      item.addEventListener('transitionend', () => {
+        item.remove();
+        toastCount--;
+      }, { once: true });
+      clearTimeout(closeTimer);
+    }
+    item.closeToast = closeToast;
+
+    toastStack.appendChild(item);
+    toastCount++;
+    void item.offsetWidth;
+    item.classList.add('show');
+    closeTimer = setTimeout(closeToast, DURATION);
+  };
+
+   
+  document.addEventListener('copy', e => {
+    const text = window.getSelection().toString().trim();
+    if (!text) return;
+    e.preventDefault();
+    navigator.clipboard.writeText(text)
+      .then(() => pushToast())
+      .catch(console.warn);
+  });
+
+   
+  const container = document.querySelector('.article-content');
+  if (container) {
+    container.addEventListener('click', e => {
+      if (!e.target.matches('.copyCodeButton')) return;
+      const wrap = e.target.closest('pre, .highlight');
+      const codeTd = wrap?.querySelector('td:nth-child(2)') || wrap;
+      const txt = codeTd ? codeTd.textContent.trim() : '';
+      navigator.clipboard.writeText(txt)
+        .then(() => pushToast())
+        .catch(err => alert('复制失败：' + err));
+    });
+  }
+})();
+</script>
+
+<style>
+ 
+.copyCodeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: #3d3c3c;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.copyCodeButton:hover {
+  background: #34d399;
+  color: #fff;
+}
+
+ 
+.snack-left-top {
+  position: fixed;
+  left: 20px;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  transform: translateX(calc(-100% - 20px));
+  width: 300px;
+  height: 60px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 15px;
+  background: #34d399;
+  color: #fff;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, .35);
+  z-index: 9999;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+}
+ 
+.snack-left-top.show {
+  transform: translateX(0);
+}
+ 
+#toast-stack {
+  position: fixed;
+  left: 0;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  z-index: 9999;
+  pointer-events: none;
+}
+
+ 
+#toast-stack .snack-left-top {
+  position: relative;    
+  margin-bottom: 12px;   
+  pointer-events: auto;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1),
+              opacity   .35s cubic-bezier(.4, 0, .2, 1);
+  opacity: 0;
+  transform: translateX(calc(-100% - 20px));
+}
+
+#toast-stack .snack-left-top.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+</style>
 <script>
     
 
@@ -1208,387 +1641,7 @@ body {
   }
 </style>
 
-<div id="jsi-flying-fish-container"></div>
-<script>
-    window.onload = () =>{
-        initFish();
-    }
-
-    function initFish() {
-        RENDERER.init();
-    }
-</script>
-
-<style>
-    #custom-footer {
-        position: relative;
-    }
-
-    #jsi-flying-fish-container {
-        width: 100%;
-        height: 200px;
-        position: absolute;
-        z-index: -1;
-        opacity: 0.4;
-        bottom: 0;
-        left: 0;
-        overflow: hidden;
-    }
-</style>
-
-<script>
-var RENDERER = {
-    POINT_INTERVAL : 5,
-    FISH_COUNT : 3,
-    MAX_INTERVAL_COUNT : 50,
-    INIT_HEIGHT_RATE : 0.55,
-    THRESHOLD : 50,
-
-    init : function(){
-        this.setParameters();
-        this.reconstructMethods();
-        this.setup();
-        this.bindEvent();
-        this.render();
-    },
-    setParameters : function(){
-        this.$window = window;
-        this.$document = document.body
-        this.$container = document.getElementById('jsi-flying-fish-container');
-        this.$canvas = document.createElement('canvas');
-        this.$container.appendChild(this.$canvas)
-        this.context = this.$canvas.getContext('2d');
-        this.points = [];
-        this.fishes = [];
-        this.watchIds = [];
-    },
-    createSurfacePoints : function(){
-        var count = Math.round(this.width / this.POINT_INTERVAL);
-        this.pointInterval = this.width / (count - 1);
-        this.points.push(new SURFACE_POINT(this, 0));
-
-        for(var i = 1; i < count; i++){
-            var point = new SURFACE_POINT(this, i * this.pointInterval),
-            previous = this.points[i - 1];
-
-            point.setPreviousPoint(previous);
-            previous.setNextPoint(point);
-            this.points.push(point);
-        }
-    },
-    reconstructMethods : function(){
-        this.watchWindowSize = this.watchWindowSize.bind(this);
-        this.jdugeToStopResize = this.jdugeToStopResize.bind(this);
-        this.startEpicenter = this.startEpicenter.bind(this);
-        this.moveEpicenter = this.moveEpicenter.bind(this);
-        this.reverseVertical = this.reverseVertical.bind(this);
-        this.render = this.render.bind(this);
-    },
-    setup : function(){
-        this.points.length = 0;
-        this.fishes.length = 0;
-        this.watchIds.length = 0;
-        this.intervalCount = this.MAX_INTERVAL_COUNT;
-        this.width = this.$container.offsetWidth;
-        this.height = this.$container.offsetHeight;
-        this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500;
-        this.$canvas.width = this.width;
-        this.$canvas.height = this.height;
-        this.reverse = false;
-
-        this.fishes.push(new FISH(this));
-        this.createSurfacePoints();
-    },
-    watchWindowSize : function(){
-        this.clearTimer();
-        this.tmpWidth = this.$window.width;
-        this.tmpHeight = this.$window.height;
-        this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL));
-    },
-    clearTimer : function(){
-        while(this.watchIds.length > 0){
-            clearTimeout(this.watchIds.pop());
-        }
-    },
-    jdugeToStopResize : function(){
-        var width = this.$window.width,
-        height = this.$window.height,
-        stopped = (width == this.tmpWidth && height == this.tmpHeight);
-
-        this.tmpWidth = width;
-        this.tmpHeight = height;
-
-        if(stopped){
-            this.setup();
-        }
-    },
-    bindEvent : function(){
-
-        this.$window.onresize = this.watchWindowSize;
-        this.$container.onclick = this.reverseVertical;
-        this.$container.onmouseenter = this.startEpicenter;
-        this.$container.addEventListener('onmousemove', this.moveEpicenter);
-
-    },
-    getAxis : function(event){
-
-        var offset = this.getOffset(this.$container);
-        return {
-            x : event.clientX - offset.left + this.$document.scrollLeft,
-            y : event.clientY - offset.top + this.$document.scrollTop
-        };
-    },
-
-    getOffset: function(Node, offset) {
-        if (!offset) {
-            offset = {};
-            offset.top = 0;
-            offset.left = 0;
-        }
-        if (Node == document.body) {
-            
-            return offset;
-        }
-        offset.top += Node.offsetTop;    offset.left += Node.offsetLeft;
-        return this.getOffset(Node.parentNode, offset);
-    },
-    startEpicenter : function(event){
-        this.axis = this.getAxis(event);
-    },
-    moveEpicenter : function(event){
-        var axis = this.getAxis(event);
-
-        if(!this.axis){
-            this.axis = axis;
-        }
-        this.generateEpicenter(axis.x, axis.y, axis.y - this.axis.y);
-        this.axis = axis;
-    },
-    generateEpicenter : function(x, y, velocity){
-        if(y < this.height / 2 - this.THRESHOLD || y > this.height / 2 + this.THRESHOLD){
-            return;
-        }
-        var index = Math.round(x / this.pointInterval);
-
-        if(index < 0 || index >= this.points.length){
-            return;
-        }
-        this.points[index].interfere(y, velocity);
-    },
-    reverseVertical : function(){
-        this.reverse = !this.reverse;
-
-        for(var i = 0, count = this.fishes.length; i < count; i++){
-            this.fishes[i].reverseVertical();
-        }
-    },
-    controlStatus : function(){
-        for(var i = 0, count = this.points.length; i < count; i++){
-            this.points[i].updateSelf();
-        }
-        for(var i = 0, count = this.points.length; i < count; i++){
-            this.points[i].updateNeighbors();
-        }
-        if(this.fishes.length < this.fishCount){
-            if(--this.intervalCount == 0){
-                this.intervalCount = this.MAX_INTERVAL_COUNT;
-                this.fishes.push(new FISH(this));
-            }
-        }
-    },
-    render : function(){
-        requestAnimationFrame(this.render);
-        this.controlStatus();
-        this.context.clearRect(0, 0, this.width, this.height);
 
 
-        this.context.fillStyle = 'rgba(29, 133, 227)'
-
-        for(var i = 0, count = this.fishes.length; i < count; i++){
-            this.fishes[i].render(this.context);
-        }
-        this.context.save();
-        this.context.globalCompositeOperation = 'xor';
-        this.context.beginPath();
-        this.context.moveTo(0, this.reverse ? 0 : this.height);
-
-        for(var i = 0, count = this.points.length; i < count; i++){
-            this.points[i].render(this.context);
-        }
-        this.context.lineTo(this.width, this.reverse ? 0 : this.height);
-        this.context.closePath();
-        this.context.fill();
-        this.context.restore();
-    }
-};
-var SURFACE_POINT = function(renderer, x){
-    this.renderer = renderer;
-    this.x = x;
-    this.init();
-};
-SURFACE_POINT.prototype = {
-    SPRING_CONSTANT : 0.03,
-    SPRING_FRICTION : 0.9,
-    WAVE_SPREAD : 0.3,
-    ACCELARATION_RATE : 0.01,
-
-    init : function(){
-        this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE;
-        this.height = this.initHeight;
-        this.fy = 0;
-        this.force = {previous : 0, next : 0};
-    },
-    setPreviousPoint : function(previous){
-        this.previous = previous;
-    },
-    setNextPoint : function(next){
-        this.next = next;
-    },
-    interfere : function(y, velocity){
-        this.fy = this.renderer.height * this.ACCELARATION_RATE * ((this.renderer.height - this.height - y) >= 0 ? -1 : 1) * Math.abs(velocity);
-    },
-    updateSelf : function(){
-        this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height);
-        this.fy *= this.SPRING_FRICTION;
-        this.height += this.fy;
-    },
-    updateNeighbors : function(){
-        if(this.previous){
-            this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height);
-        }
-        if(this.next){
-            this.force.next = this.WAVE_SPREAD * (this.height - this.next.height);
-        }
-    },
-    render : function(context){
-        if(this.previous){
-            this.previous.height += this.force.previous;
-            this.previous.fy += this.force.previous;
-        }
-        if(this.next){
-            this.next.height += this.force.next;
-            this.next.fy += this.force.next;
-        }
-        context.lineTo(this.x, this.renderer.height - this.height);
-    }
-};
-var FISH = function(renderer){
-    this.renderer = renderer;
-    this.init();
-};
-FISH.prototype = {
-    GRAVITY : 0.4,
-
-    init : function(){
-        this.direction = Math.random() < 0.5;
-        this.x = this.direction ? (this.renderer.width + this.renderer.THRESHOLD) : -this.renderer.THRESHOLD;
-        this.previousY = this.y;
-        this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1);
-
-        if(this.renderer.reverse){
-            this.y = this.getRandomValue(this.renderer.height * 1 / 10, this.renderer.height * 4 / 10);
-            this.vy = this.getRandomValue(2, 5);
-            this.ay = this.getRandomValue(0.05, 0.2);
-        }else{
-            this.y = this.getRandomValue(this.renderer.height * 6 / 10, this.renderer.height * 9 / 10);
-            this.vy = this.getRandomValue(-5, -2);
-            this.ay = this.getRandomValue(-0.2, -0.05);
-        }
-        this.isOut = false;
-        this.theta = 0;
-        this.phi = 0;
-    },
-    getRandomValue : function(min, max){
-        return min + (max - min) * Math.random();
-    },
-    reverseVertical : function(){
-        this.isOut = !this.isOut;
-        this.ay *= -1;
-    },
-    controlStatus : function(context){
-        this.previousY = this.y;
-        this.x += this.vx;
-        this.y += this.vy;
-        this.vy += this.ay;
-
-        if(this.renderer.reverse){
-            if(this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE){
-                this.vy -= this.GRAVITY;
-                this.isOut = true;
-            }else{
-                if(this.isOut){
-                    this.ay = this.getRandomValue(0.05, 0.2);
-                }
-                this.isOut = false;
-            }
-        }else{
-            if(this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE){
-                this.vy += this.GRAVITY;
-                this.isOut = true;
-            }else{
-                if(this.isOut){
-                    this.ay = this.getRandomValue(-0.2, -0.05);
-                }
-                this.isOut = false;
-            }
-        }
-        if(!this.isOut){
-            this.theta += Math.PI / 20;
-            this.theta %= Math.PI * 2;
-            this.phi += Math.PI / 30;
-            this.phi %= Math.PI * 2;
-        }
-        this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY);
-
-        if(this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD){
-            this.init();
-        }
-    },
-    render : function(context){
-        context.save();
-        context.translate(this.x, this.y);
-        context.rotate(Math.PI + Math.atan2(this.vy, this.vx));
-        context.scale(1, this.direction ? 1 : -1);
-        context.beginPath();
-        context.moveTo(-30, 0);
-        context.bezierCurveTo(-20, 15, 15, 10, 40, 0);
-        context.bezierCurveTo(15, -10, -20, -15, -30, 0);
-        context.fill();
-
-        context.save();
-        context.translate(40, 0);
-        context.scale(0.9 + 0.2 * Math.sin(this.theta), 1);
-        context.beginPath();
-        context.moveTo(0, 0);
-        context.quadraticCurveTo(5, 10, 20, 8);
-        context.quadraticCurveTo(12, 5, 10, 0);
-        context.quadraticCurveTo(12, -5, 20, -8);
-        context.quadraticCurveTo(5, -10, 0, 0);
-        context.fill();
-        context.restore();
-
-        context.save();
-        context.translate(-3, 0);
-        context.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1));
-
-        context.beginPath();
-
-        if(this.renderer.reverse){
-            context.moveTo(5, 0);
-            context.bezierCurveTo(10, 10, 10, 30, 0, 40);
-            context.bezierCurveTo(-12, 25, -8, 10, 0, 0);
-        }else{
-            context.moveTo(-5, 0);
-            context.bezierCurveTo(-10, -10, -10, -30, 0, -40);
-            context.bezierCurveTo(12, -25, 8, -10, 0, 0);
-        }
-        context.closePath();
-        context.fill();
-        context.restore();
-        context.restore();
-        this.controlStatus(context);
-    }
-};
-</script>
     </body>
 </html>
