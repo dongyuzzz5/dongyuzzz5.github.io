@@ -10,7 +10,7 @@
 <meta property='og:description' content="搭建属于自己的博客">
 <meta property='og:url' content='https://dongyuzzz5.github.io/p/%E6%95%99%E7%A8%8B1/'>
 <meta property='og:site_name' content='冬 鱼 🐟️'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hugo' /><meta property='article:tag' content='Stack' /><meta property='article:published_time' content='2026-01-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-23T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/%E6%95%99%E7%A8%8B1/111.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hugo' /><meta property='article:tag' content='Stack' /><meta property='article:published_time' content='2026-01-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-24T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/%E6%95%99%E7%A8%8B1/111.png' />
 <meta name="twitter:title" content="Hugo+Github免费部署博客">
 <meta name="twitter:description" content="搭建属于自己的博客"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/%E6%95%99%E7%A8%8B1/111.png' /><div class="loading">
@@ -363,9 +363,25 @@
         <li><a href="#2-创建博客">2. 创建博客</a></li>
       </ol>
     </li>
-    <li><a href="#二-stake-主题配置">二. Stake 主题配置</a>
+    <li><a href="#二-stack-主题配置">二. Stack 主题配置</a>
       <ol>
         <li><a href="#1-重要说明">1. 重要说明</a></li>
+        <li><a href="#2-下载主题">2. 下载主题</a></li>
+        <li><a href="#3-配置主题">3. 配置主题</a></li>
+      </ol>
+    </li>
+    <li><a href="#三-stack-主题设置与美化">三. Stack 主题设置与美化</a>
+      <ol>
+        <li><a href="#1-基础设置">1. 基础设置</a></li>
+        <li><a href="#2-新建文章">2. 新建文章</a></li>
+        <li><a href="#3-stack主题美化">3. stack主题美化</a></li>
+      </ol>
+    </li>
+    <li><a href="#四-github部署">四. Github部署</a>
+      <ol>
+        <li><a href="#1-环境准备git">1. 环境准备(Git)</a></li>
+        <li><a href="#2-常规部署">2. 常规部署</a></li>
+        <li><a href="#3-自动部署">3. 自动部署</a></li>
       </ol>
     </li>
   </ol>
@@ -440,7 +456,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-01-23T00:00:00Z'>2026-01-23</time>
+                <time class="article-time--published" datetime='2026-01-24T00:00:00Z'>2026-01-24</time>
             </div>
         
 
@@ -545,7 +561,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>(3) 打开刚刚的文件夹可以看到新建的 dongyu2 文件夹。<br>
-     由于没有配置全局环境变量，因此要复制 hugo.exe 到 dongyu2 文件夹中才能运行。</p>
+      由于没有配置全局环境变量，因此要复制 hugo.exe 到 dongyu2 文件夹中才能运行。</p>
 <p><img src="/p/%E6%95%99%E7%A8%8B1/1.6.png"
 	width="1316"
 	height="421"
@@ -576,7 +592,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cd</span> <span class="n">MyBlog</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">hugo</span> <span class="n">server</span> <span class="o">-</span><span class="n">D</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>正常来说下方红框显示的窗口应该是1313，不过我这里启动了两个hugo,所以不一样<br>
@@ -605,9 +621,836 @@
 		data-flex-basis="583px"
 	
 ></p>
-<h2 id="二-stake-主题配置">二. Stake 主题配置
+<h2 id="二-stack-主题配置">二. Stack 主题配置
 </h2><h3 id="1-重要说明">1. 重要说明
-</h3>
+</h3><blockquote>
+<p> &gt; 官方提供可以选的主题有很多，且由于每个主题的开发者实现的功能不同，因此建议根据下载的主题的 Github 上的 Readme.md 文件中的操作一步步来进行配置。<br>
+ &gt; 我这里选择的是和我博客一样相同的主题stack进行演示，若不想和我一样可以去网上直接搜其他主题的配置方法或查看官方文档<br>
+ &gt; 若和我选择的主题不一样，可以直接跳到第四点看自动化部署 (也可以参考一下，因为主题配置的步骤都大差不差，就美化不一样而已)</p>
+</blockquote>
+<h3 id="2-下载主题">2. 下载主题
+</h3><p>(1) 回到Hugo官方主页面，点击 Themes</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.1.png"
+	width="1749"
+	height="895"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.1_hu_e97227cc1dcc52c1.png 480w, /p/%E6%95%99%E7%A8%8B1/2.1_hu_3dcd58e48982bcb1.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="469px"
+	
+></p>
+<p>(2) 选择stack主题</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.2.png"
+	width="2560"
+	height="1418"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.2_hu_12c5c3ac6e67103f.png 480w, /p/%E6%95%99%E7%A8%8B1/2.2_hu_d465d2b5b6ed0533.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+></p>
+<p>(3) 点击Download进行下载，也可以先选择Demo进行预览</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.3.png"
+	width="2560"
+	height="1418"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.3_hu_aca7990c5774aee5.png 480w, /p/%E6%95%99%E7%A8%8B1/2.3_hu_a4313356340558b2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+></p>
+<p>(4) 跳转到 GitHub 页面，然后点击 Releases</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.4.png"
+	width="2044"
+	height="984"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.4_hu_a46bbf5009d8e220.png 480w, /p/%E6%95%99%E7%A8%8B1/2.4_hu_8761f8849e8841da.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<p>(5) 当前版本为 v3.33.0，下拉找到 Assets，点击 Source code（zip）下载</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.5.png"
+	width="1338"
+	height="1338"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.5_hu_bcdfc4457dc020c4.png 480w, /p/%E6%95%99%E7%A8%8B1/2.5_hu_e28d4b29d835d637.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+></p>
+<p>(6) 将下载好的压缩包复制或剪切到之前创建的 dongyu2 文件夹中的 theme 目录中，并解压到当前目录同名文件夹</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.6.png"
+	width="1151"
+	height="427"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.6_hu_72a67823d9f79f56.png 480w, /p/%E6%95%99%E7%A8%8B1/2.6_hu_1160e006e26e8ea.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="646px"
+	
+></p>
+<h3 id="3-配置主题">3. 配置主题
+</h3><p>(1) 来到主题目录下，点击exampleSitew文件夹(一般主题都有这个样例文件夹，没有的查看官方文档)
+      接着着将文件夹中的<span style="color: #e74c3c;">content文件夹</span>和<span style="color: #e74c3c;">hugo.yaml文件</span>复制到dongyu2主目录下面<br>
+      并将dongyu2文件夹中的<span style="color: #e74c3c;">hugo.toml删除</span></p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.7.png"
+	width="1109"
+	height="521"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.7_hu_250af609d7578cd8.png 480w, /p/%E6%95%99%E7%A8%8B1/2.7_hu_a744a2eadf2e3801.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="212"
+		data-flex-basis="510px"
+	
+>
+<img src="/p/%E6%95%99%E7%A8%8B1/2.8.png"
+	width="1076"
+	height="716"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.8_hu_d097447b340816ba.png 480w, /p/%E6%95%99%E7%A8%8B1/2.8_hu_5f20b1beca167739.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<p>(2) 将/content/post下的rich-contnet文件夹删除里面引用了youtube的一些视频可能会导致网站启动不了 (有些主题可能没有这个文件夹，跳过即可)</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.9.png"
+	width="810"
+	height="457"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.9_hu_feeaa236f1688a60.png 480w, /p/%E6%95%99%E7%A8%8B1/2.9_hu_44f3fef3b7cfdddf.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="425px"
+	
+></p>
+<p>(3) 然后我们打开配置文件/hugo.yaml，可以看到theme名称是没有版本号的，所以我们要将主题文件夹名称的版本号删除，不然到时候会显示找不到文件夹</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/2.10.png"
+	width="1178"
+	height="602"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.10_hu_23000d2cb44e4903.png 480w, /p/%E6%95%99%E7%A8%8B1/2.10_hu_622781c9338e4919.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="469px"
+	
+>
+<img src="/p/%E6%95%99%E7%A8%8B1/2.11.png"
+	width="1102"
+	height="324"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.11_hu_4a878f3d70a936ed.png 480w, /p/%E6%95%99%E7%A8%8B1/2.11_hu_a29dbe230a12942a.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="340"
+		data-flex-basis="816px"
+	
+></p>
+<p>(4) 输入命令重启hugo服务，再刷新网页，就会发现网站已经搭建完成</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">hugo</span> <span class="n">server</span> <span class="o">-</span><span class="n">D</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E6%95%99%E7%A8%8B1/2.12.png"
+	width="1311"
+	height="92"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.12_hu_4e8eea83bfa0ca9f.png 480w, /p/%E6%95%99%E7%A8%8B1/2.12_hu_a8928cba72abf760.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1425"
+		data-flex-basis="3420px"
+	
+><br>
+<img src="/p/%E6%95%99%E7%A8%8B1/2.13.png"
+	width="2557"
+	height="1529"
+	srcset="/p/%E6%95%99%E7%A8%8B1/2.13_hu_b9d8b0a12d201c87.png 480w, /p/%E6%95%99%E7%A8%8B1/2.13_hu_12bc3ddc21fd15b4.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="167"
+		data-flex-basis="401px"
+	
+></p>
+<h2 id="三-stack-主题设置与美化">三. Stack 主题设置与美化
+</h2><p><span style="color: #e74c3c;">没有选择stack作为主题的直接通过这一步，可以自行去网上找自己主题的美化</span></p>
+<h3 id="1-基础设置">1. 基础设置
+</h3><blockquote>
+<p>主要说一下主题配置文件hugo.yaml
+注意：修改都是在hugo主路径下修改，不要修改themes路径下的，若主路径没有想要的文件夹就直接新建一个</p>
+</blockquote>
+<p>(1) 修改页脚文字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="n">baseurl</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"> <span class="err">……</span>
+</span></span><span class="line"><span class="cl"> <span class="n">copyright</span><span class="p">:</span> <span class="n">冬鱼</span> <span class="err">🐟️</span>  <span class="c1">#修改内容</span>
+</span></span><span class="line"><span class="cl"> <span class="err">……</span>
+</span></span><span class="line"><span class="cl"> <span class="n">params</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">     <span class="err">……</span>
+</span></span><span class="line"><span class="cl">     <span class="n">footer</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">         <span class="n">since</span><span class="p">:</span> <span class="mi">2026</span> <span class="c1">#修改年份</span>
+</span></span><span class="line"><span class="cl">         <span class="n">customText</span><span class="p">:</span>  <span class="c1">#这里可以加自定义文本，我这里就不写了，感觉不是很好看</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E6%95%99%E7%A8%8B1/3.1.png"
+	width="606"
+	height="186"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.1_hu_e393ca282fcf5b7f.png 480w, /p/%E6%95%99%E7%A8%8B1/3.1_hu_1348483b35f91258.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="325"
+		data-flex-basis="781px"
+	
+></p>
+<p>(2) 修改主题语言</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Theme i18n support</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Available values(支持的语言种类): ar, bn, ca, de, el, en, es, fr, hu, id, it, ja, ko, nl, pt-br, th, uk, zh-cn, zh-hk, zh-tw</span>
+</span></span><span class="line"><span class="cl"><span class="n">DefaultContentLanguage</span><span class="p">:</span> <span class="n">zh</span><span class="o">-</span><span class="n">cn</span>  <span class="c1">#中文</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(3) 优化统计字数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Set hasCJKLanguage to true if DefaultContentLanguage is in [zh-cn ja ko]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This will make .Summary and .WordCount behave correctly for CJK languages.</span>
+</span></span><span class="line"><span class="cl"><span class="n">hasCJKLanguage</span><span class="p">:</span> <span class="n">true</span>   <span class="c1">#false改为true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(4) 语言选择</p>
+<p>不搞国际化文章的话，我建议是只保留中文即可，其他的全删掉</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/3.2.png"
+	width="891"
+	height="898"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.2_hu_4ccfe6d3507c0c26.png 480w, /p/%E6%95%99%E7%A8%8B1/3.2_hu_d18ba81e50562d62.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="99"
+		data-flex-basis="238px"
+	
+>
+<img src="/p/%E6%95%99%E7%A8%8B1/3.3.png"
+	width="908"
+	height="898"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.3_hu_2e8bcb8d9c085b75.png 480w, /p/%E6%95%99%E7%A8%8B1/3.3_hu_4cbd1b998a9147c.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="242px"
+	
+></p>
+<p>全部删掉之后会发现网站左侧会多出来别的语言的主页选项，将/content/路径下除了_index.zh-cn.md文件其他三个文件删掉即可</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/3.8.png"
+	width="1134"
+	height="527"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.8_hu_4b72ca5c255852ba.png 480w, /p/%E6%95%99%E7%A8%8B1/3.8_hu_6ca2fa4cc81fbbc0.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="516px"
+	
+><br>
+<img src="/p/%E6%95%99%E7%A8%8B1/3.7.png"
+	width="303"
+	height="920"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.7_hu_521ff1733225a13a.png 480w, /p/%E6%95%99%E7%A8%8B1/3.7_hu_9578b29d517465.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="32"
+		data-flex-basis="79px"
+	
+>
+<img src="/p/%E6%95%99%E7%A8%8B1/3.9.png"
+	width="318"
+	height="804"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.9_hu_ee400e78d678a470.png 480w, /p/%E6%95%99%E7%A8%8B1/3.9_hu_fa44a3c1f8adf88f.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="39"
+		data-flex-basis="94px"
+	
+></p>
+<p>(5) 博客名称与简介</p>
+<p>在刚刚保留的中文语言这里修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">languages</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">zh</span><span class="o">-</span><span class="n">cn</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">languageName</span><span class="p">:</span> <span class="n">简体中文</span>
+</span></span><span class="line"><span class="cl">        <span class="n">title</span><span class="p">:</span> <span class="n">冬鱼</span> <span class="err">🐟️</span>  <span class="c1">#博客名</span>
+</span></span><span class="line"><span class="cl">        <span class="n">weight</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">        <span class="n">params</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sidebar</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">subtitle</span><span class="p">:</span> <span class="n">坎公骑冠剑</span>  <span class="c1">#博客简介</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(6) 修改网站小图标</p>
+<p>现在这个网站下载个小图标:<a class="link" href="https://icon-icons.com/zh/"  target="_blank" rel="noopener"
+    >https://icon-icons.com/zh/</a> ,有能力可以自己设计一个<br>
+选择ico下载，有些图片没有ico</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/3.4.png"
+	width="1866"
+	height="926"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.4_hu_cc600ae1c4b18345.png 480w, /p/%E6%95%99%E7%A8%8B1/3.4_hu_4e028ead8968ff58.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="201"
+		data-flex-basis="483px"
+	
+></p>
+<p>然后将下载的图片复制到/static文件夹下，并改名为favicon.ico</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/3.5.png"
+	width="1091"
+	height="249"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.5_hu_d7a81a1553674750.png 480w, /p/%E6%95%99%E7%A8%8B1/3.5_hu_fefa9bdc1f520904.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="438"
+		data-flex-basis="1051px"
+	
+></p>
+<p>最后到网页按 ctrl+F5 强制刷新即可看到图标</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/3.6.png"
+	width="248"
+	height="92"
+	srcset="/p/%E6%95%99%E7%A8%8B1/3.6_hu_2f505368308ac1a.png 480w, /p/%E6%95%99%E7%A8%8B1/3.6_hu_85ec7c2274051799.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="646px"
+	
+></p>
+<p>(7) 修改文章封面的日期格式</p>
+<p><span style="color: #e74c3c;">修改的内容一定要为2006-01-02，到时候新建文章日期才会正确显示</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="n">params</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dateFormat</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">published</span><span class="p">:</span> <span class="mi">2006</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">02</span>   <span class="c1">#修改日期格式</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lastUpdated</span><span class="p">:</span> <span class="n">Jan</span> <span class="mi">02</span><span class="p">,</span> <span class="mi">2006</span> <span class="mi">15</span><span class="p">:</span><span class="mi">04</span> <span class="n">MST</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(8) 修改头像和emoji</p>
+<p>emoji网站：<a class="link" href="https://www.emojiall.com/zh-hans/all-emojis"  target="_blank" rel="noopener"
+    >https://www.emojiall.com/zh-hans/all-emojis</a><br>
+头像图片保存在/assets/img/目录下(没有img就直接创建一个),<span style="color: #e74c3c;">头像像素为150*150</span>，自己在ps改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"> <span class="n">params</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="err">……</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sidebar</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emoji</span><span class="p">:</span> <span class="err">😃</span>  <span class="c1">#网站复制一个</span>
+</span></span><span class="line"><span class="cl">        <span class="n">subtitle</span><span class="p">:</span> <span class="n">Lorem</span> <span class="n">ipsum</span> <span class="n">dolor</span> <span class="n">sit</span> <span class="n">amet</span><span class="p">,</span> <span class="n">consectetur</span> <span class="n">adipiscing</span> <span class="n">elit</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl">        <span class="n">avatar</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
+</span></span><span class="line"><span class="cl">            <span class="n">local</span><span class="p">:</span> <span class="n">true</span>
+</span></span><span class="line"><span class="cl">            <span class="n">src</span><span class="p">:</span> <span class="n">img</span><span class="o">/</span><span class="n">avatar</span><span class="o">.</span><span class="n">png</span>    <span class="c1">#确保和你的图片名一样</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-新建文章">2. 新建文章
+</h3><p>(1) 在dongyu2路径下进入cmd,输入下面命令即可创建文章</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">hugo</span> <span class="n">new</span> <span class="n">content</span> <span class="o">/</span><span class="n">post</span><span class="o">/</span><span class="n">文件名称</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">md</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(2) 创建之后，启动hugo即可在网页看到文章，要编辑文章即编辑index.md,且需要用markdown语言 (不难，了解下就能写了)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">hugo</span> <span class="n">server</span> <span class="o">-</span><span class="n">D</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-stack主题美化">3. stack主题美化
+</h3><p>主题的美化在这里我就不详细讲了，在浏览器直接搜stack主题美化就有一大堆，这里我推荐一个大佬的博客，他里面有写得很好的美化教程</p>
+<ul>
+<li>凡凡小站 : <a class="link" href="https://blog.meimolihan.eu.org/"  target="_blank" rel="noopener"
+    >https://blog.meimolihan.eu.org/</a></li>
+</ul>
+<h2 id="四-github部署">四. Github部署
+</h2><h3 id="1-环境准备git">1. 环境准备(Git)
+</h3><p>(1) 进入Git官网:<a class="link" href="https://git-scm.com/"  target="_blank" rel="noopener"
+    >https://git-scm.com/</a> ,下载并安装最新版Git</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.1.png"
+	width="2560"
+	height="1233"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.1_hu_a2b2729910ddaef2.png 480w, /p/%E6%95%99%E7%A8%8B1/4.1_hu_9be03a84983c0462.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<p>(2) 选择 <span style="color: #e74c3c;">Git for Windows/x64 Setup</span>进行下载，选择文件夹一直下一步安装就行了</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.2.png"
+	width="1498"
+	height="805"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.2_hu_a01f4c557b58f6d6.png 480w, /p/%E6%95%99%E7%A8%8B1/4.2_hu_f4083180059b681c.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="186"
+		data-flex-basis="446px"
+	
+></p>
+<h3 id="2-常规部署">2. 常规部署
+</h3><p>(1) 进入Github官网:<a class="link" href="https://github.com/"  target="_blank" rel="noopener"
+    >https://github.com/</a> ,创建一个Github账户</p>
+<p>(2) 创建仓库，仓库名为： <span style="color: #e74c3c;">{自定义名称}.github.io</span> (需严格按照格式，自定义名称建议用Github用户名)<br>
+      我这里因为已经用用户名创建过了，所以创建的是在子路径下</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.3.png"
+	width="1183"
+	height="1154"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.3_hu_547483181f03775d.png 480w, /p/%E6%95%99%E7%A8%8B1/4.3_hu_f2919d6b3242eb30.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="246px"
+	
+></p>
+<p>(3) 修改文件路径 (非常重要，后面若网页显示错误，大概是这里的url错了)</p>
+<ul>
+<li>打开文件hugo.yaml ,修改baseurl为仓库名的网址(第一次创建的话应该是没有我/dongyu2这个子路径的)</li>
+</ul>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.5.png"
+	width="1045"
+	height="509"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.5_hu_c54648c185a62a8.png 480w, /p/%E6%95%99%E7%A8%8B1/4.5_hu_7d7f7ec0879aca00.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="205"
+		data-flex-basis="492px"
+	
+></p>
+<p>(4) 删除public文件夹，再重新启动hugo，生成新的public文件夹</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">hugo</span> <span class="n">server</span> <span class="o">-</span><span class="n">D</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E6%95%99%E7%A8%8B1/4.7.png"
+	width="1095"
+	height="751"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.7_hu_95459e2b333b718f.png 480w, /p/%E6%95%99%E7%A8%8B1/4.7_hu_3eb7f1c874b4ecf5.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="349px"
+	
+></p>
+<p>(5) 在新生成的public文件夹下进入cmd,输入下面命令，第一次上传可能需要输入账号密码,执行最后一步git push时如果不成功，多试几次，或者换个网络多试几次，有点玄学的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">git</span> <span class="n">init</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&#34;first commit&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">M</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="p">{</span><span class="n">你的github仓库地址</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">main</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也就是他网页给的那些命令
+<img src="/p/%E6%95%99%E7%A8%8B1/4.8.png"
+	width="1015"
+	height="313"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.8_hu_af5c6e385f97011e.png 480w, /p/%E6%95%99%E7%A8%8B1/4.8_hu_a8470e381e280707.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="324"
+		data-flex-basis="778px"
+	
+></p>
+<p>(6) 上传成功</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.9.png"
+	width="1465"
+	height="342"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.9_hu_a3a4f600a27c8b1a.png 480w, /p/%E6%95%99%E7%A8%8B1/4.9_hu_490ea54140b078de.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="428"
+		data-flex-basis="1028px"
+	
+></p>
+<p>(7) 前往 <span style="color: #e74c3c;">Setting -&gt; Pages -&gt; Branch</span>选择main分支，然后保存，会自动开启</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.6.png"
+	width="1529"
+	height="1002"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.6_hu_41da278f56eae3fe.png 480w, /p/%E6%95%99%E7%A8%8B1/4.6_hu_77a9b9a41b9885d9.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="152"
+		data-flex-basis="366px"
+	
+></p>
+<p>(8) 等待一段时间后刷新仓库，直到出现网址，就说明创建成功了，可以浏览该网址看到你的博客</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.10.png"
+	width="2008"
+	height="537"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.10_hu_34e2293589acc6c5.png 480w, /p/%E6%95%99%E7%A8%8B1/4.10_hu_c7953bd706729504.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="373"
+		data-flex-basis="897px"
+	
+></p>
+<h3 id="3-自动部署">3. 自动部署
+</h3><p>(1) 创建一个新仓库，用于存放hugo主文件，记得设置为私有仓库</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.11.png"
+	width="1141"
+	height="1149"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.11_hu_706b89843c326f63.png 480w, /p/%E6%95%99%E7%A8%8B1/4.11_hu_79bd7a042f5886c1.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="99"
+		data-flex-basis="238px"
+	
+></p>
+<p>(2) 在hugo主目录下创建文件.gitignore</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.12.png"
+	width="1087"
+	height="784"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.12_hu_1e4b16a6262a2361.png 480w, /p/%E6%95%99%E7%A8%8B1/4.12_hu_ce7f63c9a405af1c.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="332px"
+	
+></p>
+<p>并在文件中写入下面内容(不需上传的文件)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">public</span>
+</span></span><span class="line"><span class="cl"><span class="n">resources</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">hugo_build</span><span class="o">.</span><span class="n">lock</span>
+</span></span><span class="line"><span class="cl"><span class="n">hugo</span><span class="o">.</span><span class="n">exe</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(3) 接着在主目录下打开cmd,和刚刚一样输入创建仓库后生成的代码，不过第二句要改为 <span style="color: #e74c3c;">git add .</span></p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.13.png"
+	width="1032"
+	height="360"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.13_hu_5a861e98b491e81a.png 480w, /p/%E6%95%99%E7%A8%8B1/4.13_hu_af681826122f552d.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="286"
+		data-flex-basis="688px"
+	
+>
+<img src="/p/%E6%95%99%E7%A8%8B1/4.14.png"
+	width="1386"
+	height="336"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.14_hu_acb5c5d810745510.png 480w, /p/%E6%95%99%E7%A8%8B1/4.14_hu_1908974be7e9327f.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="412"
+		data-flex-basis="990px"
+	
+></p>
+<p>(4) 前往 <span style="color: #e74c3c;">Setttings -&gt; Developer Settings -&gt; Personal access tokens</span> ，创建一个token(classic)</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.15.png"
+	width="2209"
+	height="1399"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.15_hu_739fdf63b1e6fcac.png 480w, /p/%E6%95%99%E7%A8%8B1/4.15_hu_a8d3a5614d074af5.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="378px"
+	
+>
+<img src="/p/%E6%95%99%E7%A8%8B1/4.16.png"
+	width="738"
+	height="519"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.16_hu_392475e1e8baf789.png 480w, /p/%E6%95%99%E7%A8%8B1/4.16_hu_a6abc89266b922a6.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="341px"
+	
+></p>
+<p>(5) token选择永不过期，并勾选 repo 和 workflow 选项</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.17.png"
+	width="1684"
+	height="983"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.17_hu_b5659f7019a608a0.png 480w, /p/%E6%95%99%E7%A8%8B1/4.17_hu_27128c0c7fd134b1.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="411px"
+	
+></p>
+<p>(6) 将生成的token，保存的仓库的变量中，前往 <span style="color: #e74c3c;">Settings -&gt; Secrets and variables -&gt; Actions</span> 中设置<br>
+-注意：这里的token只会显示一次，刷新页面后就无了，记得保存</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.18.png"
+	width="1959"
+	height="1242"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.18_hu_7718ec0de01f299a.png 480w, /p/%E6%95%99%E7%A8%8B1/4.18_hu_c4e90a145799855.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="378px"
+	
+></p>
+<p>(7) 在hugo主文件创建一个.github/workflows/xxxx.yaml文件，将以下内容复制进去(代码中有一处要换成自己的token名和仓库名，不要一通复制了)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">name</span><span class="p">:</span> <span class="n">deploy</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 代码提交到main分支时触发github action</span>
+</span></span><span class="line"><span class="cl"><span class="n">on</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">push</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">branches</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">jobs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">deploy</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">runs</span><span class="o">-</span><span class="n">on</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">latest</span>
+</span></span><span class="line"><span class="cl">    <span class="n">steps</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Checkout</span>
+</span></span><span class="line"><span class="cl">          <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v4</span>
+</span></span><span class="line"><span class="cl">          <span class="k">with</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">              <span class="n">fetch</span><span class="o">-</span><span class="n">depth</span><span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Setup</span> <span class="n">Hugo</span>
+</span></span><span class="line"><span class="cl">          <span class="n">uses</span><span class="p">:</span> <span class="n">peaceiris</span><span class="o">/</span><span class="n">actions</span><span class="o">-</span><span class="n">hugo</span><span class="nd">@v3</span>
+</span></span><span class="line"><span class="cl">          <span class="k">with</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">              <span class="n">hugo</span><span class="o">-</span><span class="n">version</span><span class="p">:</span> <span class="s2">&#34;latest&#34;</span>
+</span></span><span class="line"><span class="cl">              <span class="n">extended</span><span class="p">:</span> <span class="n">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Build</span> <span class="n">Web</span>
+</span></span><span class="line"><span class="cl">          <span class="n">run</span><span class="p">:</span> <span class="n">hugo</span> <span class="o">-</span><span class="n">D</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Deploy</span> <span class="n">Web</span>
+</span></span><span class="line"><span class="cl">          <span class="n">uses</span><span class="p">:</span> <span class="n">peaceiris</span><span class="o">/</span><span class="n">actions</span><span class="o">-</span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="nd">@v4</span>
+</span></span><span class="line"><span class="cl">          <span class="k">with</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">              <span class="n">PERSONAL_TOKEN</span><span class="p">:</span> <span class="err">$</span><span class="p">{{</span> <span class="n">secrets</span><span class="o">.</span><span class="n">你的token变量名</span> <span class="p">}}</span>
+</span></span><span class="line"><span class="cl">              <span class="n">EXTERNAL_REPOSITORY</span><span class="p">:</span> <span class="n">你的github名</span><span class="o">/</span><span class="n">你的仓库名</span>
+</span></span><span class="line"><span class="cl">              <span class="n">PUBLISH_BRANCH</span><span class="p">:</span> <span class="n">main</span>
+</span></span><span class="line"><span class="cl">              <span class="n">PUBLISH_DIR</span><span class="p">:</span> <span class="o">./</span><span class="n">public</span>
+</span></span><span class="line"><span class="cl">              <span class="n">commit_message</span><span class="p">:</span> <span class="n">auto</span> <span class="n">deploy</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(8) 这样就算部署成功了，之后提交新的静态文件，只需要在hugo主目录下的cmd执行下面代码提交即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&#34;update&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">push</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(9) 可以在此处查看上传进度</p>
+<p><img src="/p/%E6%95%99%E7%A8%8B1/4.19.png"
+	width="1615"
+	height="671"
+	srcset="/p/%E6%95%99%E7%A8%8B1/4.19_hu_fb5e571f102b41ac.png 480w, /p/%E6%95%99%E7%A8%8B1/4.19_hu_3ba9f16eadf22d37.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="240"
+		data-flex-basis="577px"
+	
+></p>
+
 </section>
 
 
@@ -710,7 +1553,7 @@
 
 
 
-<p>发布了 5 篇文章 | 共 7879 字</p>
+<p>发布了 5 篇文章 | 共 10707 字</p>
     </section>
     
    
