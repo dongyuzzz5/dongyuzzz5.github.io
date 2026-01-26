@@ -381,6 +381,12 @@
         <li><a href="#2-代码-3">2. 代码</a></li>
       </ol>
     </li>
+    <li><a href="#五-aes-128-ecb--md5派生秘钥-四元离散对数">五. AES-128-ECB + MD5派生秘钥 (四元离散对数)</a>
+      <ol>
+        <li><a href="#1-须知条件-4">1. 须知条件</a></li>
+        <li><a href="#2-代码-4">2. 代码</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -761,6 +767,130 @@
 </span></span><span class="line"><span class="cl">    <span class="n">brute_force_decrypt</span><span class="p">(</span><span class="n">ciphertext_hex</span><span class="p">,</span> <span class="n">nonce_hex</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="五-aes-128-ecb--md5派生秘钥-四元离散对数">五. AES-128-ECB + MD5派生秘钥 (四元离散对数)
+</h2><h3 id="1-须知条件-4">1. 须知条件
+</h3><blockquote>
+<p>(1) p = 115792089237316195423570985008687907853269984665 ……<br>
+(2) Q_components = (123456789, 987654321, 135792468, 864297531)<br>
+(3) R_components = ( 5358050427……, 7999131824……, 5312686988……, 9736802423……)<br>
+(4) ciphertext = b&rsquo;(\xe4IJ\xfd4%\xcf\xad\xb4\ …… (48 字节的 AES-ECB 密文)<br>
+(5) 数学关系 :	N(R) = N(Q)^secret (mod p)，secret &lt; 2⁵⁰</p>
+</blockquote>
+<h3 id="2-代码-4">2. 代码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">md5</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">unpad</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">isqrt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 给定参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="mi">115792089237316195423570985008687907853269984665640564039457584007913129639747</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q_components</span> <span class="o">=</span> <span class="p">(</span><span class="mi">123456789</span><span class="p">,</span> <span class="mi">987654321</span><span class="p">,</span> <span class="mi">135792468</span><span class="p">,</span> <span class="mi">864297531</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">R_components</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">53580504271939954579696282638160058429308301927753139543147605882574336327145</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">79991318245209837622945719467562796951137605212294979976479199793453962090891</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">53126869889181040587037210462276116096032594677560145306269148156034757160128</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">97368024230306399859522783292246509699830254294649668434604971213496467857155</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ciphertext</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;(</span><span class="se">\xe4</span><span class="s1">IJ</span><span class="se">\xfd</span><span class="s1">4%</span><span class="se">\xcf\xad\xb4\x7f</span><span class="s1">i</span><span class="se">\xae\xdb</span><span class="s1">Zux6-</span><span class="se">\xf4\xd7</span><span class="s1">2</span><span class="se">\x14</span><span class="s1">BB</span><span class="se">\x1e\xdc\xb7\xb7\xd1\xad</span><span class="s1">#e@</span><span class="se">\x17\x1f\x12\xc4\xe5\xa6\x10\x91\x08\xd6\x87\x82</span><span class="s1">H</span><span class="se">\x9e</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 计算四元数Q的范数</span>
+</span></span><span class="line"><span class="cl"><span class="n">a_q</span><span class="p">,</span> <span class="n">b_q</span><span class="p">,</span> <span class="n">c_q</span><span class="p">,</span> <span class="n">d_q</span> <span class="o">=</span> <span class="n">Q_components</span>
+</span></span><span class="line"><span class="cl"><span class="n">N_Q</span> <span class="o">=</span> <span class="p">(</span><span class="n">a_q</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">b_q</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">c_q</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">d_q</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;N(Q) =&#34;</span><span class="p">,</span> <span class="n">N_Q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 计算四元数R的范数</span>
+</span></span><span class="line"><span class="cl"><span class="n">a_r</span><span class="p">,</span> <span class="n">b_r</span><span class="p">,</span> <span class="n">c_r</span><span class="p">,</span> <span class="n">d_r</span> <span class="o">=</span> <span class="n">R_components</span>
+</span></span><span class="line"><span class="cl"><span class="n">N_R</span> <span class="o">=</span> <span class="p">(</span><span class="n">a_r</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">b_r</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">c_r</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">d_r</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;N(R) =&#34;</span><span class="p">,</span> <span class="n">N_R</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># BSGS算法求解离散对数</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">bsgs</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">bound</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">isqrt</span><span class="p">(</span><span class="n">bound</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 步长m</span>
+</span></span><span class="line"><span class="cl">    <span class="n">table</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 存储Baby Steps</span>
+</span></span><span class="line"><span class="cl">    <span class="n">current</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">table</span><span class="p">[</span><span class="n">current</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>  <span class="c1"># 存储g^i mod p和指数i</span>
+</span></span><span class="line"><span class="cl">        <span class="n">current</span> <span class="o">=</span> <span class="p">(</span><span class="n">current</span> <span class="o">*</span> <span class="n">g</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 计算Giant Step因子: g^{-m} mod p</span>
+</span></span><span class="line"><span class="cl">    <span class="n">inv_g_m</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="o">-</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">current</span> <span class="o">=</span> <span class="n">h</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">current</span> <span class="ow">in</span> <span class="n">table</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">j</span> <span class="o">*</span> <span class="n">m</span> <span class="o">+</span> <span class="n">table</span><span class="p">[</span><span class="n">current</span><span class="p">]</span>  <span class="c1"># 找到x = j*m + i</span>
+</span></span><span class="line"><span class="cl">        <span class="n">current</span> <span class="o">=</span> <span class="p">(</span><span class="n">current</span> <span class="o">*</span> <span class="n">inv_g_m</span><span class="p">)</span> <span class="o">%</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">None</span>  <span class="c1"># 未找到解</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bound</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">50</span>  <span class="c1"># secret的上界</span>
+</span></span><span class="line"><span class="cl"><span class="n">secret</span> <span class="o">=</span> <span class="n">bsgs</span><span class="p">(</span><span class="n">N_Q</span><span class="p">,</span> <span class="n">N_R</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">bound</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;secret =&#34;</span><span class="p">,</span> <span class="n">secret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用secret生成AES密钥并解密</span>
+</span></span><span class="line"><span class="cl"><span class="n">key</span> <span class="o">=</span> <span class="n">md5</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">plaintext</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;flag =&#34;</span><span class="p">,</span> <span class="n">plaintext</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div>
 </section>
 
@@ -790,6 +920,30 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/crypto3/">
+        
+        
+            <div class="article-image">
+                <img src="/p/crypto3/111.6dbc1449b5a8570188472a7f1879911b_hu_a51f67c9fb0ce2a0.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Crypto代码积累(三) --- DES/流密码/古典"
+                        data-key="crypto3" 
+                        data-hash="md5-bbwUSbWoVwGIRyp/GHmRGw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Crypto代码积累(三) --- DES/流密码/古典</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="has-image">
@@ -921,7 +1075,9 @@
 
 
 
-<p>发布了 5 篇文章 | 共 10707 字</p>
+
+
+<p>发布了 6 篇文章 | 共 11678 字</p>
     </section>
     
    
