@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="学习PHP时记录一下">
+<title>PHP学习日志(一) --- 基础</title>
+
+<link rel='canonical' href='https://dongyuzzz5.github.io/p/php1/'>
+
+<link rel="stylesheet" href="/scss/style.min.2b53c7f6dfc7440bad7af9c7554dfbc5af5dac2af573e05f93ebc920f8b40df4.css"><meta property='og:title' content="PHP学习日志(一) --- 基础">
+<meta property='og:description' content="学习PHP时记录一下">
+<meta property='og:url' content='https://dongyuzzz5.github.io/p/php1/'>
+<meta property='og:site_name' content='冬 鱼 🐟️'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PHP' /><meta property='article:published_time' content='2026-02-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-02-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/php1/111.png' />
+<meta name="twitter:title" content="PHP学习日志(一) --- 基础">
+<meta name="twitter:description" content="学习PHP时记录一下"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/php1/111.png' /><div class="loading">
+    <div class="spinner">
+        
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<style>
+    .loading {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;  
+        background-color: rgba(245, 245, 250, 0.5);
+         
+        transition: all .6s ease-out;
+    }
+	
+.spinner {
+  width: 70.4px;
+  height: 70.4px;
+  --clr: rgb(30, 136, 229);
+  --clr-alpha: rgb(30, 136, 229,.1);
+  animation: spinner 1.6s infinite ease;
+  transform-style: preserve-3d;
+}
+
+.spinner > div {
+  background-color: var(--clr-alpha);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 3.5px solid var(--clr);
+}
+
+.spinner div:nth-of-type(1) {
+  transform: translateZ(-35.2px) rotateY(180deg);
+}
+
+.spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+}
+
+.spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+}
+
+.spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+}
+
+.spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+}
+
+.spinner div:nth-of-type(6) {
+  transform: translateZ(35.2px);
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+
+  50% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+
+  100% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+}
+</style>
+
+<script>	
+    function initLoading() {
+        let loading = document.querySelector(".loading");
+        
+        setTimeout(() => {
+            
+            loading.style.opacity = 0;
+            setTimeout(() => {
+                loading.style.display = "none";
+            }, 600)
+        }, 1000);
+    }
+    
+    initLoading();
+</script>
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_96a5ff7ba96a3e31.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">冬 鱼 🐟️</a></h1>
+            <h2 class="site-description">ctf?坎公骑冠剑！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://wiki.biligame.com/gt/%E9%A6%96%E9%A1%B5'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/dashboard'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/cats-tags/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-tag"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.5 7.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l5.592 -5.592a2.41 2.41 0 0 0 0 -3.408l-7.71 -7.71a2 2 0 0 0 -1.414 -.586h-5.172a3 3 0 0 0 -3 3" /></svg>
+                
+                <span>分类&amp;标签</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一-前言">一. 前言</a></li>
+    <li><a href="#二-php简介">二. PHP简介</a>
+      <ol>
+        <li><a href="#1什么是php">1.什么是PHP</a></li>
+        <li><a href="#2php能做什么">2.PHP能做什么</a></li>
+      </ol>
+    </li>
+    <li><a href="#三-语法与注释">三. 语法与注释</a>
+      <ol>
+        <li><a href="#1基本语法">1.基本语法</a></li>
+        <li><a href="#2大小写敏感性">2.大小写敏感性</a></li>
+        <li><a href="#3注释">3.注释</a></li>
+      </ol>
+    </li>
+    <li><a href="#四-变量">四. 变量</a>
+      <ol>
+        <li><a href="#1变量的命名规则">1.变量的命名规则</a></li>
+        <li><a href="#2变量作用域">2.变量作用域</a></li>
+      </ol>
+    </li>
+    <li><a href="#五-echo-和-print-语句">五. echo 和 print 语句</a>
+      <ol>
+        <li><a href="#1区别">1.区别</a></li>
+        <li><a href="#2基本用法">2.基本用法</a></li>
+        <li><a href="#3使用单引号">3.使用单引号</a></li>
+      </ol>
+    </li>
+    <li><a href="#六-数据类型">六. 数据类型</a>
+      <ol>
+        <li><a href="#1获取数据类型">1.获取数据类型</a></li>
+        <li><a href="#2简单介绍">2.简单介绍</a></li>
+        <li><a href="#3对象">3.对象</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/php1/">
+                <img src="/p/php1/111_hu_a01db06d16395de6.png"
+                        srcset="/p/php1/111_hu_a01db06d16395de6.png 800w, /p/php1/111_hu_6faaed1e078cd127.png 1600w"
+                        width="800" 
+                        height="600" 
+                        loading="lazy"
+                        alt="Featured image of post PHP学习日志(一) --- 基础" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #f39c12; color: #fff;">
+            
+                学习笔记
+            </a>
+        
+  
+    <a class="tag" href="/tags/php">PHP</a>
+  
+    </header>
+    
+
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/php1/">PHP学习日志(一) --- 基础</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习PHP时记录一下
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-02-02T00:00:00Z'>2026-02-02</time>
+            </div>
+        
+
+        
+		
+		
+        <div id="viewCount">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
+
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="一-前言">一. 前言
+</h2><p>这篇文章主要是记录下我学习php的笔记，同时方便自己找一些代码，我学习php主要是为了学习代码设计，你如果要学不必看我这篇文章，直接去菜鸟网站学就行了<br>
+附上网址： <a class="link" href="https://www.w3school.com.cn/index.html"  target="_blank" rel="noopener"
+    >https://www.w3school.com.cn/index.html</a></p>
+<h2 id="二-php简介">二. PHP简介
+</h2><h3 id="1什么是php">1.什么是PHP
+</h3><ul>
+<li>PHP 是 &ldquo;PHP: Hypertext Preprocessor&rdquo; 的缩写（超文本预处理器）</li>
+<li>PHP 是一种广泛使用的开源脚本语言</li>
+<li>PHP 脚本在服务器上执行</li>
+</ul>
+<h3 id="2php能做什么">2.PHP能做什么
+</h3><ul>
+<li>PHP 可以生成动态页面内容</li>
+<li>PHP 可以在服务器上创建、打开、读取、写入、删除和关闭文件</li>
+<li>PHP 可以收集表单数据</li>
+<li>PHP 可以发送和接收 cookie</li>
+<li>PHP 可以在数据库中添加、删除、修改数据</li>
+<li>PHP 可用于控制用户访问</li>
+<li>PHP 可以加密数据</li>
+</ul>
+<h2 id="三-语法与注释">三. 语法与注释
+</h2><h3 id="1基本语法">1.基本语法
+</h3><p>PHP 脚本以 <?php 开头，以 ?> 结尾：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;Hello World!&#34;</span><span class="p">;</span><span class="c1">// PHP 代码写在这里
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2大小写敏感性">2.大小写敏感性
+</h3><p>在 PHP 中，<span style="color: #e74c3c;">关键字</span>（例如 if、else、while、echo 等）<span style="color: #e74c3c;">、类、函数</span>和<span style="color: #e74c3c;">用户定义的函数</span>不区分大小写。<br>
+在下面的例子中，以下三个 echo 语句都是相等的且合法的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">ECHO</span> <span class="s2">&#34;Hello World!&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;Hello World!&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">EcHo</span> <span class="s2">&#34;Hello World!&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/html&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：但是，<span style="color: #e74c3c;">所有变量名都是区分大小写的！</span><br>
+看下面的例子；只有第一个语句才会显示 $color 变量的值！这是因为 $color、$COLOR 和 $coLOR 被视为三个不同的变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">……</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$color</span> <span class="o">=</span> <span class="s2">&#34;red&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;My car is &#34;</span> <span class="o">.</span> <span class="nv">$color</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;My house is &#34;</span> <span class="o">.</span> <span class="nv">$COLOR</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;My boat is &#34;</span> <span class="o">.</span> <span class="nv">$coLOR</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">……
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3注释">3.注释
+</h3><p>PHP中有三种注释的语法，分别如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// 这是一个单行注释
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这也是一个单行注释
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* 这是一个
+</span></span></span><span class="line"><span class="cl"><span class="cm">多行注释 */</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同时，多行注释还可以用于用于代码中，比如下面这样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="err">$</span><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">/*</span> <span class="o">+</span> <span class="mi">15</span> <span class="o">*/</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">echo</span> <span class="err">$</span><span class="n">x</span><span class="p">;</span>     <span class="o">//</span><span class="n">输出结果为10</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="四-变量">四. 变量
+</h2><h3 id="1变量的命名规则">1.变量的命名规则
+</h3><blockquote>
+<p>变量以 $ 符号开头，后跟变量名变量名<br>
+必须以字母或下划线字符开头<br>
+变量名不能以数字开头<br>
+变量名只能包含字母数字字符和下划线（A−z、0−9 和 _ ）<br>
+变量名区分大小写（$age 和 $AGE 是两个不同的变量）</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$y</span> <span class="o">=</span> <span class="s2">&#34;Bill&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的例子中，变量 $x 将保存值 5，变量 $y 将保存值 &ldquo;Bill&rdquo;。<br>
+注意：当文本值分配给变量时，请将值<span style="color: #e74c3c;">放在引号中</span>。</p>
+<h3 id="2变量作用域">2.变量作用域
+</h3><p>PHP 有三种不同的变量作用域：</p>
+<ul>
+<li>local</li>
+<li>global</li>
+<li>static</li>
+</ul>
+<p>(1) local（局部）—— 你的私人房间<br>
+定义：在函数内部定义的变量，只有这个函数内部能用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myRoom</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$toy</span> <span class="o">=</span> <span class="s2">&#34;乐高&#34;</span><span class="p">;</span>  <span class="c1">// 局部变量，只在myRoom里存在
+</span></span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="nv">$toy</span><span class="p">;</span>      <span class="c1">// 可以，我在房间里能看到玩具
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">myRoom</span><span class="p">();</span>          <span class="c1">// 输出：乐高
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$toy</span><span class="p">;</span>         <span class="c1">// 报错！在外面看不到房间里的玩具
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>(2) global（全局）—— 客厅<br>
+定义：在函数外面定义的变量，整个PHP文件都能用，但<span style="color: #e74c3c;">在函数里使用需要特别声明</span>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$snack</span> <span class="o">=</span> <span class="s2">&#34;薯片&#34;</span><span class="p">;</span>   <span class="c1">// 全局变量，放在&#34;客厅&#34;
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">kitchen</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 在函数里直接用会报错，因为厨房看不到客厅的东西
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// echo $snack;  // 错误！
+</span></span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 必须声明一下：我要用全局的那个$snack
+</span></span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="nv">$snack</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="nv">$snack</span><span class="p">;</span>     <span class="c1">// 现在可以了，输出：薯片
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">kitchen</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$snack</span><span class="p">;</span>         <span class="c1">// 在外面直接用，输出：薯片
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>(3) static（静态）—— 有记忆的保险箱<br>
+定义：在函数内部，但函数执行完后<span style="color: #e74c3c;">不会消失</span>，下次调用还能记住上次的值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">counter</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="nv">$count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// 静态变量，只初始化一次
+</span></span></span><span class="line"><span class="cl">    <span class="nv">$count</span><span class="o">++</span><span class="p">;</span>           <span class="c1">// 每次加1
+</span></span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="nv">$count</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">counter</span><span class="p">();</span>  <span class="c1">// 输出：1
+</span></span></span><span class="line"><span class="cl"><span class="nx">counter</span><span class="p">();</span>  <span class="c1">// 输出：2  
+</span></span></span><span class="line"><span class="cl"><span class="nx">counter</span><span class="p">();</span>  <span class="c1">// 输出：3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 如果是普通局部变量，每次都会输出1，因为函数结束就清零了
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="五-echo-和-print-语句">五. echo 和 print 语句
+</h2><h3 id="1区别">1.区别
+</h3><p>echo 和 print 或多或少是相同的。它们都用于将数据输出到屏幕。<br>
+它们之间的区别很小：echo 没有返回值，而 print 的返回值为 1，因此它可以在表达式中使用。echo 可以接受多个参数（尽管这种用法很少见），而 print 只可接受一个参数。echo 比 print 略快一些。</p>
+<h3 id="2基本用法">2.基本用法
+</h3><p>echo 语句可以带括号使用，也可以不带括号使用：echo 或 echo()<br>
+同理，print语句也是一样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;Hello&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 等同于：
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span><span class="p">(</span><span class="s2">&#34;Hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">print</span> <span class="s2">&#34;Hello&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 等同于：
+</span></span></span><span class="line"><span class="cl"><span class="k">print</span><span class="p">(</span><span class="s2">&#34;Hello&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3使用单引号">3.使用单引号
+</h3><p>字符串由引号包围，但在 PHP 中，单引号和双引号之间存在差异。<br>
+使用双引号时，可以将变量直接插入到字符串中。<br>
+使用单引号时，<span style="color: #e74c3c;">必须使用 . 运算符</span>来插入变量，如下所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$txt1</span> <span class="o">=</span> <span class="s2">&#34;学习 PHP&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$txt2</span> <span class="o">=</span> <span class="s2">&#34;W3School.com.cn&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;&lt;h2&gt;&#39;</span> <span class="o">.</span> <span class="nv">$txt1</span> <span class="o">.</span> <span class="s1">&#39;&lt;/h2&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;&lt;p&gt;在 &#39;</span> <span class="o">.</span> <span class="nv">$txt2</span> <span class="o">.</span> <span class="s1">&#39; 学习 PHP&lt;/p&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">print</span> <span class="s1">&#39;&lt;h2&gt;&#39;</span> <span class="o">.</span> <span class="nv">$txt1</span> <span class="o">.</span> <span class="s1">&#39;&lt;/h2&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">print</span> <span class="s1">&#39;&lt;p&gt;在 &#39;</span> <span class="o">.</span> <span class="nv">$txt2</span> <span class="o">.</span> <span class="s1">&#39; 学习 PHP&lt;/p&gt;&#39;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="六-数据类型">六. 数据类型
+</h2><h3 id="1获取数据类型">1.获取数据类型
+</h3><p>PHP 支持以下数据类型：</p>
+<ul>
+<li>字符串（String）</li>
+<li>整数（Integer）</li>
+<li>浮点数（Float，也称为双精度数）</li>
+<li>布尔值（Boolean）</li>
+<li>数组（Array）</li>
+<li>对象（Object）</li>
+<li>NULL</li>
+<li>资源（Resource）</li>
+</ul>
+<p>可以使用 <span style="color: #e74c3c;">var_dump()</span> 函数来获取任何对象的数据类型。<br>
+<span style="color: #e74c3c;">var_dump()</span> 函数返回<span style="color: #e74c3c;">数据类型和值</span>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$x</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2简单介绍">2.简单介绍
+</h3><ul>
+<li><strong>字符串：</strong> 字符串是由字符组成的序列。字符串可以是引号内的任何文本。可以使用单引号或双引号。</li>
+<li><strong>整数：</strong> 整数数据类型是非小数的数，范围在 -2,147,483,648 到 2,147,483,647 之间。</li>
+<li><strong>浮点数：</strong> 浮点数（floating point number）是带有小数点的数字或以指数形式表示的数字。</li>
+<li><strong>布尔值：</strong> 布尔值表示两种可能的状态：TRUE 或 FALSE。</li>
+<li><strong>数组：</strong> 数组在单个变量中存储多个值。</li>
+<li><strong>NULL值：</strong> 一种特殊的数据类型，它只有一个值：NULL。如果变量已创建但未赋值，它将自动被赋值为 NULL。也可以通过将值设置为 NULL 来清空变量。</li>
+<li><strong>对象：</strong> 类和对象是面向对象编程的两个主要方面。类是对象的模板，而对象是类的实例。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="s2">&#34;Hello world!&#34;</span><span class="p">;</span>  <span class="c1">//字符串
+</span></span></span><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="mi">5985</span><span class="p">;</span>  <span class="c1">//整数
+</span></span></span><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="mf">10.365</span><span class="p">;</span>  <span class="c1">//浮点数
+</span></span></span><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>  <span class="c1">//布尔值
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span><span class="s2">&#34;BMW&#34;</span><span class="p">,</span><span class="s2">&#34;Audi&#34;</span><span class="p">);</span>  <span class="c1">//数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>  <span class="c1">//NULL值
+</span></span></span><span class="line"><span class="cl"><span class="c1">//对象比较复杂，看下一点
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3对象">3.对象
+</h3><p>理解前先引入菜鸟网站里面的解释</p>
+<blockquote>
+<p>当创建各个对象时，它们从类中继承所有的属性和行为，但每个对象将为属性设置不同的值。<br>
+假设我们有一个名为 Car 的类，该类可拥有模型、颜色等属性。我们可以定义变量，如  <span style="color: #e74c3c;">$model、$color</span> 等，以保存这些属性的值。<br>
+当创建各个对象（Volvo、BMW、Audi 等）时，它们从类中继承所有的属性和行为，但每个对象将为属性设置不同的值。<br>
+如果您创建一个 <span style="color: #e74c3c;">__construct()</span> 函数，当您从类创建对象时，PHP 将自动调用此函数。</p>
+</blockquote>
+<p>现在用一个&quot;做饼干&quot;的比喻，方便理解上面的解释：<br>
+(1) 类是模具，对象是饼干 🍪</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// 这是一个&#34;类&#34;（Class）= 饼干模具
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Car</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$color</span><span class="p">;</span>   <span class="c1">// 颜色属性
+</span></span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$model</span><span class="p">;</span>   <span class="c1">// 型号属性
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 下面这是&#34;对象&#34;（Object）= 用模具压出来的具体饼干
+</span></span></span><span class="line"><span class="cl"><span class="nv">$volvo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>   <span class="c1">// 第一块饼干：沃尔沃
+</span></span></span><span class="line"><span class="cl"><span class="nv">$bmw</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>     <span class="c1">// 第二块饼干：宝马  
+</span></span></span><span class="line"><span class="cl"><span class="nv">$audi</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>    <span class="c1">// 第三块饼干：奥迪
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>关键理解：</p>
+<ul>
+<li>类（Car）只是一张设计图纸，它规定了&quot;汽车应该有颜色和型号&quot;，但它本身不是车</li>
+<li>对象（volvo, bmw）是真正的车，是根据图纸造出来的实物</li>
+</ul>
+<p>(2) 每个对象有自己的&quot;个性&quot; 🎨<br>
+虽然都是用同一个 Car 模具做的，但每辆车可以刷不同的颜色：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$volvo</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">=</span> <span class="s2">&#34;白色&#34;</span><span class="p">;</span>  <span class="c1">// 沃尔沃是白色的
+</span></span></span><span class="line"><span class="cl"><span class="nv">$bmw</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">=</span> <span class="s2">&#34;黑色&#34;</span><span class="p">;</span>    <span class="c1">// 宝马是黑色的  
+</span></span></span><span class="line"><span class="cl"><span class="nv">$audi</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">=</span> <span class="s2">&#34;红色&#34;</span><span class="p">;</span>   <span class="c1">// 奥迪是红色的
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$volvo</span><span class="o">-&gt;</span><span class="na">color</span><span class="p">;</span>  <span class="c1">// 输出：白色
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$bmw</span><span class="o">-&gt;</span><span class="na">color</span><span class="p">;</span>    <span class="c1">// 输出：黑色
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>就像：同一个饼干模具（类）,但可以做出巧克力味、草莓味、抹茶味的饼干（对象属性值不同）</p>
+<p>(3) __construct() 是&quot;出厂设置&quot; ⚙️<br>
+你现在看到的这段代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$color</span><span class="p">,</span> <span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">=</span> <span class="nv">$color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span> <span class="o">=</span> <span class="nv">$model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>不用 __construct() 时（麻烦）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$volvo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">();</span>      <span class="c1">// 先造个空车
+</span></span></span><span class="line"><span class="cl"><span class="nv">$volvo</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">=</span> <span class="s2">&#34;红色&#34;</span><span class="p">;</span>  <span class="c1">// 再喷漆
+</span></span></span><span class="line"><span class="cl"><span class="nv">$volvo</span><span class="o">-&gt;</span><span class="na">model</span> <span class="o">=</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">;</span> <span class="c1">// 再贴型号标签
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>用了 __construct() 时（方便）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$volvo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="s2">&#34;红色&#34;</span><span class="p">,</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 一出生就是红色沃尔沃，一步到位！
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：<span style="color: #e74c3c;">$this-&gt;color</span>前面的<span style="color: #e74c3c;">$this-&gt;不能变</span>，如果没有箭头，PHP 会认为 $thiscolor 是一个全新的变量，跟 $this 这个对象毫无关系。后面的color可以变，但容易忘记变量是干嘛的</p>
+<p><strong>ps:</strong> 这里解释一下代码中的new和function,可以理解固定搭配，new是”新创建一个“，function相当于”功能“或”技能“</p>
+<p>现在通过上面的解释，知道对象是什么后，就很好理解下面的代码了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Car</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="nv">$color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="nv">$model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$color</span><span class="p">,</span> <span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">=</span> <span class="nv">$color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span> <span class="o">=</span> <span class="nv">$model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">message</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s2">&#34;My car is a &#34;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">.</span> <span class="s2">&#34; &#34;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span> <span class="o">.</span> <span class="s2">&#34;!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$myCar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$myCar</span><span class="p">);</span>   <span class="c1">//这里会输出 object(Car)#1 (2) { [&#34;color&#34;]=&gt; string(3) &#34;red&#34; [&#34;model&#34;]=&gt; string(5) &#34;Volvo&#34; }
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/php/">PHP</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="dongyuzzz5/dongyuzzz5.github.io"
+    data-repo-id="R_kgDOQ0vvqQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOQ0vvqc4C1ExU"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_tritanopia');
+            }
+        }
+    })();
+</script>
+
+    <div class="comment"></div>
+    
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Dongyu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>发布了 8 篇文章 | 共 14887 字</p>
+    </section>
+    
+   
+
+
+</footer>
+
+
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.b4654cd74006fe7475d7723cd7373672b5ea2035ab23404eb9ff511cb27b581c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script>
+const home = "https://dongyuzzz5.github.io/";
+console.log(home);
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    lrcType: 3,
+    listMaxHeight: '160px',
+    audio:  [{
+        name: '海浪、海鸥与你',
+        artist: 'AnRain安林',
+        url: home + 'music/AnRain安林 - 海浪、海鸥与你/song.mp3',
+        cover: home + 'music/AnRain安林 - 海浪、海鸥与你/cover.png',
+        lrc: home + 'music/AnRain安林 - 海浪、海鸥与你/lyric.lrc'
+    },{
+        name: '老派约会之必要',
+        artist: 'MC 张天赋',
+        url: home + 'music/MC 张天赋 - 老派约会之必要/song.mp3',
+        cover: home + 'music/MC 张天赋 - 老派约会之必要/cover.png',
+        lrc: home + 'music/MC 张天赋 - 老派约会之必要/lyric.lrc'
+    },{
+        name: 'Love Story',
+        artist: 'ALisa',
+        url: home + 'music/ALisa - Love Story/song.mp3',
+        cover: home + 'music/ALisa - Love Story/cover.png',
+        lrc: home + 'music/ALisa - Love Story/lyric.lrc'
+    },{
+        name: '萤火之森',
+        artist: 'CMJ',
+        url: home + 'music/CMJ - 萤火之森/song.mp3',
+        cover: home + 'music/CMJ - 萤火之森/cover.png',
+        lrc: home + 'music/CMJ - 萤火之森/lyric.lrc'
+    },{
+        name: 'Time to love (相爱时间)',
+        artist: 'OCTOBER',
+        url: home + 'music/OCTOBER - Time to love (相爱时间)/song.mp3',
+        cover: home + 'music/OCTOBER - Time to love (相爱时间)/cover.png',
+        lrc: home + 'music/OCTOBER - Time to love (相爱时间)/lyric.lrc'
+    },{
+        name: '夜、萤火虫和你',
+        artist: '九千七',
+        url: home + 'music/九千七 - 夜、萤火虫和你/song.mp3',
+        cover: home + 'music/九千七 - 夜、萤火虫和你/cover.png',
+        lrc: home + 'music/九千七 - 夜、萤火虫和你/lyric.lrc'
+    },{
+        name: '城南花已开',
+        artist: '三亩地',
+        url: home + 'music/三亩地 - 城南花已开/song.mp3',
+        cover: home + 'music/三亩地 - 城南花已开/cover.png',
+        lrc: home + 'music/三亩地 - 城南花已开/lyric.lrc'
+    },{
+        name: '夏野与暗恋',
+        artist: '闫东炜',
+        url: home + 'music/闫东炜 - 夏野与暗恋/song.mp3',
+        cover: home + 'music/闫东炜 - 夏野与暗恋/cover.png',
+        lrc: home + 'music/闫东炜 - 夏野与暗恋/lyric.lrc'
+    }],
+    fixed: true
+});
+
+    
+
+    window.onbeforeunload = () => {
+        
+        const playInfo = {
+            index: ap.list.index,
+            currentTime: ap.audio.currentTime,
+            paused: ap.paused
+        };
+        localStorage.setItem("playInfo", JSON.stringify(playInfo));
+    };
+
+    
+
+    window.onload = () => {
+        
+        const playInfo = JSON.parse(localStorage.getItem("playInfo"));
+        if (!playInfo) {
+            return;
+        }
+        
+        ap.list.switch(playInfo.index);
+        
+        setTimeout(() => {
+            
+            ap.seek(playInfo.currentTime);
+            
+            if (!playInfo.paused) {
+                ap.play()
+            }
+        }, 500);
+    };
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+<script>
+    var pjax = new Pjax({
+        selectors: [
+            ".main-container",
+            ".js-Pjax" 
+        ]
+    })
+
+    pjax._handleResponse = pjax.handleResponse;
+    pjax.handleResponse = function(responseText, request, href, options) {
+        if (request.responseText.match("<html")) {
+            if (responseText) {
+                
+                let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+                
+                let bodyClass = newDom.body.className;
+                document.body.setAttribute("class", bodyClass)
+            }
+            
+            pjax._handleResponse(responseText, request, href, options);
+        } else {
+            
+        }
+    }
+
+    document.addEventListener('pjax:complete', () => {
+        
+        window.Stack.init();
+    })
+</script><div class="js-Pjax">
+<script>
+    (function () {
+        
+        let comment = document.querySelector(".comment");
+        if (!comment) {
+            return
+        }
+        let script = document.createElement('script');
+        
+        script.setAttribute('src', 'https://giscus.app/client.js');
+        script.setAttribute('data-repo','dongyuzzz5\/dongyuzzz5.github.io');
+        script.setAttribute('data-repo-id','R_kgDOQ0vvqQ');
+        script.setAttribute('data-category', 'Announcements');
+        script.setAttribute('data-category-id','DIC_kwDOQ0vvqc4C1ExU');
+        script.setAttribute('data-mapping','pathname');
+        script.setAttribute('data-strict','0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '1');
+        script.setAttribute('data-input-position', 'top');
+        script.setAttribute('data-theme','light');
+        script.setAttribute('data-lang','zh-CN');
+        script.setAttribute('data-loading', '');
+        script.setAttribute('data-loading', 'lazy');
+        script.setAttribute('crossorigin', 'anonymous');
+        script.async = true;
+        
+        comment.appendChild(script);
+        initGiscus();
+        document.querySelector('.site-footer').before(script)
+    })(document);
+</script>
+<div>
+<style>
+  @font-face {
+    font-family: 'ziti';
+    src: url(https://dongyuzzz5.github.io/font/%E6%B1%87%E6%96%87%E4%BB%BF%E5%AE%8Bv1.001.ttf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'ziti';
+    --code-font-family: 'ziti';
+  }
+</style>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://dongyuzzz5.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 230px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 78px;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #f0f0f5;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://dongyuzzz5.github.io/icons/codeMore.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+<script>
+    async function renderKaTeX() {
+        
+        let katex = document.querySelector(".math-katex");
+        if (!katex) {
+            return;
+        }
+        
+        while (typeof renderMathInElement !== 'function') {
+            await delay(500);
+        }        
+        
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });
+    }
+    
+    
+
+    function delay(time) {
+        return new Promise(resolve => {
+            setTimeout(resolve, time)
+        })
+    }
+
+    document.addEventListener('pjax:complete', () => {
+        renderKaTeX();
+    })
+</script>
+
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+
+}
+
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = '/js/fish.js';   
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
+
+<div id="toast-stack"></div>
+
+<script>
+ 
+(() => {
+  const toastStack = document.getElementById('toast-stack');
+  let toastCount = 0;
+  const MAX_TOAST = 5;
+  const DURATION  = 2500;
+
+   
+  let lastText = '';
+  let lastTime = 0;
+
+  window.pushToast = function (msg = '✅ 哎嘿！复制成功 🍬') {
+    const now = Date.now();
+    if (msg === lastText && now - lastTime < 500) return; 
+    lastText = msg;
+    lastTime = now;
+
+     
+    if (toastCount >= MAX_TOAST) toastStack.firstElementChild?.closeToast();
+
+    const item = document.createElement('div');
+    item.className = 'snack-left-top';
+    item.textContent = msg;
+
+    let closeTimer = null;
+    function closeToast() {
+      if (item.isClosing) return;
+      item.isClosing = true;
+      item.classList.remove('show');
+      item.addEventListener('transitionend', () => {
+        item.remove();
+        toastCount--;
+      }, { once: true });
+      clearTimeout(closeTimer);
+    }
+    item.closeToast = closeToast;
+
+    toastStack.appendChild(item);
+    toastCount++;
+    void item.offsetWidth;
+    item.classList.add('show');
+    closeTimer = setTimeout(closeToast, DURATION);
+  };
+
+   
+  document.addEventListener('copy', e => {
+    const text = window.getSelection().toString().trim();
+    if (!text) return;
+    e.preventDefault();
+    navigator.clipboard.writeText(text)
+      .then(() => pushToast())
+      .catch(console.warn);
+  });
+
+   
+  const container = document.querySelector('.article-content');
+  if (container) {
+    container.addEventListener('click', e => {
+      if (!e.target.matches('.copyCodeButton')) return;
+      const wrap = e.target.closest('pre, .highlight');
+      const codeTd = wrap?.querySelector('td:nth-child(2)') || wrap;
+      const txt = codeTd ? codeTd.textContent.trim() : '';
+      navigator.clipboard.writeText(txt)
+        .then(() => pushToast())
+        .catch(err => alert('复制失败：' + err));
+    });
+  }
+})();
+</script>
+
+<style>
+ 
+.copyCodeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: #3d3c3c;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.copyCodeButton:hover {
+  background: #34d399;
+  color: #fff;
+}
+
+ 
+.snack-left-top {
+  position: fixed;
+  left: 20px;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  transform: translateX(calc(-100% - 20px));
+  width: 300px;
+  height: 60px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 15px;
+  background: #34d399;
+  color: #fff;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, .35);
+  z-index: 9999;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+}
+ 
+.snack-left-top.show {
+  transform: translateX(0);
+}
+ 
+#toast-stack {
+  position: fixed;
+  left: 0;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  z-index: 9999;
+  pointer-events: none;
+}
+
+ 
+#toast-stack .snack-left-top {
+  position: relative;    
+  margin-bottom: 12px;   
+  pointer-events: auto;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1),
+              opacity   .35s cubic-bezier(.4, 0, .2, 1);
+  opacity: 0;
+  transform: translateX(calc(-100% - 20px));
+}
+
+#toast-stack .snack-left-top.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+</style>
+<div class="js-Pjax">
+    <script>
+        (function() {
+            let script = document.createElement('script');
+            script.defer = true;
+            script.src = "https://cn.vercount.one/js";
+            let footer = document.querySelector("footer")
+            if (footer) {
+                showHideView()
+                footer.appendChild(script);
+            }
+        })(document)
+
+        function showHideView() {
+            let viewCounts = document.querySelectorAll("#viewCount");
+            if (viewCounts) {
+                const style = document.querySelector(".article-page") ? '' : 'none';
+                viewCounts.forEach(ele => {
+                        ele.style.display = style;
+                    }
+                )
+            }
+        }
+    </script>
+</div>
+
+//引入查看浏览量
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+<script>
+    
+
+    window.onbeforeunload = () => {
+        
+        const playInfo = {
+            index: ap.list.index,
+            currentTime: ap.audio.currentTime,
+            paused: ap.paused
+        };
+        localStorage.setItem("playInfo", JSON.stringify(playInfo));
+    };
+
+    
+
+    window.onload = () => {
+        
+        const playInfo = JSON.parse(localStorage.getItem("playInfo"));
+        if (!playInfo) {
+            return;
+        }
+        
+        ap.list.switch(playInfo.index);
+        
+        setTimeout(() => {
+            
+            ap.seek(playInfo.currentTime);
+            
+            if (!playInfo.paused) {
+                ap.play()
+            }
+        }, 500);
+    };
+</script>
+
+<style>
+[data-scheme="light"] {
+body {
+    background: url(/background/640.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+  
+[data-scheme="dark"] {
+body {
+    background: url(/background/backphoto.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+
+</style>
+
+<div id="custom-footer">
+<script src=https://github.com/dongyuzzz5/hugo-main/blob/main/assets/background/particles/particles.js></script>
+
+
+<link rel="stylesheet" href=https://github.com/dongyuzzz5/hugo-main/blob/main/assets/background/particles/style.css>
+<div id="particles-js"></div>
+
+<script src=https://dongyuzzz5.github.io/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+</style>
+
+
+
+    </body>
+</html>
