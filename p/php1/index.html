@@ -427,6 +427,7 @@
       <ol>
         <li><a href="#1常用数学函数">1.常用数学函数</a></li>
         <li><a href="#2常量">2.常量</a></li>
+        <li><a href="#3魔法常量">3.魔法常量</a></li>
       </ol>
     </li>
   </ol>
@@ -1841,7 +1842,234 @@ PHP 用is_nan()函数来检查值是否为非数字，但是，PHP 的 var_dump(
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2常量">2.常量
-</h3>
+</h3><p>常量是一个简单值的标识符（名称）。在脚本执行期间，该值无法更改。有效的常量名以字母或下划线开头<span style="color: #e74c3c;">（常量名之前没有 $ 符号）</span>。<br>
+要创建常量，使用  <span style="color: #e74c3c;">define()</span> 函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="k">case</span><span class="o">-</span><span class="nx">insensitive</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span><span class="s2">&#34;GREETING&#34;</span><span class="p">,</span> <span class="s2">&#34;Welcome to w3school.com.cn!&#34;</span><span class="p">);</span>  <span class="c1">//示例
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">GREETING</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myTest</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nx">GREETING</span><span class="p">;</span>         <span class="c1">//全局性，可以直接使用
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myTest</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>name: 指定常量的名称</li>
+<li>value: 指定常量的值</li>
+<li>case-insensitive: 指定常量名称是否应不区分大小写。默认为 false。且PHP8.0只接受false，值true将产生警告。</li>
+</ul>
+<p>还可以使用<span style="color: #e74c3c;"> const </span>关键字创建常量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">const</span> <span class="no">MYCAR</span> <span class="o">=</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">MYCAR</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>const 与 define() 对比</strong><br>
+const 始终区分大小写。<br>
+define() 具有不区分大小写的选项。<br>
+const 不能在另一个块作用域内创建，例如在函数内部或 if 语句内部。<br>
+define 可以在另一个块作用域内创建</p>
+</blockquote>
+<p>从 PHP7 开始，可以使用 define() 函数创建一个数组常量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span><span class="s2">&#34;cars&#34;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;Volvo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;BMW&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;BYD&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">cars</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3魔法常量">3.魔法常量
+</h3><p>PHP 有九个预定义常量，它们的值会根据使用的位置而改变，因此它们被称为“魔法常量”。<br>
+除了 ClassName::class 常量外，这些魔法常量在开头和结尾都带有双下划线。<br>
+魔法常量<span style="color: #e74c3c;">不区分大小写</span>，这意味着 <strong>LINE</strong> 和 <strong>line</strong> 返回的结果相同。</p>
+<ul>
+<li><span style="color: #e74c3c;"><strong>CLASS</strong></span> - 如果在类内部使用，则返回类名</li>
+<li><span style="color: #e74c3c;"><strong>DIR</strong></span> - 文件所在的目录</li>
+<li><span style="color: #e74c3c;"><strong>FILE</strong></span> - 包含完整路径的文件名</li>
+<li><span style="color: #e74c3c;"><strong>FUNCTION</strong></span> - 如果在函数内部，则返回函数名</li>
+<li><span style="color: #e74c3c;"><strong>LINE</strong></span> - 当前行号</li>
+<li><span style="color: #e74c3c;"><strong>METHOD</strong></span> - 如果在属于某个类的函数内部使用，则返回类名和函数名</li>
+<li><span style="color: #e74c3c;"><strong>NAMESPACE</strong></span> - 如果在命名空间内部使用，则返回命名空间的名称</li>
+<li><span style="color: #e74c3c;"><strong>TRAIT</strong></span> - 如果在 trait 内部使用，则返回 trait 的名称</li>
+<li><span style="color: #e74c3c;">ClassName::class</span> - 返回指定类的名称和命名空间的名称（如果有）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//常量__CLASS__
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Fruits1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">myValue1</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="no">__CLASS__</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$kiwi</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fruits1</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$kiwi</span><span class="o">-&gt;</span><span class="na">myValue1</span><span class="p">();</span>   <span class="c1">//返回类名Fruits
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量__DIR__
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="no">__DIR__</span><span class="p">;</span>        <span class="c1">//返回所在目录
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量__FILE__
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="no">__FILE__</span><span class="p">;</span>       <span class="c1">//返回有完整路径的文件名
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量__FUNCTION__
+</span></span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myValue2</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="no">__FUNCTION__</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">myValue2</span><span class="p">();</span>      <span class="c1">//返回函数名myValue2
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量__LINE__
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="no">__LINE__</span><span class="p">;</span>        <span class="c1">//返回当前该常量所在的行数
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量__METHOD__
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Fruits2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">myValue3</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="no">__METHOD__</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$kiwi</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fruits2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$kiwi</span><span class="o">-&gt;</span><span class="na">myValue3</span><span class="p">();</span>    <span class="c1">//返回类名和函数名Fruits2::myValue3
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量__NAMESPACE__
+</span></span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cm">namespace myArea1;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">function myValue4(){
+</span></span></span><span class="line"><span class="cl"><span class="cm">  return __NAMESPACE__;
+</span></span></span><span class="line"><span class="cl"><span class="cm">}
+</span></span></span><span class="line"><span class="cl"><span class="cm">?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>                        <span class="c1">//该代码是创建一个名为myArea1的空间
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">myValue4</span><span class="p">();</span>          <span class="c1">//返回空间名myArea1
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量__TRAIT__
+</span></span></span><span class="line"><span class="cl"><span class="k">trait</span> <span class="nx">message1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">msg1</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="no">__TRAIT__</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Welcome</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">use</span> <span class="nx">message1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Welcome</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$obj</span><span class="o">-&gt;</span><span class="na">msg1</span><span class="p">();</span>            <span class="c1">//返回trait的名称message1
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//常量ClassName::class
+</span></span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cm">namespace myArea2;
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">class Fruits3 {
+</span></span></span><span class="line"><span class="cl"><span class="cm">  public function myValue5(){
+</span></span></span><span class="line"><span class="cl"><span class="cm">    return Fruits3::class;
+</span></span></span><span class="line"><span class="cl"><span class="cm">  }
+</span></span></span><span class="line"><span class="cl"><span class="cm">}
+</span></span></span><span class="line"><span class="cl"><span class="cm">?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>                       <span class="c1">//该代码是创建一个名为myArea2的空间
+</span></span></span><span class="line"><span class="cl"><span class="nv">$kiwi</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fruits3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$kiwi</span><span class="o">-&gt;</span><span class="na">myValue5</span><span class="p">();</span>  <span class="c1">//返回指定类的名称和命名空间的名称myArea2\Fruits3
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
@@ -1948,7 +2176,7 @@ PHP 用is_nan()函数来检查值是否为非数字，但是，PHP 的 var_dump(
 
 
 
-<p>发布了 8 篇文章 | 共 18961 字</p>
+<p>发布了 8 篇文章 | 共 20018 字</p>
     </section>
     
    
