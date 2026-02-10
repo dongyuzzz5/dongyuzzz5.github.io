@@ -452,6 +452,16 @@
         <li><a href="#6switch语句">6.switch语句</a></li>
       </ol>
     </li>
+    <li><a href="#十二-循环语句">十二. 循环语句</a>
+      <ol>
+        <li><a href="#1基础语句">1.基础语句</a></li>
+        <li><a href="#2foreach循环">2.foreach循环</a></li>
+        <li><a href="#3break与continue">3.break与continue</a></li>
+        <li><a href="#4foreach-byref">4.Foreach Byref</a></li>
+        <li><a href="#5替代语法">5.替代语法</a></li>
+      </ol>
+    </li>
+    <li><a href="#十三-函数">十三. 函数</a></li>
   </ol>
 </nav>
         </div>
@@ -2338,12 +2348,16 @@ define 可以在另一个块作用域内创建</p>
 	
 ></p>
 <p>逻辑运算符<br>
-<img src="/11.2.jpg"
-	
-	
-	
+<img src="/p/php1/11.2.jpg"
+	width="1125"
+	height="395"
+	srcset="/p/php1/11.2_hu_1ab1d02b871baf67.jpg 480w, /p/php1/11.2_hu_790486fd3361eade.jpg 1024w"
 	loading="lazy"
 	
+	
+		class="gallery-image" 
+		data-flex-grow="284"
+		data-flex-basis="683px"
 	
 ></p>
 <h3 id="3ifelse-语句">3.if&hellip;else 语句
@@ -2537,7 +2551,7 @@ define 可以在另一个块作用域内创建</p>
 </span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>  
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;工作日感觉好漫长！&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mi">6</span><span class="o">:</span>
@@ -2548,7 +2562,250 @@ define 可以在另一个块作用域内创建</p>
 </span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;出了点问题&#34;</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="十二-循环语句">十二. 循环语句
+</h2><h3 id="1基础语句">1.基础语句
+</h3><p>php的循环的逻辑和其他编程语言没有太大区别，除了一个foreach循环重点说一下<br>
+下面介绍一下几个基本语句的例子</p>
+<ul>
+<li><span style="color: #e74c3c;">while</span> - 只要指定条件为真，就循环代码块</li>
+<li><span style="color: #e74c3c;">do&hellip;while</span> - 执行代码块一次，然后只要指定条件为真，就重复循环</li>
+<li><span style="color: #e74c3c;">for</span> - 循环代码块指定的次数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//while循环
+</span></span></span><span class="line"><span class="cl"><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$i</span><span class="o">+=</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$i</span><span class="s2">&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//do while循环
+</span></span></span><span class="line"><span class="cl"><span class="nv">$i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$i</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//for循环
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="nv">$x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$x</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$x</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;数字是：</span><span class="si">$x</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
+</div><h3 id="2foreach循环">2.foreach循环
+</h3><p><span style="color: #e74c3c;">foreach</span>循环，针对数组中的每个元素或对象中的每个属性循环代码块,最常见的用途是循环遍历数组的元素。</p>
+<ul>
+<li>循环遍历<span style="color: #e74c3c;">索引数组</span>的元素</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$colors</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;yellow&#34;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$colors</span> <span class="k">as</span> <span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>循环遍历<span style="color: #e74c3c;">关联数组</span>的元素</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$members</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Peter&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;35&#34;</span><span class="p">,</span> <span class="s2">&#34;Ben&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;37&#34;</span><span class="p">,</span> <span class="s2">&#34;Joe&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;43&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$members</span> <span class="k">as</span> <span class="nv">$x</span> <span class="o">=&gt;</span> <span class="nv">$y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2"> : </span><span class="si">$y</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>循环遍历<span style="color: #e74c3c;">对象</span>的属性</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Car</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="nv">$color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="nv">$model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$color</span><span class="p">,</span> <span class="nv">$model</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">color</span> <span class="o">=</span> <span class="nv">$color</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span> <span class="o">=</span> <span class="nv">$model</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$myCar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$myCar</span> <span class="k">as</span> <span class="nv">$x</span> <span class="o">=&gt;</span> <span class="nv">$y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2">: </span><span class="si">$y</span><span class="s2">&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3break与continue">3.break与continue
+</h3><p>使用 break 语句，我们可以在循环未到达末尾时停止它<br>
+这里使用数组循环举例子，其他循环语句也是一样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$colors</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;yellow&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$colors</span> <span class="k">as</span> <span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$x</span> <span class="o">==</span> <span class="s2">&#34;blue&#34;</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 continue 语句，我们可以停止当前迭代，并继续下一次迭代</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$colors</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;yellow&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$colors</span> <span class="k">as</span> <span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$x</span> <span class="o">==</span> <span class="s2">&#34;blue&#34;</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4foreach-byref">4.Foreach Byref
+</h3><p>默认情况下，更改数组元素<span style="color: #e74c3c;">** 不会影响原始数组 **<span style="color: #e74c3c;"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$colors</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;yellow&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$colors</span> <span class="k">as</span> <span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$x</span> <span class="o">==</span> <span class="s2">&#34;blue&#34;</span><span class="p">)</span> <span class="nv">$x</span> <span class="o">=</span> <span class="s2">&#34;pink&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$colors</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若想改变原始数组，可以通过在 foreach 声明中使用<span style="color: #e74c3c;"> &amp; 字符</sapn></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$colors</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;yellow&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$colors</span> <span class="k">as</span> <span class="o">&amp;</span><span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$x</span> <span class="o">==</span> <span class="s2">&#34;blue&#34;</span><span class="p">)</span> <span class="nv">$x</span> <span class="o">=</span> <span class="s2">&#34;pink&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$colors</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5替代语法">5.替代语法
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//while
+</span></span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">)</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$i</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">endwhile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//foreach
+</span></span></span><span class="line"><span class="cl"><span class="nv">$colors</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;green&#34;</span><span class="p">,</span> <span class="s2">&#34;blue&#34;</span><span class="p">,</span> <span class="s2">&#34;yellow&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$colors</span> <span class="k">as</span> <span class="nv">$x</span><span class="p">)</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">endforeach</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="十三-函数">十三. 函数
+</h2>
 </section>
 
 
@@ -2655,7 +2912,7 @@ define 可以在另一个块作用域内创建</p>
 
 
 
-<p>发布了 8 篇文章 | 共 21356 字</p>
+<p>发布了 8 篇文章 | 共 22050 字</p>
     </section>
     
    
