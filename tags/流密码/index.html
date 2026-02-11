@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://dongyuzzz5.github.io/tags/%E6%B5%81%E5%AF%86%E7%A0%81/'>
 
-<link rel="stylesheet" href="/scss/style.min.2b53c7f6dfc7440bad7af9c7554dfbc5af5dac2af573e05f93ebc920f8b40df4.css"><meta property='og:title' content="Tag: 流密码 - 冬 鱼 🐟️">
+<link rel="stylesheet" href="/scss/style.min.d49b40c83d57787c7f3e0b4bdecf6f713ace110a408f1ce6550f0ccbbbf481b5.css"><meta property='og:title' content="Tag: 流密码 - 冬 鱼 🐟️">
 <meta property='og:description' content="ctf?坎公骑冠剑！">
 <meta property='og:url' content='https://dongyuzzz5.github.io/tags/%E6%B5%81%E5%AF%86%E7%A0%81/'>
 <meta property='og:site_name' content='冬 鱼 🐟️'>
@@ -1583,15 +1583,7 @@
         
             
                 <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
-</svg>
 
-
-
-        </div>
         <h2 class="widget-title section-title">归档</h2>
 
         
@@ -1614,18 +1606,7 @@
         
             
                 <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
 
-
-
-    </div>
     <h2 class="widget-title section-title">分类</h2>
 
     <div class="tagCloud-tags">
@@ -1649,6 +1630,80 @@
     </div>
 </section>
 
+            
+        
+            
+                <section class="count_info">
+  
+  <div>
+    本站稳定运行：
+    <span id="ds" class="running-days number-highlight"></span>
+    天
+  </div>
+
+  
+  <div>
+    共发表文章数：
+    <span class="number-highlight">
+      8
+    </span>
+    篇
+  </div>
+
+  
+  <div>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量：
+      <span id="busuanzi_value_site_pv" class="number-highlight"></span>
+      次
+    </span>
+  </div>
+</section>
+
+<script>
+function renderRuntime(){
+  const s1 = new Date('2026-01-01');
+  const ds = Math.floor((Date.now() - s1) / 86400000);
+  const dEl = document.getElementById('ds');
+  if(dEl) dEl.textContent = ds;
+
+  
+  document.querySelectorAll('#busuanzi_value_site_pv')
+          .forEach(el=>el.classList.add('number-highlight'));
+}
+
+
+renderRuntime();
+
+
+document.addEventListener('pjax:success', renderRuntime);
+</script>
+
+<style>
+.count_info {
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-weight: bold;
+  padding: 12px;
+  padding-left: 30px !important;  
+  transition: transform 0.2s ease;   
+}
+.count_info:hover {
+  transform: scale(1.06);   
+}
+.number-highlight {
+  color: #00bfa5;  
+  font-weight: 600;
+}
+[data-scheme="dark"] .count_info {
+  border: 1px solid #39393900;
+  padding: 12px;
+  border-radius: 20px;
+  background: #3f3f3f;
+  padding-left: 30px !important;  
+  color: #fff;
+}
+</style>
             
         
     </aside>
@@ -2368,6 +2423,7 @@ document.addEventListener('pjax:complete', initFlyingFish);
         }
     </script>
 </div>
+
 
 //引入查看浏览量
 <script defer src="https://cn.vercount.one/js"></script>
