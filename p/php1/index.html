@@ -450,7 +450,35 @@
         <li><a href="#5替代语法">5.替代语法</a></li>
       </ol>
     </li>
-    <li><a href="#十三-函数">十三. 函数</a></li>
+    <li><a href="#十三-函数">十三. 函数</a>
+      <ol>
+        <li><a href="#1创建函数">1.创建函数</a></li>
+        <li><a href="#2函数参数">2.函数参数</a></li>
+        <li><a href="#3默认参数值">3.默认参数值</a></li>
+        <li><a href="#4返回值">4.返回值</a></li>
+        <li><a href="#5引用参数值特性">5.引用参数值特性</a></li>
+        <li><a href="#6可变数量的参数">6.可变数量的参数</a></li>
+        <li><a href="#7php的弱语言特性">7.PHP的弱语言特性</a></li>
+      </ol>
+    </li>
+    <li><a href="#十四数组">十四.数组</a>
+      <ol>
+        <li><a href="#1索引数组">1.索引数组</a></li>
+        <li><a href="#2关联数组">2.关联数组</a></li>
+        <li><a href="#3多维数组">3.多维数组</a></li>
+        <li><a href="#4创建数组">4.创建数组</a></li>
+        <li><a href="#5访问数组">5.访问数组</a></li>
+        <li><a href="#6更新数组项">6.更新数组项</a></li>
+        <li><a href="#7添加数组项">7.添加数组项</a></li>
+        <li><a href="#8删除数组项">8.删除数组项</a></li>
+        <li><a href="#9数组排序">9.数组排序</a></li>
+      </ol>
+    </li>
+    <li><a href="#十五超全局变量">十五.超全局变量</a>
+      <ol>
+        <li><a href="#1globals">1.$GLOBALS</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -2722,7 +2750,7 @@ define 可以在另一个块作用域内创建</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4foreach-byref">4.Foreach Byref
-</h3><p>默认情况下，更改数组元素<span style="color: #e74c3c;">** 不会影响原始数组 **<span style="color: #e74c3c;"></p>
+</h3><p>默认情况下，更改数组元素<span style="color: #e74c3c;"> <strong>不会影响原始数组</strong> </span>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2794,7 +2822,1013 @@ define 可以在另一个块作用域内创建</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="十三-函数">十三. 函数
-</h2>
+</h2><p>PHP 拥有超过 1000 个<span style="color: #e74c3c;">内置函数</span>，此外，你还可以创建自己的<span style="color: #e74c3c;">自定义函数</span>。<br>
+PHP 内置函数参考手册网址：<a class="link" href="https://www.w3school.com.cn/php/php_ref.asp"  target="_blank" rel="noopener"
+    >https://www.w3school.com.cn/php/php_ref.asp</a><br>
+下面介绍自定义函数</p>
+<h3 id="1创建函数">1.创建函数
+</h3><p>用户定义的函数声明以关键字<span style="color: #e74c3c;"> function </span>开头，后跟函数名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myMessage</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;Hello world!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">myMessage</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2函数参数">2.函数参数
+</h3><p>可以通过参数将信息传递给函数。参数就像变量一样。参数在函数名后面指定，位于括号内。您可以添加任意数量的参数，只需用<span style="color: #e74c3c;">逗号</span>分隔即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">familyName</span><span class="p">(</span><span class="nv">$fname</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;张&#34;</span><span class="o">.</span> <span class="nv">$fname</span><span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;建平&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;建英&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;和平&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;志平&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;红英&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面是带两个参数的实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">familyName</span><span class="p">(</span><span class="nv">$fname</span><span class="p">,</span> <span class="nv">$year</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;张&#34;</span><span class="o">.</span> <span class="nv">$fname</span> <span class="o">.</span><span class="s2">&#34;生于 &#34;</span><span class="o">.</span> <span class="nv">$year</span> <span class="o">.</span> <span class="s2">&#34; 年。&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;建平&#34;</span><span class="p">,</span><span class="s2">&#34;1965&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;建英&#34;</span><span class="p">,</span><span class="s2">&#34;1958&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">familyName</span><span class="p">(</span><span class="s2">&#34;和平&#34;</span><span class="p">,</span><span class="s2">&#34;1957&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3默认参数值">3.默认参数值
+</h3><p>在调用函数时，若没有输入指定参数，函数则会使用默认值作为参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">setHeight</span><span class="p">(</span><span class="nv">$minheight</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;高度是：</span><span class="si">$minheight</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setHeight</span><span class="p">(</span><span class="mi">350</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">setHeight</span><span class="p">();</span>        <span class="c1">//将会使用50为参数值
+</span></span></span><span class="line"><span class="cl"><span class="nx">setHeight</span><span class="p">(</span><span class="mi">135</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">setHeight</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4返回值">4.返回值
+</h3><p>要让函数返回一个值，请使用<span style="color: #e74c3c;"> return </sapn>语句</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">sum</span><span class="p">(</span><span class="nv">$x</span><span class="p">,</span> <span class="nv">$y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$z</span> <span class="o">=</span> <span class="nv">$x</span> <span class="o">+</span> <span class="nv">$y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nv">$z</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;5 + 10 = &#34;</span> <span class="o">.</span> <span class="nx">sum</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;7 + 13 = &#34;</span> <span class="o">.</span> <span class="nx">sum</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">13</span><span class="p">)</span> <span class="o">.</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;2 + 4 = &#34;</span> <span class="o">.</span> <span class="nx">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5引用参数值特性">5.引用参数值特性
+</h3><p>在 PHP 中，参数通常按值传递，这意味着在函数中使用的是值的副本，并且传递给函数的<span style="color: #e74c3c;">变量不会被更改</span>。<br>
+若要改变，需要使用<span style="color: #e74c3c;"> &amp; </span>运算符</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">add_six</span><span class="p">(</span><span class="nv">$value</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$value</span> <span class="o">+=</span> <span class="mi">6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">add_five</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$value</span> <span class="o">+=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$num</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">add_six</span><span class="p">(</span><span class="nv">$num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$num</span> <span class="o">.</span> <span class="s2">&#34;&lt;/br&gt;&#34;</span><span class="p">;</span>   <span class="c1">//输出依旧为2
+</span></span></span><span class="line"><span class="cl"><span class="nx">add_five</span><span class="p">(</span><span class="nv">$num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$num</span><span class="p">;</span>             <span class="c1">//输出为相加后的7
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6可变数量的参数">6.可变数量的参数
+</h3><p>通过在函数参数前使用<span style="color: #e74c3c;"> &hellip; 运算符</span>，函数可以接受未知数量的参数。这也称为可变参数函数。<br>
+<span style="color: #e74c3c;">只能有一个可变长度的参数</span>，并且它<span style="color: #e74c3c;">必须是最后一个参数</span>。<br>
+如果可变参数不是最后一个参数，将会出现错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myFamily</span><span class="p">(</span><span class="nv">$lastname</span><span class="p">,</span> <span class="o">...</span><span class="nv">$firstname</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$txt</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$len</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$firstname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$len</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$txt</span> <span class="o">=</span> <span class="nv">$txt</span><span class="o">.</span><span class="s2">&#34;Hi, </span><span class="si">$firstname[$i]</span><span class="s2"> </span><span class="si">$lastname</span><span class="s2">.&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nv">$txt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$a</span> <span class="o">=</span> <span class="nx">myFamily</span><span class="p">(</span><span class="s2">&#34;Gates&#34;</span><span class="p">,</span> <span class="s2">&#34;Bill&#34;</span><span class="p">,</span> <span class="s2">&#34;Steve&#34;</span><span class="p">,</span> <span class="s2">&#34;Elon&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$a</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="7php的弱语言特性">7.PHP的弱语言特性
+</h3><p>因为PHP是一种弱语言，所以在不告诉PHP数据类型并且不严格说明的话，PHP会根据变量的值自动为其关联数据类型。<br>
+下面是没有进行严格声明的例子，php自动转换数据类型，故正常输出。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">addNumbers</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$a</span><span class="p">,</span> <span class="nx">int</span> <span class="nv">$b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">addNumbers</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&#34;5 days&#34;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 由于未启用严格模式，&#34;5 days&#34; 被转换为 int(5)，因此将返回 10
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>要指定严格声明，我们需要设置<span style="color: #e74c3c;"> declare(strict_types=1);</span>。这必须在 PHP 文件的<span style="color: #e74c3c;">第一行</span>。<br>
+接下来是进行了严格声明的例子，php会报错。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 严格模式
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">addNumbers</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$a</span><span class="p">,</span> <span class="nx">int</span> <span class="nv">$b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">addNumbers</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&#34;5 days&#34;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 由于启用了严格模式，且 &#34;5 days&#34; 不是整数，将会抛出错误
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>同时不只函数参数支持类型声明，PHP7也支持<span style="color: #e74c3c;">return语句的类型声明</span>。<br>
+要在函数声明中声明返回类型，请在声明函数时在左<span style="color: #e74c3c;">大括号 ( { ) 之前添加冒号 ( : ) 和类型</span>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> <span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 严格模式
+</span></span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">addNumbers</span><span class="p">(</span><span class="nx">float</span> <span class="nv">$a</span><span class="p">,</span> <span class="nx">float</span> <span class="nv">$b</span><span class="p">)</span> <span class="o">:</span> <span class="nx">float</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">addNumbers</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;?php declare(strict_types=1); // 严格模式
+</span></span></span><span class="line"><span class="cl"><span class="err">function addNumbers(float $a, float $b) : int {
+</span></span></span><span class="line"><span class="cl"><span class="err">  return (int)($a + $b);
+</span></span></span><span class="line"><span class="cl"><span class="err">}
+</span></span></span><span class="line"><span class="cl"><span class="err">echo addNumbers(1.2, 5.2); 
+</span></span></span><span class="line"><span class="cl"><span class="err">?&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="十四数组">十四.数组
+</h2><p>在 PHP 中，有三种类型的数组：</p>
+<ul>
+<li><span style="color: #e74c3c;">索引数组</span> - 有数字索引的数组</li>
+<li><span style="color: #e74c3c;">关联数组</span> - 有命名键的数组</li>
+<li><span style="color: #e74c3c;">多维数组</span> - 包含一个或多个数组的数组</li>
+</ul>
+<h3 id="1索引数组">1.索引数组
+</h3><p>下面是关于操作索引数组的一些实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Audi&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//显示第一个数组项目
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//更改第三个项目的值
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;BYD&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//遍历索引数组
+</span></span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$cars</span> <span class="k">as</span> <span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若创建一个新项目，新项目将获得下一个索引号，即<span style="color: #e74c3c;">比现有最高索引高一个</span>。<br>
+下面使用 array_push() 函数添加一个新项目，新项目将获得索引 3</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;BMW&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Toyota&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">array_push</span><span class="p">(</span><span class="nv">$cars</span><span class="p">,</span> <span class="s2">&#34;Ford&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果是一个具有随机索引号的数组，新项目则是比现有最高索引高1</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;BMW&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Toyota&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">array_push</span><span class="p">(</span><span class="nv">$cars</span><span class="p">,</span> <span class="s2">&#34;Ford&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2关联数组">2.关联数组
+</h3><p>下面是关于操作关联数组的一些实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$car</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;Mustang&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span><span class="o">=&gt;</span><span class="mi">1964</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$car</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//显示汽车的型号
+</span></span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$car</span><span class="p">[</span><span class="s2">&#34;model&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//更改年份项目
+</span></span></span><span class="line"><span class="cl"><span class="nv">$car</span><span class="p">[</span><span class="s2">&#34;year&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2024</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$car</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//遍历关联数组
+</span></span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$car</span> <span class="k">as</span> <span class="nv">$x</span> <span class="o">=&gt;</span> <span class="nv">$y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">$x</span><span class="s2">: </span><span class="si">$y</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3多维数组">3.多维数组
+</h3><p>多维数组是一个包含一个或多个数组的数组。PHP 支持深度为二、三、四、五或更多层的多维数组。对于二维数组，需要两个索引来选择元素。对于三维数组，需要三个索引来选择元素。<br>
+下面只介绍二维数组，三维以上比较难。<br>
+举下面表格的例子</p>
+<p><img src="/p/php1/14.1.jpg"
+	width="1220"
+	height="275"
+	srcset="/p/php1/14.1_hu_750982eb04975af3.jpg 480w, /p/php1/14.1_hu_3fb8a1fcb068c4cd.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="443"
+		data-flex-basis="1064px"
+	
+><br>
+将上表中的数据存储在二维数组中，并进行访问</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">18</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;BMW&#34;</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Saab&#34;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Land Rover&#34;</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;：库存：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;，已售出：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="s2">&#34;。&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;：库存：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;，已售出：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="s2">&#34;。&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;：库存：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;，已售出：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="s2">&#34;。&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;：库存：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;，已售出：&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="s2">&#34;。&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>还可以在另一个 for 循环内部放置一个 for 循环来获取 $cars 数组的元素（仍然需要指向两个索引）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">18</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;BMW&#34;</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">13</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Saab&#34;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Land Rover&#34;</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$row</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nv">$row</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;p&gt;&lt;b&gt;第 </span><span class="si">$row</span><span class="s2"> 行&lt;/b&gt;&lt;/p&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;ul&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="nv">$col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$col</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nv">$col</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;li&gt;&#34;</span><span class="o">.</span><span class="nv">$cars</span><span class="p">[</span><span class="nv">$row</span><span class="p">][</span><span class="nv">$col</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;&lt;/li&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;/ul&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4创建数组">4.创建数组
+</h3><p>可以使用<span style="color: #e74c3c;"> array() 函数</span>或者<span style="color: #e74c3c;"> [] 括号</span>来创建数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//用 array() 函数
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars1</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//用[] 括号
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">];</span>    <span class="c1">//在末尾（&#34;Tesla&#34;）接逗号语法上也是允许的
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars3</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="nx">，</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars2</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>索引数组与关联数组相同，但关联数组使用名称而不是数字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$myCar</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;year&#34;</span> <span class="o">=&gt;</span> <span class="mi">1964</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$myCar</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>索引数组和关联数组都可以声明空数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//索引数组声明空数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;BMW&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//关联数组声明空数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$myCar</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myCar</span><span class="p">[</span><span class="s2">&#34;brand&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Ford&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myCar</span><span class="p">[</span><span class="s2">&#34;model&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myCar</span><span class="p">[</span><span class="s2">&#34;year&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1964</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$myCar</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也可以创建同时具有索引和命名键的数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$myArr</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myArr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;apples&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;bananas&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myArr</span><span class="p">[</span><span class="s2">&#34;fruit&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;cherries&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$myArr</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5访问数组">5.访问数组
+</h3><p>要访问数组项，对于索引数组，您可以引用<span style="color: #e74c3c;">索引号</span>；对于关联数组，您可以引用<span style="color: #e74c3c;">键名</span>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//访问索引数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;BYD&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//访问关联数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span> <span class="o">=&gt;</span> <span class="mi">1964</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="s2">&#34;year&#34;</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在访问数组时，您可以使用双引号或单引号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span> <span class="o">=&gt;</span> <span class="mi">1964</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="s2">&#34;model&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>数组项可以是任何数据类型，包括函数。<br>
+要执行这样的函数，请使用索引号后跟<span style="color: #e74c3c;">括号 ()</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//索引
+</span></span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myFunction</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;我来自一个函数！&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myArr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="nx">myFunction</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myArr</span><span class="p">[</span><span class="mi">2</span><span class="p">]();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//关联
+</span></span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myFunction</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;我来自一个函数！&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myArr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;car&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span> <span class="o">=&gt;</span> <span class="mi">15</span><span class="p">,</span> <span class="s2">&#34;message&#34;</span> <span class="o">=&gt;</span> <span class="nx">myFunction</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myArr</span><span class="p">[</span><span class="s2">&#34;message&#34;</span><span class="p">]();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6更新数组项">6.更新数组项
+</h3><p>要更新现有的数组项，对于索引数组，可以引用<span style="color: #e74c3c;">索引号</span>；对于关联数组，可以引用<span style="color: #e74c3c;">键名</span>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//更新索引数组项
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Ford&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//更新关联数组项
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span> <span class="o">=&gt;</span> <span class="mi">1964</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="s2">&#34;year&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2024</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<span style="color: #e74c3c;"> foreach 循环</span>中更改项值时，可以在赋值中插入<span style="color: #e74c3c;"> &amp; 字符</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$cars</span> <span class="k">as</span> <span class="o">&amp;</span><span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$x</span> <span class="o">=</span> <span class="s2">&#34;Ford&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unset</span><span class="p">(</span><span class="nv">$x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>** 注意 **：记得<span style="color: #e74c3c;">在循环后添加 unset() 函数</span>。如果没有 unset($x) 函数，$x 变量将保持对最后一个数组项的引用。<br>
+下面演示没有添加这个函数的后果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$cars</span> <span class="k">as</span> <span class="o">&amp;</span><span class="nv">$x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$x</span> <span class="o">=</span> <span class="s2">&#34;Ford&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="s2">&#34;ice cream&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="7添加数组项">7.添加数组项
+</h3><p>添加数组项，可以使用括号<span style="color: #e74c3c;">[] 语法</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//索引数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$fruits</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Apple&#34;</span><span class="p">,</span> <span class="s2">&#34;Banana&#34;</span><span class="p">,</span> <span class="s2">&#34;Cherry&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$fruits</span><span class="p">[]</span> <span class="o">=</span> <span class="s2">&#34;Orange&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$fruits</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//关联数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span><span class="p">[</span><span class="s2">&#34;color&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Red&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若添加多个数组项，索引数组可以使用 <span style="color: #e74c3c;">array_push() 函数</span>。<br>
+二向关联数组中添加多个项,则要使用<span style="color: #e74c3c;"> += 运算符</span>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//索引数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$fruits</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Apple&#34;</span><span class="p">,</span> <span class="s2">&#34;Banana&#34;</span><span class="p">,</span> <span class="s2">&#34;Cherry&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">array_push</span><span class="p">(</span><span class="nv">$fruits</span><span class="p">,</span> <span class="s2">&#34;Orange&#34;</span><span class="p">,</span> <span class="s2">&#34;Kiwi&#34;</span><span class="p">,</span> <span class="s2">&#34;Lemon&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$fruits</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//关联数组
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&#34;color&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;red&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span> <span class="o">=&gt;</span> <span class="mi">1964</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="8删除数组项">8.删除数组项
+</h3><p>使用 <span style="color: #e74c3c;">unset()</span> 函数来删除现有的数组项。<br>
+注意：unset() 函数不会重新排列索引，这意味着在删除后，数组将不再包含缺失的索引。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//删除索引数组项
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unset</span><span class="p">(</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unset</span><span class="p">(</span><span class="nv">$cars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nv">$cars</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>    <span class="c1">//也可以删除多个
+</span></span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//删除关联数组项
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span> <span class="o">=&gt;</span> <span class="mi">1964</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unset</span><span class="p">(</span><span class="nv">$cars</span><span class="p">[</span><span class="s2">&#34;model&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用<span style="color: #e74c3c;">array_splice() 函数</span>，从索引数组中删除项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">array_splice</span><span class="p">(</span><span class="nv">$cars</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>       <span class="c1">//从第二项（索引 1）开始删除 2 个项目
+</span></span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>还可以使用 <span style="color: #e74c3c;">array_diff() 函数</span>从关联数组中删除项。<br>
+array_diff() 函数<span style="color: #e74c3c;">将值作为参数，而不是键</span>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;brand&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Ford&#34;</span><span class="p">,</span> <span class="s2">&#34;model&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;Mustang&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span> <span class="o">=&gt;</span> <span class="mi">1964</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$newarray</span> <span class="o">=</span> <span class="nx">array_diff</span><span class="p">(</span><span class="nv">$cars</span><span class="p">,</span> <span class="p">[</span><span class="s2">&#34;Mustang&#34;</span><span class="p">,</span> <span class="mi">1964</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$newarray</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>删除最后一个项:<span style="color: #e74c3c;">array_pop() 函数</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Tesla&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">array_pop</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>删除第一个项:<span style="color: #e74c3c;">array_shift() 函数</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Toyota&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">array_shift</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="9数组排序">9.数组排序
+</h3><p>可以使用下列函数进行排序</p>
+<ul>
+<li><span style="color: #e74c3c;">sort()</span> - 对数组进行升序排序</li>
+<li><span style="color: #e74c3c;">rsort()</span> - 对数组进行降序排序</li>
+<li><span style="color: #e74c3c;">asort()</span> - 根据值对关联数组进行升序排序</li>
+<li><span style="color: #e74c3c;">ksort()</span> - 根据键对关联数组进行升序排序</li>
+<li><span style="color: #e74c3c;">arsort()</span> - 根据值对关联数组进行降序排序</li>
+<li><span style="color: #e74c3c;">krsort()</span> - 根据键对关联数组进行降序排序</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//按升序对数组进行排序
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Toyota&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sort</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$clength</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="nv">$x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$x</span> <span class="o">&lt;</span> <span class="nv">$clength</span><span class="p">;</span> <span class="nv">$x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="nv">$x</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$numbers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">sort</span><span class="p">(</span><span class="nv">$numbers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$arrlength</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$numbers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="nv">$x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$x</span> <span class="o">&lt;</span> <span class="nv">$arrlength</span><span class="p">;</span> <span class="nv">$x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$numbers</span><span class="p">[</span><span class="nv">$x</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//按降序对数组进行排序
+</span></span></span><span class="line"><span class="cl"><span class="nv">$cars</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Volvo&#34;</span><span class="p">,</span> <span class="s2">&#34;BMW&#34;</span><span class="p">,</span> <span class="s2">&#34;Toyota&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">rsort</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$clength</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$cars</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="nv">$x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$x</span> <span class="o">&lt;</span> <span class="nv">$clength</span><span class="p">;</span> <span class="nv">$x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$cars</span><span class="p">[</span><span class="nv">$x</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$numbers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">rsort</span><span class="p">(</span><span class="nv">$numbers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$arrlength</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$numbers</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="nv">$x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$x</span> <span class="o">&lt;</span> <span class="nv">$arrlength</span><span class="p">;</span> <span class="nv">$x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$numbers</span><span class="p">[</span><span class="nv">$x</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//根据值对数组进行升序排序
+</span></span></span><span class="line"><span class="cl"><span class="nv">$age</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Bill&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;35&#34;</span><span class="p">,</span> <span class="s2">&#34;Elon&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;37&#34;</span><span class="p">,</span> <span class="s2">&#34;Steve&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;43&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">asort</span><span class="p">(</span><span class="nv">$age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="nv">$age</span> <span class="k">as</span> <span class="nv">$x</span> <span class="o">=&gt;</span> <span class="nv">$x_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;Key=&#34;</span> <span class="o">.</span> <span class="nv">$x</span> <span class="o">.</span> <span class="s2">&#34;, Value=&#34;</span> <span class="o">.</span> <span class="nv">$x_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//根据键对数组进行升序排序
+</span></span></span><span class="line"><span class="cl"><span class="nv">$age</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Bill&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;35&#34;</span><span class="p">,</span> <span class="s2">&#34;Elon&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;37&#34;</span><span class="p">,</span> <span class="s2">&#34;Steve&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;43&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ksort</span><span class="p">(</span><span class="nv">$age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="nv">$age</span> <span class="k">as</span> <span class="nv">$x</span> <span class="o">=&gt;</span> <span class="nv">$x_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;Key=&#34;</span> <span class="o">.</span> <span class="nv">$x</span> <span class="o">.</span> <span class="s2">&#34;, Value=&#34;</span> <span class="o">.</span> <span class="nv">$x_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//根据值对数组进行降序排序
+</span></span></span><span class="line"><span class="cl"><span class="nv">$age</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Bill&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;35&#34;</span><span class="p">,</span> <span class="s2">&#34;Elon&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;37&#34;</span><span class="p">,</span> <span class="s2">&#34;Steve&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;43&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">arsort</span><span class="p">(</span><span class="nv">$age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="nv">$age</span> <span class="k">as</span> <span class="nv">$x</span> <span class="o">=&gt;</span> <span class="nv">$x_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;Key=&#34;</span> <span class="o">.</span> <span class="nv">$x</span> <span class="o">.</span> <span class="s2">&#34;, Value=&#34;</span> <span class="o">.</span> <span class="nv">$x_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//根据键对数组进行降序排序
+</span></span></span><span class="line"><span class="cl"><span class="nv">$age</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;Bill&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;35&#34;</span><span class="p">,</span> <span class="s2">&#34;Elon&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;37&#34;</span><span class="p">,</span> <span class="s2">&#34;Steve&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;43&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">krsort</span><span class="p">(</span><span class="nv">$age</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="nv">$age</span> <span class="k">as</span> <span class="nv">$x</span> <span class="o">=&gt;</span> <span class="nv">$x_value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;Key=&#34;</span> <span class="o">.</span> <span class="nv">$x</span> <span class="o">.</span> <span class="s2">&#34;, Value=&#34;</span> <span class="o">.</span> <span class="nv">$x_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="十五超全局变量">十五.超全局变量
+</h2><h3 id="1globals">1.$GLOBALS
+</h3>
 </section>
 
 
@@ -2901,7 +3935,7 @@ define 可以在另一个块作用域内创建</p>
 
 
 
-<p>发布了 8 篇文章 | 共 22050 字</p>
+<p>发布了 8 篇文章 | 共 26122 字</p>
     </section>
     
    
