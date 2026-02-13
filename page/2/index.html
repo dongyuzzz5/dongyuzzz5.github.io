@@ -2786,6 +2786,30 @@ document.addEventListener('pjax:complete', initFlyingFish);
 </div>
 
 
+    
+    <script src=https://dongyuzzz5.github.io/js/topbar.min.js></script>
+
+<script>
+    
+    topbar.config({
+        barColors: {
+            '0': 'rgba(255,  255, 255, 1)', 
+            '1.0': 'rgba(0, 149, 234,  1)' 
+        }
+    })
+	
+    document.addEventListener('pjax:send', () => {
+        
+        topbar.show();
+    })
+	
+    document.addEventListener('pjax:complete', () => {
+        ....
+        
+        topbar.hide();
+    })
+</script>
+
 //引入查看浏览量
 <script defer src="https://cn.vercount.one/js"></script>
 
