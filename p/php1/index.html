@@ -477,6 +477,19 @@
     <li><a href="#十五超全局变量">十五.超全局变量</a>
       <ol>
         <li><a href="#1globals">1.$GLOBALS</a></li>
+        <li><a href="#2_server">2.$_SERVER</a></li>
+        <li><a href="#3_request">3.$_REQUEST</a></li>
+        <li><a href="#4_post-与-_get">4.$_POST 与 $_GET</a></li>
+      </ol>
+    </li>
+    <li><a href="#十六正则表达式">十六.正则表达式</a>
+      <ol>
+        <li><a href="#1基本语法-1">1.基本语法</a></li>
+        <li><a href="#2正则表达式函数">2.正则表达式函数</a></li>
+        <li><a href="#3正则表达式修饰符">3.正则表达式修饰符</a></li>
+        <li><a href="#4正则表达式模式">4.正则表达式模式</a></li>
+        <li><a href="#5元字符">5.元字符</a></li>
+        <li><a href="#6量词">6.量词</a></li>
       </ol>
     </li>
   </ol>
@@ -3828,7 +3841,1077 @@ array_diff() 函数<span style="color: #e74c3c;">将值作为参数，而不是�
 </div>
 </div><h2 id="十五超全局变量">十五.超全局变量
 </h2><h3 id="1globals">1.$GLOBALS
-</h3>
+</h3><p>全局变量是可以从任何作用域访问的变量。<br>
+要在函数内部使用全局变量，必须使用<span style="color: #e74c3c;"> global 关键字</span>将它们定义为全局的，或者使用<span style="color: #e74c3c;"> $GLOBALS 语法</span>来引用它们。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//通过$GLOBALS 语法
+</span></span></span><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myfunction</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$GLOBALS</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myfunction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//通过global 关键字
+</span></span></span><span class="line"><span class="cl"><span class="nv">$x</span> <span class="o">=</span> <span class="mi">75</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myfunction</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">global</span> <span class="nv">$x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nv">$x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">myfunction</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在函数内部创建的变量仅属于该函数，但可以使用 $GLOBALS 语法在函数内部创建全局变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">myfunction</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$GLOBALS</span><span class="p">[</span><span class="s2">&#34;x&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">myfunction</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$GLOBALS</span><span class="p">[</span><span class="s2">&#34;x&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$x</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2_server">2.$_SERVER
+</h3><p>$_SERVER 用于存储关于头信息、路径和脚本位置的信息。<br>
+下面是相关的重要元素。<br>
+<img src="/p/php1/15.1.jpg"
+	width="1221"
+	height="1388"
+	srcset="/p/php1/15.1_hu_e5761dafe0f459be.jpg 480w, /p/php1/15.1_hu_7996b51fde0eb7e.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="87"
+		data-flex-basis="211px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;PHP_SELF&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;SERVER_NAME&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_HOST&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_REFERER&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_USER_AGENT&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;&lt;br&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;SCRIPT_NAME&#39;</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3_request">3.$_REQUEST
+</h3><p>$_REQUEST 它包含了提交的表单数据和所有的 cookie 数据。换句话说，$_REQUEST 是一个数组，包含来自 $_GET、$_POST 和 $_COOKIE 的数据。</p>
+<ul>
+<li>在 $_POST 请求中使用 $_REQUEST</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;&lt;?php echo $_SERVER[&#39;PHP_SELF&#39;];?&gt;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  名字：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;fname&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">if ($_SERVER[&#34;REQUEST_METHOD&#34;] == &#34;POST&#34;) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">    // collect value of input field
+</span></span></span><span class="line"><span class="cl"><span class="cp">    $name = htmlspecialchars($_REQUEST[&#39;fname&#39;]);
+</span></span></span><span class="line"><span class="cl"><span class="cp">    if (empty($name)) {
+</span></span></span><span class="line"><span class="cl"><span class="cp">        echo &#34;Name is empty&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">    } else {
+</span></span></span><span class="line"><span class="cl"><span class="cp">        echo $name;
+</span></span></span><span class="line"><span class="cl"><span class="cp">    }
+</span></span></span><span class="line"><span class="cl"><span class="cp">}
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码，用户点击提交按钮时，表单数据会发送到 <form> 标签的 action 属性中指定的 PHP 文件。(我这里将 HTML 表单和 PHP 代码放在同一个 PHP 文件中)<br>
+在 action 文件中，我们可以使用 $_REQUEST 变量来收集输入字段的值。</p>
+<ul>
+<li>在 $_GET 请求中使用 $_REQUEST<br>
+下面是一个带有查询字符串的 HTML 超链接</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;demo_phpfile.php?subject=PHP&amp;web=w3school.com.cn&#34;</span><span class="p">&gt;</span>测试 $GET<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当用户点击链接时，查询字符串数据会被发送到 demo_phpfile.php。<br>
+在 PHP 文件中，我们可以使用 $_REQUEST 变量来收集查询字符串的值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;Study &#34;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&#34; at &#34;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/html&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4_post-与-_get">4.$_POST 与 $_GET
+</h3><p>详情请看：</p>
+<ul>
+<li><a class="link" href="https://www.w3school.com.cn/php/php_superglobals_post.asp"  target="_blank" rel="noopener"
+    >$_POST</a></li>
+<li><a class="link" href="https://www.w3school.com.cn/php/php_superglobals_get.asp"  target="_blank" rel="noopener"
+    >$_GET</a></li>
+</ul>
+<h2 id="十六正则表达式">十六.正则表达式
+</h2><h3 id="1基本语法-1">1.基本语法
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$exp</span> <span class="o">=</span> <span class="s2">&#34;/w3school/i&#34;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>/ 是分隔符</li>
+<li>w3school 是要搜索的模式(就是指你要搜索什么东西)</li>
+<li>i 是一个修饰符，它使搜索不区分大小写</li>
+</ul>
+<h3 id="2正则表达式函数">2.正则表达式函数
+</h3><p><span style="color: #e74c3c;">preg_match()</span><br>
+preg_match() 函数将告诉你字符串中是否包含与模式匹配的项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//在字符串中执行不区分大小写的搜索以查找 &#34;w3school&#34;
+</span></span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="o">=</span> <span class="s2">&#34;Visit W3School&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pattern</span> <span class="o">=</span> <span class="s2">&#34;/w3school/i&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">preg_match</span><span class="p">(</span><span class="nv">$pattern</span><span class="p">,</span> <span class="nv">$str</span><span class="p">);</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><span style="color: #e74c3c;">preg_match_all()</span><br>
+preg_match_all() 函数将告诉你字符串中与模式匹配的项的数量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//在字符串中执行不区分大小写的搜索，以计算 &#34;ain&#34; 出现的次数
+</span></span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="o">=</span> <span class="s2">&#34;The rain in SPAIN falls mainly on the plains.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pattern</span> <span class="o">=</span> <span class="s2">&#34;/ain/i&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">preg_match_all</span><span class="p">(</span><span class="nv">$pattern</span><span class="p">,</span> <span class="nv">$str</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><span style="color: #e74c3c;">preg_replace()</span><br>
+preg_replace() 函数将字符串中与模式匹配的所有项替换为另一个字符串。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">//使用不区分大小写的正则表达式将字符串中的 &#34;Microsoft&#34; 替换为 &#34;W3School&#34;
+</span></span></span><span class="line"><span class="cl"><span class="nv">$str</span> <span class="o">=</span> <span class="s2">&#34;Visit Microsoft!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pattern</span> <span class="o">=</span> <span class="s2">&#34;/microsoft/i&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">preg_replace</span><span class="p">(</span><span class="nv">$pattern</span><span class="p">,</span> <span class="s2">&#34;W3School&#34;</span><span class="p">,</span> <span class="nv">$str</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3正则表达式修饰符">3.正则表达式修饰符
+</h3><p><img src="/p/php1/16.1.jpg"
+	width="1125"
+	height="232"
+	srcset="/p/php1/16.1_hu_f8b72f74d70ac8cf.jpg 480w, /p/php1/16.1_hu_5a0a5148514bb923.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="484"
+		data-flex-basis="1163px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>正则表达式修饰符：i<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School&#34; 中，字母 s 出现了多少次（不区分大小写）：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/s/i&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>正则表达式修饰符：m<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在以下文本中，短语 &#34;you&#34; 在行首出现了多少次：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>you are better than
+</span></span><span class="line"><span class="cl">you think<span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;you are better than\nyou think&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/^you/m&#34;;                       //“^”放在开头则是寻找在句首的字符串，放在句尾同理
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项都被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4正则表达式模式">4.正则表达式模式
+</h3><p><img src="/p/php1/16.2.jpg"
+	width="1124"
+	height="509"
+	srcset="/p/php1/16.2_hu_c16c611b1a276137.jpg 480w, /p/php1/16.2_hu_f07e5c720e2ec84e.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="220"
+		data-flex-basis="529px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>1.正则表达式修饰符：[co]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School.com.cn&#34; 中，有多少个字母 &#34;c&#34; 或 &#34;o&#34; 出现？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School.com.cn&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[co]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>2.正则表达式修饰符：[^eo]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;Welcome&#34; 中有多少个字母不是 &#34;e&#34; 或 &#34;o&#34;：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;Welcome&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[^eo]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项都被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>3.正则表达式修饰符：[e-o]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;Welcome&#34; 中有多少个字母在字母表中位于 &#34;e&#34; 和 &#34;o&#34; 之间：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;Welcome&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[e-o]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项都被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>4.正则表达式修饰符：[T-e]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;Welcome to W3School&#34; 中，有多少个字母在大写 &#34;T&#34; 和小写 &#34;e&#34; 之间？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;Welcome to W3School&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[T-e]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>5.正则表达式修饰符：[A-Z]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;Welcome to W3School&#34; 中，有多少个字母在大写 &#34;A&#34; 和大写 &#34;Z&#34; 之间？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;Welcome to W3School&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[A-Z]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>6.正则表达式修饰符：[123]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006&#34; 中，有多少个字符是数字 &#34;1&#34;、&#34;2&#34; 或 &#34;3&#34;？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[123]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>7.正则表达式修饰符：[0-5]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;Call 021-68812539&#34; 中，有多少个字符是介于 &#34;0&#34; 和 &#34;5&#34; 之间的数字：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;Call 021-68812539&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[0-5]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项都被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>8.正则表达式修饰符：[0-9]<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006&#34; 中，有多少个数字？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/[0-9]/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5元字符">5.元字符
+</h3><p><img src="/p/php1/16.3.jpg"
+	width="1122"
+	height="726"
+	srcset="/p/php1/16.3_hu_6cadf37970dc03df.jpg 480w, /p/php1/16.3_hu_a4cacabce1454db7.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>1.正则表达式修饰符：cat|dog|fish<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;We have three dogs, one fish, but no cats&#34; 中，&#34;cat&#34;、&#34;dog&#34; 或 &#34;fish&#34; 出现了多少次：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;We have three dogs, one fish, but no cats&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/cat|dog|fish/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项都被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>2.正则表达式修饰符：.<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006.&#34; 中，有多少个任意字符或数字？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006.&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/./&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>3.正则表达式修饰符：^W3<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>文本 &#34;W3School&#34; 是否以 &#34;W3&#34; 开头？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/^W3/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>如果匹配成功，此方法返回 1，否则返回 0。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>4.正则表达式修饰符：World$<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>文本 &#34;Hello World&#34; 是否以 &#34;World&#34; 结尾？：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;Hello World&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/World$/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>如果匹配成功，此方法返回 1，否则返回 0。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>5.正则表达式修饰符：\d<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006&#34; 中，有多少个数字？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\d/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>6.正则表达式修饰符：\D<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006&#34; 中，有多少个非数字字符？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\D/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>7.正则表达式修饰符：\s<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006&#34; 中，有多少个空白字符？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\s/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>8.正则表达式修饰符：\S<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006&#34; 中，有多少个非空白字符？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\S/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>9.正则表达式修饰符：\w<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School.com.cn&#34; 中，有多少个字母或数字字符？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School.com.cn&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\w/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>10.正则表达式修饰符：\w<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School.com.cn&#34; 中，有多少个字母或数字字符？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School.com.cn&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\w/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>11.正则表达式修饰符：\b<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>文本 &#34;Hello World&#34; 是否以 &#34;Hel&#34; 开头？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;Hello World&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\bHel/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>12.正则表达式修饰符：\u<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School has been live since 2006&#34; 中，有多少个数字 &#34;9&#34; 出现？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>使用 &#34;9&#34; 的十六进制等价形式 0039。<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School has been live since 2006&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/\u{0039}/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6量词">6.量词
+</h3><p><img src="/p/php1/16.4.jpg"
+	width="1125"
+	height="176"
+	srcset="/p/php1/16.4_hu_cbc9ae0edb7cb0c0.jpg 480w, /p/php1/16.4_hu_49b3597be22bef8f.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1534px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>1.正则表达式修饰符：o{3}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School is goood&#34; 中，有多少个连续出现 3 个 o（ooo）的情况？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School is goood&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/o{3}/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>2.正则表达式修饰符：o{2,5}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School is gooood&#34; 中，有多少个至少连续出现 2 个 o（oo），但不超过 5 个 o（ooooo）的情况？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School is gooood&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/o{2,5}/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>3.正则表达式修饰符：o{3,}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>在文本 &#34;W3School is goooooood&#34; 中，有多少个至少连续出现 3 个 o（ooo）的情况？<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">$txt = &#34;W3School is goooooood&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">$pattern = &#34;/o{3,}/&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_match_all($pattern, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>匹配到的位置如下：<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="cp">echo preg_replace($pattern, &#34;#&#34;, $txt);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span>  
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>（每个匹配项被替换为 # 字符）<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><span style="color: #e74c3c;"> <strong>注意</strong> </span>：如果您的表达式需要搜索特殊字符之一，您可以使用反斜杠（<span style="color: #e74c3c;"> \ </span>）来转义它们。例如，要搜索一个或多个问号，您可以使用以下表达式：$pattern = &lsquo;/?+/&rsquo;;。</p>
+<p>还可以使用括号 ( ) 将量词应用于整个模式。它们还可以用于选择模式的一部分作为匹配项。<br>
+下面使用分组通过查找 ba 后跟两个 na 实例来搜索单词 &ldquo;banana&rdquo;。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$str</span> <span class="o">=</span> <span class="s2">&#34;Apples and bananas.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pattern</span> <span class="o">=</span> <span class="s2">&#34;/ba(na){2}/i&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nx">preg_match</span><span class="p">(</span><span class="nv">$pattern</span><span class="p">,</span> <span class="nv">$str</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
@@ -3935,7 +5018,7 @@ array_diff() 函数<span style="color: #e74c3c;">将值作为参数，而不是�
 
 
 
-<p>发布了 8 篇文章 | 共 26122 字</p>
+<p>发布了 8 篇文章 | 共 31763 字</p>
     </section>
     
    
@@ -4665,9 +5748,6 @@ document.addEventListener('pjax:complete', initFlyingFish);
     </script>
 </div>
 
-
-    
-    <script src=https://dongyuzzz5.github.io/js/topbar.min.js></script>
 
 <script>
     
