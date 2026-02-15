@@ -7,7 +7,21 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
-        <lastBuildDate>Mon, 02 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 15 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PHP学习日志(二) --- 表单</title>
+        <link>https://dongyuzzz5.github.io/p/php2/</link>
+        <pubDate>Sun, 15 Feb 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://dongyuzzz5.github.io/p/php2/</guid>
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/php2/111.png" alt="Featured image of post PHP学习日志(二) --- 表单" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+&lt;/h2&gt;&lt;p&gt;这篇文章主要是记录下我学习php的笔记，同时方便自己找一些代码，我学习php主要是为了学习代码设计，你如果要学不必看我这篇文章，直接去菜鸟网站学就行了&lt;br&gt;
+附上网址： &lt;a class=&#34;link&#34; href=&#34;https://www.w3school.com.cn/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.w3school.com.cn/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;一-php简介&#34;&gt;一. PHP简介
+&lt;/h2&gt;&lt;h3 id=&#34;1什么是php&#34;&gt;1.什么是PHP
+&lt;/h3&gt;</description>
+        </item>
+        <item>
         <title>PHP学习日志(一) --- 基础</title>
         <link>https://dongyuzzz5.github.io/p/php1/</link>
         <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate>
