@@ -7,16 +7,807 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
-        <lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E9%9F%B3%E9%A2%91/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 08 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E9%9F%B3%E9%A2%91/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Misc音频题类型及例题</title>
         <link>https://dongyuzzz5.github.io/p/misc1/</link>
-        <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
+        <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://dongyuzzz5.github.io/p/misc1/</guid>
-        <description>&lt;img src="https://dongyuzzz5.github.io/p/misc1/111.png" alt="Featured image of post Misc音频题类型及例题" /&gt;&lt;p&gt;(没校园，待更新)&lt;/p&gt;
-&lt;h2 id=&#34;一&#34;&gt;一.
-&lt;/h2&gt;&lt;h3 id=&#34;1&#34;&gt;1.
-&lt;/h3&gt;</description>
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/misc1/111.png" alt="Featured image of post Misc音频题类型及例题" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
+&lt;/h2&gt;&lt;p&gt;这篇文章主要积累我遇见的Misc中的一些音频题，提供一些解题思路和解题工具。&lt;br&gt;
+在解Misc音频题的时候，有时候题目给的文件不会是音频格式，比较敏锐的话，可以直接将文件后缀名改为.mp3、.wav等音频格式。或者将文件进行binwalk扫描并提取文件。&lt;/p&gt;
+&lt;h2 id=&#34;一-工具-mp3stego&#34;&gt;一. 工具 MP3Stego
+&lt;/h2&gt;&lt;h3 id=&#34;1下载&#34;&gt;1.下载
+&lt;/h3&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://www.petitcolas.net/steganography/mp3stego/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.petitcolas.net/steganography/mp3stego/&lt;/a&gt;&lt;br&gt;
+下载最新版，然后解压文件夹就可以了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.1.jpg&#34;
+	width=&#34;1224&#34;
+	height=&#34;459&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.1_hu_fae83f62ab589d8f.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.1_hu_d858e34399c25002.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;266&#34;
+		data-flex-basis=&#34;640px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2使用&#34;&gt;2.使用
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;常用命令:&lt;/strong&gt;&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;-X&lt;/span&gt;        提取隐藏数据&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;-P &lt;text&gt;&lt;/span&gt;        用密码用于嵌入&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;-A&lt;/span&gt;        编写AIFF输出PCM声音文件&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;-s &lt;sb&gt;&lt;/span&gt;        仅在此SB（仅调试）&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;inputBS&lt;/span&gt;        编码音频的输入位&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;outPCM&lt;/span&gt;        输出PCM声音文件（DFLT输入+.AIF | .pcm）&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;outhidden&lt;/span&gt;        输出隐藏的文本文件（dflt inputbs+.txt）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;将需要解密的音频文件放到与Decode.exe相同的路径下&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.2.jpg&#34;
+	width=&#34;1187&#34;
+	height=&#34;691&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.2_hu_e350d4260fd99af0.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.2_hu_77064806bc8d217a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;171&#34;
+		data-flex-basis=&#34;412px&#34;
+	
+&gt;&lt;br&gt;
+在该路径下打开cmd&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.3.jpg&#34;
+	width=&#34;1091&#34;
+	height=&#34;642&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.3_hu_aa44fb23c762a8c5.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.3_hu_452a115e58353225.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;169&#34;
+		data-flex-basis=&#34;407px&#34;
+	
+&gt;&lt;br&gt;
+输入下面指令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Decode.exe -X -P &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; 1.wav
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;PS: 上面命令中“”本来需要输入密码，该题没有密码则用“”表示空密码。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.4.jpg&#34;
+	width=&#34;1169&#34;
+	height=&#34;446&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.4_hu_191e40cfeba1fdbd.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.4_hu_2a02a75e5c866934.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;262&#34;
+		data-flex-basis=&#34;629px&#34;
+	
+&gt;&lt;br&gt;
+可以看到输出了1.wav.pcm和附带的1.wav.txt两个文件，就说明已经解密成功了。&lt;/p&gt;
+&lt;h3 id=&#34;3例题&#34;&gt;3.例题
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.5.jpg&#34;
+	width=&#34;553&#34;
+	height=&#34;101&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.5_hu_8156ade98c347aa1.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.5_hu_d472db0b81b58b03.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;547&#34;
+		data-flex-basis=&#34;1314px&#34;
+	
+&gt;&lt;br&gt;
+题目一开始是zip文件，我们尝试解压，发现解压文件为空&lt;br&gt;
+然后把它丢到editor 010里面分析&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.6.jpg&#34;
+	width=&#34;829&#34;
+	height=&#34;530&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.6_hu_67d43b1cc1cf47fe.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.6_hu_4debc408670c9660.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;156&#34;
+		data-flex-basis=&#34;375px&#34;
+	
+&gt;&lt;br&gt;
+文件头的前 4 个字节 &amp;lsquo;FF FB 92 C0’，可以非常明确地判断这是一个FF FB 92 C0MPEG-1 音频层 3文件&lt;br&gt;
+我们修改它的后缀为mp3,发现是一段音乐，我们放进Audacity进行分析，发现里面没有隐藏的flag.&lt;br&gt;
+接下来我们尝试用mp3专用解析工具MP3Stego&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.7.jpg&#34;
+	width=&#34;553&#34;
+	height=&#34;234&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.7_hu_3c56b5f225e72cb0.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.7_hu_e5b6b1605fd18a06.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;236&#34;
+		data-flex-basis=&#34;567px&#34;
+	
+&gt;&lt;br&gt;
+我们不知道密码就当密码为空就好，尝试一下&lt;br&gt;
+打开生成出来的1.mp3.pcm以及附带的1.mp3.txt文件&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.8.jpg&#34;
+	width=&#34;553&#34;
+	height=&#34;131&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.8_hu_5f3fd77174b8bd30.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.8_hu_d026644148e79ab0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;422&#34;
+		data-flex-basis=&#34;1013px&#34;
+	
+&gt;&lt;br&gt;
+发现PK和test.txt关键字，我们将1.mp3.txt后缀修改为zip&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.9.jpg&#34;
+	width=&#34;553&#34;
+	height=&#34;94&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.9_hu_eb24442fa01dc120.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.9_hu_5a7b7f70a25c732c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;588&#34;
+		data-flex-basis=&#34;1411px&#34;
+	
+&gt;&lt;br&gt;
+发现里面果然有test.txt文件，打开它拿到flag&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/1.10.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;181&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/1.10_hu_8c31be25a0331f54.jpg 480w, https://dongyuzzz5.github.io/p/misc1/1.10_hu_8dbbf11e9524fa25.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;306&#34;
+		data-flex-basis=&#34;734px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二-工具-audacity&#34;&gt;二. 工具 Audacity
+&lt;/h2&gt;&lt;h3 id=&#34;1下载-1&#34;&gt;1.下载
+&lt;/h3&gt;&lt;p&gt;下载地址： &lt;a class=&#34;link&#34; href=&#34;https://www.audacityteam.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.audacityteam.org/&lt;/a&gt;&lt;br&gt;
+点击下载&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.1.jpg&#34;
+	width=&#34;1528&#34;
+	height=&#34;533&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.1_hu_340f5027f53301ef.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.1_hu_170243b791cb80ca.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;286&#34;
+		data-flex-basis=&#34;688px&#34;
+	
+&gt;&lt;br&gt;
+找到Audacity，进行下载安装&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.2.jpg&#34;
+	width=&#34;1658&#34;
+	height=&#34;1221&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.2_hu_e2d20e678e1d1fa0.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.2_hu_dc0c41e2b8764b09.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;135&#34;
+		data-flex-basis=&#34;325px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2使用-1&#34;&gt;2.使用
+&lt;/h3&gt;&lt;p&gt;直接将解密文件拖入Audacity&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.3.jpg&#34;
+	width=&#34;1527&#34;
+	height=&#34;998&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.3_hu_a3f971d47f4bba01.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.3_hu_6712470547a32e15.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;153&#34;
+		data-flex-basis=&#34;367px&#34;
+	
+&gt;&lt;br&gt;
+下面介绍最常用的功能&lt;br&gt;
+查看波形图&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.4.jpg&#34;
+	width=&#34;1527&#34;
+	height=&#34;998&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.4_hu_c822b956c7a3583e.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.4_hu_efe585364510643.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;153&#34;
+		data-flex-basis=&#34;367px&#34;
+	
+&gt;&lt;br&gt;
+若解题思路正确的话，一般会直接出现flag,或者出现明显的摩斯密码图（音频有长有短）&lt;br&gt;
+若查看频谱图看不出明显题解&lt;br&gt;
+可以尝试改变频谱图最高频率&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.5.jpg&#34;
+	width=&#34;1539&#34;
+	height=&#34;1108&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.5_hu_749717310703ff74.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.5_hu_6334470ef20f576a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;333px&#34;
+	
+&gt;&lt;br&gt;
+或者改变窗口宽度，让flag图像显示更加明显&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.6.jpg&#34;
+	width=&#34;362&#34;
+	height=&#34;699&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.6_hu_6fc8071bf8148b6d.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.6_hu_2095632bece6d5e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;51&#34;
+		data-flex-basis=&#34;124px&#34;
+	
+&gt; &lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.7.jpg&#34;
+	width=&#34;379&#34;
+	height=&#34;705&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.7_hu_e4be0cd6374c9337.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.7_hu_f74ff7ac05afc17e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;53&#34;
+		data-flex-basis=&#34;129px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3例题-1&#34;&gt;3.例题
+&lt;/h3&gt;&lt;p&gt;打开题目，是一个.wav格式的音频文件。用Audacity打开，并打开频谱图。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.8.jpg&#34;
+	width=&#34;1269&#34;
+	height=&#34;500&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.8_hu_b99e7a0c9df87b03.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.8_hu_1c818597172c5ddb.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;253&#34;
+		data-flex-basis=&#34;609px&#34;
+	
+&gt;&lt;br&gt;
+可以隐约看到flag,试着调一小窗口大小&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.9.jpg&#34;
+	width=&#34;315&#34;
+	height=&#34;321&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.9_hu_c92f349d48970bbb.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.9_hu_2a9e19dd09839b8e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;98&#34;
+		data-flex-basis=&#34;235px&#34;
+	
+&gt;&lt;br&gt;
+我这里调成1024&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.10.jpg&#34;
+	width=&#34;276&#34;
+	height=&#34;263&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.10_hu_4ebb80fdd9c20d60.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.10_hu_b8aca9a176a0fab3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;104&#34;
+		data-flex-basis=&#34;251px&#34;
+	
+&gt;&lt;br&gt;
+调后，窗口拉小点就能看到flag&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/2.11.jpg&#34;
+	width=&#34;415&#34;
+	height=&#34;363&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/2.11_hu_7434f5f076669f76.jpg 480w, https://dongyuzzz5.github.io/p/misc1/2.11_hu_d6a158410ecfc522.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;114&#34;
+		data-flex-basis=&#34;274px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三-工具-deepsound-附带deepsound2john爆破&#34;&gt;三. 工具 Deepsound (附带deepsound2john爆破)
+&lt;/h2&gt;&lt;h3 id=&#34;1下载-2&#34;&gt;1.下载
+&lt;/h3&gt;&lt;p&gt;下载地址： &lt;a class=&#34;link&#34; href=&#34;https://gitcode.com/open-source-toolkit/e746d/?utm_source=tools_gitcode&amp;amp;index=top&amp;amp;type=card&amp;amp;&amp;amp;uuid_tt_dd=10_37229547440-1757036127093-231989&amp;amp;isLogin=1&amp;amp;from_id=141944208&amp;amp;from_link&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://gitcode.com/open-source-toolkit/e746d/?utm_source=tools_gitcode&amp;amp;index=top&amp;amp;type=card&amp;amp;&amp;amp;uuid_tt_dd=10_37229547440-1757036127093-231989&amp;amp;isLogin=1&amp;amp;from_id=141944208&amp;amp;from_link&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.1.jpg&#34;
+	width=&#34;1563&#34;
+	height=&#34;474&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.1_hu_e7d15194a50f2812.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.1_hu_64a5eb57041bd651.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;329&#34;
+		data-flex-basis=&#34;791px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2使用-2&#34;&gt;2.使用
+&lt;/h3&gt;&lt;p&gt;使用方法很简单，只需打开音频文件，输入密码（若有的话），并保存文件即可。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.2.jpg&#34;
+	width=&#34;1242&#34;
+	height=&#34;896&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.2_hu_f57d26e819ac9637.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.2_hu_5371687dacea0cdd.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;332px&#34;
+	
+&gt;&lt;br&gt;
+若有密码，可以使用kali自带的deepsound2john进行爆破&lt;br&gt;
+在kali命令行中输入以下命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//提取hash值
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;deepsound2john 音频文件名 &amp;gt; hash.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//查看hash值
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat hash.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//爆破
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;john hash.txt
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;//若以爆破过，查看先前爆破后的密码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;john --show hash.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;3例题-2&#34;&gt;3.例题
+&lt;/h3&gt;&lt;p&gt;打开是一个.tar格式文件，给随波逐流发现格式不匹配，说明被改过文件后缀&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.3.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;83&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.3_hu_c0d6c3bf8eda13bb.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.3_hu_80a684957eece27b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;667&#34;
+		data-flex-basis=&#34;1601px&#34;
+	
+&gt;&lt;br&gt;
+改成.zip后打开，有4个文件&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.4.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;147&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.4_hu_60ec5e7b5370005f.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.4_hu_ed372512daadcda3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;376&#34;
+		data-flex-basis=&#34;904px&#34;
+	
+&gt;&lt;br&gt;
+将finalflag.wav文件用Audacity打开，并设置成频谱图。发现flag,但是只有一半。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.5.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;284&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.5_hu_563544302a9afd9f.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.5_hu_763528ecbc105bb6.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;195&#34;
+		data-flex-basis=&#34;468px&#34;
+	
+&gt;&lt;br&gt;
+另一部分想要用Deepsound 解密，但解密需要密码，所以需要进行爆破。通过kali自带的deepsound2john 提取hash值。&lt;br&gt;
+生成hash值。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.6.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;39&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.6_hu_e2904f4c57cc731c.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.6_hu_2d8dc3cf204de69.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1420&#34;
+		data-flex-basis=&#34;3409px&#34;
+	
+&gt;&lt;br&gt;
+查看并爆破。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.7.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;258&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.7_hu_5bffafe02fd1653d.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.7_hu_a4641d08668731d0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;214&#34;
+		data-flex-basis=&#34;515px&#34;
+	
+&gt;&lt;br&gt;
+故密码为azerty&lt;br&gt;
+Ps:若想做第二次时会发现以下情况。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.8.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;82&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.8_hu_ed0c0fedf8a2db07.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.8_hu_55b5befe2bec47ef.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;675&#34;
+		data-flex-basis=&#34;1621px&#34;
+	
+&gt;&lt;br&gt;
+这是因为系统已经破解出该hash值了，会显示未空，可以用下面命令显示。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.9.jpg&#34;
+	width=&#34;550&#34;
+	height=&#34;118&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.9_hu_51181fc3e76ba36e.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.9_hu_83d4ac8a5997cf71.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;466&#34;
+		data-flex-basis=&#34;1118px&#34;
+	
+&gt;&lt;br&gt;
+得出密码后，在deepsound中输入密码即可。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.10.jpg&#34;
+	width=&#34;513&#34;
+	height=&#34;368&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.10_hu_56ca7554f6bfe4a1.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.10_hu_5da0af718fdaeaaa.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;334px&#34;
+	
+&gt;&lt;br&gt;
+会得到一个txt文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.11.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;393&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.11_hu_24c03cdab07bff4d.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.11_hu_97ca296bfeb6fb73.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;338px&#34;
+	
+&gt;&lt;br&gt;
+按保存。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.12.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;400&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.12_hu_db9b609790a28e4e.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.12_hu_60648e5b74de1485.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;332px&#34;
+	
+&gt;&lt;br&gt;
+在保存的目录下查看，打开文件就能看到剩下的flag。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/3.13.jpg&#34;
+	width=&#34;554&#34;
+	height=&#34;113&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/3.13_hu_988918aa57ee8954.jpg 480w, https://dongyuzzz5.github.io/p/misc1/3.13_hu_d0458d06299285e5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;490&#34;
+		data-flex-basis=&#34;1176px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;四-工具-minimoden&#34;&gt;四. 工具 minimoden
+&lt;/h2&gt;&lt;h3 id=&#34;1下载与使用&#34;&gt;1.下载与使用
+&lt;/h3&gt;&lt;p&gt;该工具在kali中下载并使用即可&lt;br&gt;
+使用下面命令进行下载&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install minimodem
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;注意，在在时一定要查看虚拟机是否联网，我但是在这里浪费很多时间&lt;br&gt;
+若即使联网也无法下载可以尝试使用虚拟环境，具体命令自行问ai&lt;br&gt;
+下载完成后，使用下面命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;minimodem -r -f encoded 文件频率
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;具体命令如下&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/4.1.jpg&#34;
+	width=&#34;1267&#34;
+	height=&#34;727&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/4.1_hu_d77644d300d6eef5.jpg 480w, https://dongyuzzz5.github.io/p/misc1/4.1_hu_f060c8d5d0679eb4.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;174&#34;
+		data-flex-basis=&#34;418px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2例题&#34;&gt;2.例题
+&lt;/h3&gt;&lt;p&gt;题目提示modem，上网查找了解到minimodem这个工具，在kali上安装minimodem。用指令“minimodem &amp;ndash;rx -f 文件频率”尝试获取flag，尝试用1000hz后minimodem提示了1200hz，用1200hz成功得到flag&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/4.2.jpg&#34;
+	width=&#34;830&#34;
+	height=&#34;576&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/4.2_hu_b9d394935c3f59ea.jpg 480w, https://dongyuzzz5.github.io/p/misc1/4.2_hu_9440df415f60300a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;345px&#34;
+	
+&gt;&lt;br&gt;
+得到flag：moectf{zizi_U_he@rd_the_meanin9_beh1nd_the_s0und}&lt;/p&gt;
+&lt;h2 id=&#34;五-工具-rx-sstv&#34;&gt;五. 工具 RX-SSTV
+&lt;/h2&gt;&lt;h3 id=&#34;1下载与安装&#34;&gt;1.下载与安装
+&lt;/h3&gt;&lt;p&gt;下载RX-SSTV官网地址： &lt;a class=&#34;link&#34; href=&#34;https://www.qsl.net/on6mu/rxsstv.htm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.qsl.net/on6mu/rxsstv.htm&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.1.jpg&#34;
+	width=&#34;1130&#34;
+	height=&#34;523&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.1_hu_f6b74094473f5c29.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.1_hu_21104305ee95d16a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;216&#34;
+		data-flex-basis=&#34;518px&#34;
+	
+&gt;&lt;br&gt;
+下载后双击.exe文件进行安装。&lt;br&gt;
+选择安装路径（建议不要放c盘，我这里是用于演示）&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.2.jpg&#34;
+	width=&#34;1039&#34;
+	height=&#34;765&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.2_hu_cb28ca2a892feabd.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.2_hu_ab55a85a1bdf53a3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;135&#34;
+		data-flex-basis=&#34;325px&#34;
+	
+&gt;&lt;br&gt;
+这一步是在开始菜单(也就是点击左下角出现的菜单)里创建快捷方式，默认就OK了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.3.jpg&#34;
+	width=&#34;895&#34;
+	height=&#34;674&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.3_hu_9e7d6b73910d642e.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.3_hu_ab65b3952c4213e6.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;132&#34;
+		data-flex-basis=&#34;318px&#34;
+	
+&gt;&lt;br&gt;
+这一步是创建桌面图标，也就是桌面快捷方式。在任务栏创建，就没有太大必要了(想创建也行)&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.4.jpg&#34;
+	width=&#34;895&#34;
+	height=&#34;674&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.4_hu_a63be4aba5507486.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.4_hu_586ae5f6b663539d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;132&#34;
+		data-flex-basis=&#34;318px&#34;
+	
+&gt;&lt;br&gt;
+点击安装&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.5.jpg&#34;
+	width=&#34;895&#34;
+	height=&#34;674&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.5_hu_b64dedb72b7dc5b4.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.5_hu_3f85ef39dd90f5ff.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;132&#34;
+		data-flex-basis=&#34;318px&#34;
+	
+&gt;&lt;br&gt;
+安装完RX-SSTV后，还需安装虚拟声卡VSC用于传导声音。&lt;br&gt;
+VSC虚拟声卡下载地址： &lt;a class=&#34;link&#34; href=&#34;https://www.e2esoft.cn/vsc/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.e2esoft.cn/vsc/&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.7.jpg&#34;
+	width=&#34;1168&#34;
+	height=&#34;648&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.7_hu_839e4cac46227d81.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.7_hu_1ed27aa10acfa880.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;432px&#34;
+	
+&gt;&lt;br&gt;
+下载后双击进行安装。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.6.jpg&#34;
+	width=&#34;848&#34;
+	height=&#34;504&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.6_hu_87d33ae626d3fb0.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.6_hu_ea4ec9b6d6f40ab5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;168&#34;
+		data-flex-basis=&#34;403px&#34;
+	
+&gt;&lt;br&gt;
+点击接受下一步，再选择安装路径（一样不建议放c盘）。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.8.jpg&#34;
+	width=&#34;746&#34;
+	height=&#34;533&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.8_hu_4b94e53d7a9bf74d.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.8_hu_7e3933f90c435dd0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;335px&#34;
+	
+&gt;&lt;br&gt;
+一直下一步即可安装成功。&lt;/p&gt;
+&lt;h3 id=&#34;2配置与使用&#34;&gt;2.配置与使用
+&lt;/h3&gt;&lt;p&gt;打开软件后，点击Setup，选择Sound Control and Devices。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.9.jpg&#34;
+	width=&#34;1473&#34;
+	height=&#34;1015&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.9_hu_b431557574e2ac9e.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.9_hu_5a04ecb9fa24cc98.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;348px&#34;
+	
+&gt;&lt;br&gt;
+在播放选项下，将Line1设置为默认值。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.10.jpg&#34;
+	width=&#34;723&#34;
+	height=&#34;812&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.10_hu_272f89bbbfb22916.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.10_hu_b4f545db4bacdc70.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;89&#34;
+		data-flex-basis=&#34;213px&#34;
+	
+&gt;&lt;br&gt;
+录制选项下也一样。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.11.jpg&#34;
+	width=&#34;723&#34;
+	height=&#34;812&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.11_hu_c046e371bd071adf.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.11_hu_30fa4680d12a858e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;89&#34;
+		data-flex-basis=&#34;213px&#34;
+	
+&gt;&lt;br&gt;
+配置完后，修改下一些设置。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.12.jpg&#34;
+	width=&#34;1046&#34;
+	height=&#34;414&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.12_hu_a012b870031a96f5.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.12_hu_c30105862160b59c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;252&#34;
+		data-flex-basis=&#34;606px&#34;
+	
+&gt;&lt;br&gt;
+按我下面的设置即可。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.13.jpg&#34;
+	width=&#34;1107&#34;
+	height=&#34;803&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.13_hu_d6d9a79785e750e6.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.13_hu_b35ae729a76eafdb.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;137&#34;
+		data-flex-basis=&#34;330px&#34;
+	
+&gt;&lt;br&gt;
+这些设置完后，即可打开音频进行监听了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.14.jpg&#34;
+	width=&#34;1473&#34;
+	height=&#34;1015&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.14_hu_5d37785b9319200a.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.14_hu_871e5eeb95f29ab3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;348px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3例题-3&#34;&gt;3.例题
+&lt;/h3&gt;&lt;p&gt;音频扫描工具，可以使用 RX-SSTV 或者 QSSTV，我这里使用的是 RX-SSTV&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.15.jpg&#34;
+	width=&#34;1420&#34;
+	height=&#34;997&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.15_hu_713406dc8f1fe984.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.15_hu_b92ab33ac7168b34.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;142&#34;
+		data-flex-basis=&#34;341px&#34;
+	
+&gt;&lt;br&gt;
+打开使用时，需要将接受音频的麦克风改为 Virtual Audio Streaming (或VSC)接收，这里也需要到网上下载。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.16.jpg&#34;
+	width=&#34;1496&#34;
+	height=&#34;959&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.16_hu_98b3d71e1521471c.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.16_hu_cf00944950bc78a2.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;155&#34;
+		data-flex-basis=&#34;374px&#34;
+	
+&gt;&lt;br&gt;
+用这个打开题目的音频文件，同时使用 RX-SSTV 进行监听。监听时需要用到 ML280（不过点击点击监听时软件应该会自动跳转，可以不用刻意去调），下面为监听结果输出图。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/5.17.jpg&#34;
+	width=&#34;1739&#34;
+	height=&#34;442&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/misc1/5.17_hu_96df68eeff2087ec.jpg 480w, https://dongyuzzz5.github.io/p/misc1/5.17_hu_a7aa614db5062a52.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;393&#34;
+		data-flex-basis=&#34;944px&#34;
+	
+&gt;&lt;br&gt;
+结果为 flag{6bdfeac1e2baa12d6ac5384cdfd166b0}&lt;/p&gt;
+</description>
         </item>
         
     </channel>

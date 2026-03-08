@@ -10,7 +10,7 @@
 <meta property='og:description' content="积累Misc题的种类及解题工具">
 <meta property='og:url' content='https://dongyuzzz5.github.io/p/misc1/'>
 <meta property='og:site_name' content='冬 鱼 🐟️'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Misc' /><meta property='article:tag' content='音频' /><meta property='article:published_time' content='2026-01-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-01-28T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/misc1/111.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Misc' /><meta property='article:tag' content='音频' /><meta property='article:published_time' content='2026-03-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-08T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/misc1/111.png' />
 <meta name="twitter:title" content="Misc音频题类型及例题">
 <meta name="twitter:description" content="积累Misc题的种类及解题工具"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/misc1/111.png' /><div class="loading">
@@ -346,9 +346,39 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#一">一.</a>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#一-工具-mp3stego">一. 工具 MP3Stego</a>
       <ol>
-        <li><a href="#1">1.</a></li>
+        <li><a href="#1下载">1.下载</a></li>
+        <li><a href="#2使用">2.使用</a></li>
+        <li><a href="#3例题">3.例题</a></li>
+      </ol>
+    </li>
+    <li><a href="#二-工具-audacity">二. 工具 Audacity</a>
+      <ol>
+        <li><a href="#1下载-1">1.下载</a></li>
+        <li><a href="#2使用-1">2.使用</a></li>
+        <li><a href="#3例题-1">3.例题</a></li>
+      </ol>
+    </li>
+    <li><a href="#三-工具-deepsound-附带deepsound2john爆破">三. 工具 Deepsound (附带deepsound2john爆破)</a>
+      <ol>
+        <li><a href="#1下载-2">1.下载</a></li>
+        <li><a href="#2使用-2">2.使用</a></li>
+        <li><a href="#3例题-2">3.例题</a></li>
+      </ol>
+    </li>
+    <li><a href="#四-工具-minimoden">四. 工具 minimoden</a>
+      <ol>
+        <li><a href="#1下载与使用">1.下载与使用</a></li>
+        <li><a href="#2例题">2.例题</a></li>
+      </ol>
+    </li>
+    <li><a href="#五-工具-rx-sstv">五. 工具 RX-SSTV</a>
+      <ol>
+        <li><a href="#1下载与安装">1.下载与安装</a></li>
+        <li><a href="#2配置与使用">2.配置与使用</a></li>
+        <li><a href="#3例题-3">3.例题</a></li>
       </ol>
     </li>
   </ol>
@@ -423,7 +453,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-01-28T00:00:00Z'>2026-01-28</time>
+                <time class="article-time--published" datetime='2026-03-08T00:00:00Z'>2026-03-08</time>
             </div>
         
 
@@ -449,10 +479,801 @@
     <section class="article-content">
     
     
-    <p>(没校园，待更新)</p>
-<h2 id="一">一.
-</h2><h3 id="1">1.
-</h3>
+    <h2 id="前言">前言
+</h2><p>这篇文章主要积累我遇见的Misc中的一些音频题，提供一些解题思路和解题工具。<br>
+在解Misc音频题的时候，有时候题目给的文件不会是音频格式，比较敏锐的话，可以直接将文件后缀名改为.mp3、.wav等音频格式。或者将文件进行binwalk扫描并提取文件。</p>
+<h2 id="一-工具-mp3stego">一. 工具 MP3Stego
+</h2><h3 id="1下载">1.下载
+</h3><p>下载地址：<a class="link" href="https://www.petitcolas.net/steganography/mp3stego/"  target="_blank" rel="noopener"
+    >https://www.petitcolas.net/steganography/mp3stego/</a><br>
+下载最新版，然后解压文件夹就可以了。<br>
+<img src="/p/misc1/1.1.jpg"
+	width="1224"
+	height="459"
+	srcset="/p/misc1/1.1_hu_fae83f62ab589d8f.jpg 480w, /p/misc1/1.1_hu_d858e34399c25002.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="266"
+		data-flex-basis="640px"
+	
+></p>
+<h3 id="2使用">2.使用
+</h3><blockquote>
+<p><strong>常用命令:</strong><br>
+<span style="color: #e74c3c;">-X</span>        提取隐藏数据<br>
+<span style="color: #e74c3c;">-P <text></span>        用密码用于嵌入<br>
+<span style="color: #e74c3c;">-A</span>        编写AIFF输出PCM声音文件<br>
+<span style="color: #e74c3c;">-s <sb></span>        仅在此SB（仅调试）<br>
+<span style="color: #e74c3c;">inputBS</span>        编码音频的输入位<br>
+<span style="color: #e74c3c;">outPCM</span>        输出PCM声音文件（DFLT输入+.AIF | .pcm）<br>
+<span style="color: #e74c3c;">outhidden</span>        输出隐藏的文本文件（dflt inputbs+.txt）</p>
+</blockquote>
+<p>将需要解密的音频文件放到与Decode.exe相同的路径下<br>
+<img src="/p/misc1/1.2.jpg"
+	width="1187"
+	height="691"
+	srcset="/p/misc1/1.2_hu_e350d4260fd99af0.jpg 480w, /p/misc1/1.2_hu_77064806bc8d217a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+><br>
+在该路径下打开cmd<br>
+<img src="/p/misc1/1.3.jpg"
+	width="1091"
+	height="642"
+	srcset="/p/misc1/1.3_hu_aa44fb23c762a8c5.jpg 480w, /p/misc1/1.3_hu_452a115e58353225.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="407px"
+	
+><br>
+输入下面指令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Decode.exe -X -P <span class="s2">&#34;&#34;</span> 1.wav
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>PS: 上面命令中“”本来需要输入密码，该题没有密码则用“”表示空密码。<br>
+<img src="/p/misc1/1.4.jpg"
+	width="1169"
+	height="446"
+	srcset="/p/misc1/1.4_hu_191e40cfeba1fdbd.jpg 480w, /p/misc1/1.4_hu_2a02a75e5c866934.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="262"
+		data-flex-basis="629px"
+	
+><br>
+可以看到输出了1.wav.pcm和附带的1.wav.txt两个文件，就说明已经解密成功了。</p>
+<h3 id="3例题">3.例题
+</h3><p><img src="/p/misc1/1.5.jpg"
+	width="553"
+	height="101"
+	srcset="/p/misc1/1.5_hu_8156ade98c347aa1.jpg 480w, /p/misc1/1.5_hu_d472db0b81b58b03.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="547"
+		data-flex-basis="1314px"
+	
+><br>
+题目一开始是zip文件，我们尝试解压，发现解压文件为空<br>
+然后把它丢到editor 010里面分析<br>
+<img src="/p/misc1/1.6.jpg"
+	width="829"
+	height="530"
+	srcset="/p/misc1/1.6_hu_67d43b1cc1cf47fe.jpg 480w, /p/misc1/1.6_hu_4debc408670c9660.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="156"
+		data-flex-basis="375px"
+	
+><br>
+文件头的前 4 个字节 &lsquo;FF FB 92 C0’，可以非常明确地判断这是一个FF FB 92 C0MPEG-1 音频层 3文件<br>
+我们修改它的后缀为mp3,发现是一段音乐，我们放进Audacity进行分析，发现里面没有隐藏的flag.<br>
+接下来我们尝试用mp3专用解析工具MP3Stego<br>
+<img src="/p/misc1/1.7.jpg"
+	width="553"
+	height="234"
+	srcset="/p/misc1/1.7_hu_3c56b5f225e72cb0.jpg 480w, /p/misc1/1.7_hu_e5b6b1605fd18a06.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="236"
+		data-flex-basis="567px"
+	
+><br>
+我们不知道密码就当密码为空就好，尝试一下<br>
+打开生成出来的1.mp3.pcm以及附带的1.mp3.txt文件<br>
+<img src="/p/misc1/1.8.jpg"
+	width="553"
+	height="131"
+	srcset="/p/misc1/1.8_hu_5f3fd77174b8bd30.jpg 480w, /p/misc1/1.8_hu_d026644148e79ab0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="422"
+		data-flex-basis="1013px"
+	
+><br>
+发现PK和test.txt关键字，我们将1.mp3.txt后缀修改为zip<br>
+<img src="/p/misc1/1.9.jpg"
+	width="553"
+	height="94"
+	srcset="/p/misc1/1.9_hu_eb24442fa01dc120.jpg 480w, /p/misc1/1.9_hu_5a7b7f70a25c732c.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="588"
+		data-flex-basis="1411px"
+	
+><br>
+发现里面果然有test.txt文件，打开它拿到flag<br>
+<img src="/p/misc1/1.10.jpg"
+	width="554"
+	height="181"
+	srcset="/p/misc1/1.10_hu_8c31be25a0331f54.jpg 480w, /p/misc1/1.10_hu_8dbbf11e9524fa25.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="306"
+		data-flex-basis="734px"
+	
+></p>
+<h2 id="二-工具-audacity">二. 工具 Audacity
+</h2><h3 id="1下载-1">1.下载
+</h3><p>下载地址： <a class="link" href="https://www.audacityteam.org/"  target="_blank" rel="noopener"
+    >https://www.audacityteam.org/</a><br>
+点击下载<br>
+<img src="/p/misc1/2.1.jpg"
+	width="1528"
+	height="533"
+	srcset="/p/misc1/2.1_hu_340f5027f53301ef.jpg 480w, /p/misc1/2.1_hu_170243b791cb80ca.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="286"
+		data-flex-basis="688px"
+	
+><br>
+找到Audacity，进行下载安装<br>
+<img src="/p/misc1/2.2.jpg"
+	width="1658"
+	height="1221"
+	srcset="/p/misc1/2.2_hu_e2d20e678e1d1fa0.jpg 480w, /p/misc1/2.2_hu_dc0c41e2b8764b09.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="135"
+		data-flex-basis="325px"
+	
+></p>
+<h3 id="2使用-1">2.使用
+</h3><p>直接将解密文件拖入Audacity<br>
+<img src="/p/misc1/2.3.jpg"
+	width="1527"
+	height="998"
+	srcset="/p/misc1/2.3_hu_a3f971d47f4bba01.jpg 480w, /p/misc1/2.3_hu_6712470547a32e15.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="367px"
+	
+><br>
+下面介绍最常用的功能<br>
+查看波形图<br>
+<img src="/p/misc1/2.4.jpg"
+	width="1527"
+	height="998"
+	srcset="/p/misc1/2.4_hu_c822b956c7a3583e.jpg 480w, /p/misc1/2.4_hu_efe585364510643.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="367px"
+	
+><br>
+若解题思路正确的话，一般会直接出现flag,或者出现明显的摩斯密码图（音频有长有短）<br>
+若查看频谱图看不出明显题解<br>
+可以尝试改变频谱图最高频率<br>
+<img src="/p/misc1/2.5.jpg"
+	width="1539"
+	height="1108"
+	srcset="/p/misc1/2.5_hu_749717310703ff74.jpg 480w, /p/misc1/2.5_hu_6334470ef20f576a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="333px"
+	
+><br>
+或者改变窗口宽度，让flag图像显示更加明显<br>
+<img src="/p/misc1/2.6.jpg"
+	width="362"
+	height="699"
+	srcset="/p/misc1/2.6_hu_6fc8071bf8148b6d.jpg 480w, /p/misc1/2.6_hu_2095632bece6d5e.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="51"
+		data-flex-basis="124px"
+	
+> <img src="/p/misc1/2.7.jpg"
+	width="379"
+	height="705"
+	srcset="/p/misc1/2.7_hu_e4be0cd6374c9337.jpg 480w, /p/misc1/2.7_hu_f74ff7ac05afc17e.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="53"
+		data-flex-basis="129px"
+	
+></p>
+<h3 id="3例题-1">3.例题
+</h3><p>打开题目，是一个.wav格式的音频文件。用Audacity打开，并打开频谱图。<br>
+<img src="/p/misc1/2.8.jpg"
+	width="1269"
+	height="500"
+	srcset="/p/misc1/2.8_hu_b99e7a0c9df87b03.jpg 480w, /p/misc1/2.8_hu_1c818597172c5ddb.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="253"
+		data-flex-basis="609px"
+	
+><br>
+可以隐约看到flag,试着调一小窗口大小<br>
+<img src="/p/misc1/2.9.jpg"
+	width="315"
+	height="321"
+	srcset="/p/misc1/2.9_hu_c92f349d48970bbb.jpg 480w, /p/misc1/2.9_hu_2a9e19dd09839b8e.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="98"
+		data-flex-basis="235px"
+	
+><br>
+我这里调成1024<br>
+<img src="/p/misc1/2.10.jpg"
+	width="276"
+	height="263"
+	srcset="/p/misc1/2.10_hu_4ebb80fdd9c20d60.jpg 480w, /p/misc1/2.10_hu_b8aca9a176a0fab3.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="104"
+		data-flex-basis="251px"
+	
+><br>
+调后，窗口拉小点就能看到flag<br>
+<img src="/p/misc1/2.11.jpg"
+	width="415"
+	height="363"
+	srcset="/p/misc1/2.11_hu_7434f5f076669f76.jpg 480w, /p/misc1/2.11_hu_d6a158410ecfc522.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="274px"
+	
+></p>
+<h2 id="三-工具-deepsound-附带deepsound2john爆破">三. 工具 Deepsound (附带deepsound2john爆破)
+</h2><h3 id="1下载-2">1.下载
+</h3><p>下载地址： <a class="link" href="https://gitcode.com/open-source-toolkit/e746d/?utm_source=tools_gitcode&amp;index=top&amp;type=card&amp;&amp;uuid_tt_dd=10_37229547440-1757036127093-231989&amp;isLogin=1&amp;from_id=141944208&amp;from_link"  target="_blank" rel="noopener"
+    >https://gitcode.com/open-source-toolkit/e746d/?utm_source=tools_gitcode&amp;index=top&amp;type=card&amp;&amp;uuid_tt_dd=10_37229547440-1757036127093-231989&amp;isLogin=1&amp;from_id=141944208&amp;from_link</a><br>
+<img src="/p/misc1/3.1.jpg"
+	width="1563"
+	height="474"
+	srcset="/p/misc1/3.1_hu_e7d15194a50f2812.jpg 480w, /p/misc1/3.1_hu_64a5eb57041bd651.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="329"
+		data-flex-basis="791px"
+	
+></p>
+<h3 id="2使用-2">2.使用
+</h3><p>使用方法很简单，只需打开音频文件，输入密码（若有的话），并保存文件即可。<br>
+<img src="/p/misc1/3.2.jpg"
+	width="1242"
+	height="896"
+	srcset="/p/misc1/3.2_hu_f57d26e819ac9637.jpg 480w, /p/misc1/3.2_hu_5371687dacea0cdd.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="332px"
+	
+><br>
+若有密码，可以使用kali自带的deepsound2john进行爆破<br>
+在kali命令行中输入以下命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">//提取hash值
+</span></span><span class="line"><span class="cl">deepsound2john 音频文件名 &gt; hash.txt
+</span></span><span class="line"><span class="cl">//查看hash值
+</span></span><span class="line"><span class="cl">cat hash.txt
+</span></span><span class="line"><span class="cl">//爆破
+</span></span><span class="line"><span class="cl">john hash.txt
+</span></span><span class="line"><span class="cl">//若以爆破过，查看先前爆破后的密码
+</span></span><span class="line"><span class="cl">john --show hash.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3例题-2">3.例题
+</h3><p>打开是一个.tar格式文件，给随波逐流发现格式不匹配，说明被改过文件后缀<br>
+<img src="/p/misc1/3.3.jpg"
+	width="554"
+	height="83"
+	srcset="/p/misc1/3.3_hu_c0d6c3bf8eda13bb.jpg 480w, /p/misc1/3.3_hu_80a684957eece27b.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="667"
+		data-flex-basis="1601px"
+	
+><br>
+改成.zip后打开，有4个文件<br>
+<img src="/p/misc1/3.4.jpg"
+	width="554"
+	height="147"
+	srcset="/p/misc1/3.4_hu_60ec5e7b5370005f.jpg 480w, /p/misc1/3.4_hu_ed372512daadcda3.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="376"
+		data-flex-basis="904px"
+	
+><br>
+将finalflag.wav文件用Audacity打开，并设置成频谱图。发现flag,但是只有一半。<br>
+<img src="/p/misc1/3.5.jpg"
+	width="554"
+	height="284"
+	srcset="/p/misc1/3.5_hu_563544302a9afd9f.jpg 480w, /p/misc1/3.5_hu_763528ecbc105bb6.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="468px"
+	
+><br>
+另一部分想要用Deepsound 解密，但解密需要密码，所以需要进行爆破。通过kali自带的deepsound2john 提取hash值。<br>
+生成hash值。<br>
+<img src="/p/misc1/3.6.jpg"
+	width="554"
+	height="39"
+	srcset="/p/misc1/3.6_hu_e2904f4c57cc731c.jpg 480w, /p/misc1/3.6_hu_2d8dc3cf204de69.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1420"
+		data-flex-basis="3409px"
+	
+><br>
+查看并爆破。<br>
+<img src="/p/misc1/3.7.jpg"
+	width="554"
+	height="258"
+	srcset="/p/misc1/3.7_hu_5bffafe02fd1653d.jpg 480w, /p/misc1/3.7_hu_a4641d08668731d0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="214"
+		data-flex-basis="515px"
+	
+><br>
+故密码为azerty<br>
+Ps:若想做第二次时会发现以下情况。<br>
+<img src="/p/misc1/3.8.jpg"
+	width="554"
+	height="82"
+	srcset="/p/misc1/3.8_hu_ed0c0fedf8a2db07.jpg 480w, /p/misc1/3.8_hu_55b5befe2bec47ef.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="675"
+		data-flex-basis="1621px"
+	
+><br>
+这是因为系统已经破解出该hash值了，会显示未空，可以用下面命令显示。<br>
+<img src="/p/misc1/3.9.jpg"
+	width="550"
+	height="118"
+	srcset="/p/misc1/3.9_hu_51181fc3e76ba36e.jpg 480w, /p/misc1/3.9_hu_83d4ac8a5997cf71.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="466"
+		data-flex-basis="1118px"
+	
+><br>
+得出密码后，在deepsound中输入密码即可。<br>
+<img src="/p/misc1/3.10.jpg"
+	width="513"
+	height="368"
+	srcset="/p/misc1/3.10_hu_56ca7554f6bfe4a1.jpg 480w, /p/misc1/3.10_hu_5da0af718fdaeaaa.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="334px"
+	
+><br>
+会得到一个txt文件。<br>
+<img src="/p/misc1/3.11.jpg"
+	width="554"
+	height="393"
+	srcset="/p/misc1/3.11_hu_24c03cdab07bff4d.jpg 480w, /p/misc1/3.11_hu_97ca296bfeb6fb73.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="338px"
+	
+><br>
+按保存。<br>
+<img src="/p/misc1/3.12.jpg"
+	width="554"
+	height="400"
+	srcset="/p/misc1/3.12_hu_db9b609790a28e4e.jpg 480w, /p/misc1/3.12_hu_60648e5b74de1485.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="332px"
+	
+><br>
+在保存的目录下查看，打开文件就能看到剩下的flag。<br>
+<img src="/p/misc1/3.13.jpg"
+	width="554"
+	height="113"
+	srcset="/p/misc1/3.13_hu_988918aa57ee8954.jpg 480w, /p/misc1/3.13_hu_d0458d06299285e5.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="490"
+		data-flex-basis="1176px"
+	
+></p>
+<h2 id="四-工具-minimoden">四. 工具 minimoden
+</h2><h3 id="1下载与使用">1.下载与使用
+</h3><p>该工具在kali中下载并使用即可<br>
+使用下面命令进行下载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install minimodem
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意，在在时一定要查看虚拟机是否联网，我但是在这里浪费很多时间<br>
+若即使联网也无法下载可以尝试使用虚拟环境，具体命令自行问ai<br>
+下载完成后，使用下面命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minimodem -r -f encoded 文件频率
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体命令如下<br>
+<img src="/p/misc1/4.1.jpg"
+	width="1267"
+	height="727"
+	srcset="/p/misc1/4.1_hu_d77644d300d6eef5.jpg 480w, /p/misc1/4.1_hu_f060c8d5d0679eb4.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="174"
+		data-flex-basis="418px"
+	
+></p>
+<h3 id="2例题">2.例题
+</h3><p>题目提示modem，上网查找了解到minimodem这个工具，在kali上安装minimodem。用指令“minimodem &ndash;rx -f 文件频率”尝试获取flag，尝试用1000hz后minimodem提示了1200hz，用1200hz成功得到flag<br>
+<img src="/p/misc1/4.2.jpg"
+	width="830"
+	height="576"
+	srcset="/p/misc1/4.2_hu_b9d394935c3f59ea.jpg 480w, /p/misc1/4.2_hu_9440df415f60300a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="345px"
+	
+><br>
+得到flag：moectf{zizi_U_he@rd_the_meanin9_beh1nd_the_s0und}</p>
+<h2 id="五-工具-rx-sstv">五. 工具 RX-SSTV
+</h2><h3 id="1下载与安装">1.下载与安装
+</h3><p>下载RX-SSTV官网地址： <a class="link" href="https://www.qsl.net/on6mu/rxsstv.htm"  target="_blank" rel="noopener"
+    >https://www.qsl.net/on6mu/rxsstv.htm</a><br>
+<img src="/p/misc1/5.1.jpg"
+	width="1130"
+	height="523"
+	srcset="/p/misc1/5.1_hu_f6b74094473f5c29.jpg 480w, /p/misc1/5.1_hu_21104305ee95d16a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="216"
+		data-flex-basis="518px"
+	
+><br>
+下载后双击.exe文件进行安装。<br>
+选择安装路径（建议不要放c盘，我这里是用于演示）<br>
+<img src="/p/misc1/5.2.jpg"
+	width="1039"
+	height="765"
+	srcset="/p/misc1/5.2_hu_cb28ca2a892feabd.jpg 480w, /p/misc1/5.2_hu_ab55a85a1bdf53a3.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="135"
+		data-flex-basis="325px"
+	
+><br>
+这一步是在开始菜单(也就是点击左下角出现的菜单)里创建快捷方式，默认就OK了。<br>
+<img src="/p/misc1/5.3.jpg"
+	width="895"
+	height="674"
+	srcset="/p/misc1/5.3_hu_9e7d6b73910d642e.jpg 480w, /p/misc1/5.3_hu_ab65b3952c4213e6.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="318px"
+	
+><br>
+这一步是创建桌面图标，也就是桌面快捷方式。在任务栏创建，就没有太大必要了(想创建也行)<br>
+<img src="/p/misc1/5.4.jpg"
+	width="895"
+	height="674"
+	srcset="/p/misc1/5.4_hu_a63be4aba5507486.jpg 480w, /p/misc1/5.4_hu_586ae5f6b663539d.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="318px"
+	
+><br>
+点击安装<br>
+<img src="/p/misc1/5.5.jpg"
+	width="895"
+	height="674"
+	srcset="/p/misc1/5.5_hu_b64dedb72b7dc5b4.jpg 480w, /p/misc1/5.5_hu_3f85ef39dd90f5ff.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="318px"
+	
+><br>
+安装完RX-SSTV后，还需安装虚拟声卡VSC用于传导声音。<br>
+VSC虚拟声卡下载地址： <a class="link" href="https://www.e2esoft.cn/vsc/"  target="_blank" rel="noopener"
+    >https://www.e2esoft.cn/vsc/</a><br>
+<img src="/p/misc1/5.7.jpg"
+	width="1168"
+	height="648"
+	srcset="/p/misc1/5.7_hu_839e4cac46227d81.jpg 480w, /p/misc1/5.7_hu_1ed27aa10acfa880.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="432px"
+	
+><br>
+下载后双击进行安装。<br>
+<img src="/p/misc1/5.6.jpg"
+	width="848"
+	height="504"
+	srcset="/p/misc1/5.6_hu_87d33ae626d3fb0.jpg 480w, /p/misc1/5.6_hu_ea4ec9b6d6f40ab5.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="403px"
+	
+><br>
+点击接受下一步，再选择安装路径（一样不建议放c盘）。<br>
+<img src="/p/misc1/5.8.jpg"
+	width="746"
+	height="533"
+	srcset="/p/misc1/5.8_hu_4b94e53d7a9bf74d.jpg 480w, /p/misc1/5.8_hu_7e3933f90c435dd0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="335px"
+	
+><br>
+一直下一步即可安装成功。</p>
+<h3 id="2配置与使用">2.配置与使用
+</h3><p>打开软件后，点击Setup，选择Sound Control and Devices。<br>
+<img src="/p/misc1/5.9.jpg"
+	width="1473"
+	height="1015"
+	srcset="/p/misc1/5.9_hu_b431557574e2ac9e.jpg 480w, /p/misc1/5.9_hu_5a04ecb9fa24cc98.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="348px"
+	
+><br>
+在播放选项下，将Line1设置为默认值。<br>
+<img src="/p/misc1/5.10.jpg"
+	width="723"
+	height="812"
+	srcset="/p/misc1/5.10_hu_272f89bbbfb22916.jpg 480w, /p/misc1/5.10_hu_b4f545db4bacdc70.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="213px"
+	
+><br>
+录制选项下也一样。<br>
+<img src="/p/misc1/5.11.jpg"
+	width="723"
+	height="812"
+	srcset="/p/misc1/5.11_hu_c046e371bd071adf.jpg 480w, /p/misc1/5.11_hu_30fa4680d12a858e.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="213px"
+	
+><br>
+配置完后，修改下一些设置。<br>
+<img src="/p/misc1/5.12.jpg"
+	width="1046"
+	height="414"
+	srcset="/p/misc1/5.12_hu_a012b870031a96f5.jpg 480w, /p/misc1/5.12_hu_c30105862160b59c.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="606px"
+	
+><br>
+按我下面的设置即可。<br>
+<img src="/p/misc1/5.13.jpg"
+	width="1107"
+	height="803"
+	srcset="/p/misc1/5.13_hu_d6d9a79785e750e6.jpg 480w, /p/misc1/5.13_hu_b35ae729a76eafdb.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="330px"
+	
+><br>
+这些设置完后，即可打开音频进行监听了。<br>
+<img src="/p/misc1/5.14.jpg"
+	width="1473"
+	height="1015"
+	srcset="/p/misc1/5.14_hu_5d37785b9319200a.jpg 480w, /p/misc1/5.14_hu_871e5eeb95f29ab3.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="348px"
+	
+></p>
+<h3 id="3例题-3">3.例题
+</h3><p>音频扫描工具，可以使用 RX-SSTV 或者 QSSTV，我这里使用的是 RX-SSTV<br>
+<img src="/p/misc1/5.15.jpg"
+	width="1420"
+	height="997"
+	srcset="/p/misc1/5.15_hu_713406dc8f1fe984.jpg 480w, /p/misc1/5.15_hu_b92ab33ac7168b34.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="341px"
+	
+><br>
+打开使用时，需要将接受音频的麦克风改为 Virtual Audio Streaming (或VSC)接收，这里也需要到网上下载。<br>
+<img src="/p/misc1/5.16.jpg"
+	width="1496"
+	height="959"
+	srcset="/p/misc1/5.16_hu_98b3d71e1521471c.jpg 480w, /p/misc1/5.16_hu_cf00944950bc78a2.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="155"
+		data-flex-basis="374px"
+	
+><br>
+用这个打开题目的音频文件，同时使用 RX-SSTV 进行监听。监听时需要用到 ML280（不过点击点击监听时软件应该会自动跳转，可以不用刻意去调），下面为监听结果输出图。<br>
+<img src="/p/misc1/5.17.jpg"
+	width="1739"
+	height="442"
+	srcset="/p/misc1/5.17_hu_96df68eeff2087ec.jpg 480w, /p/misc1/5.17_hu_a7aa614db5062a52.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="393"
+		data-flex-basis="944px"
+	
+><br>
+结果为 flag{6bdfeac1e2baa12d6ac5384cdfd166b0}</p>
+
 </section>
 
 
@@ -670,7 +1491,7 @@
 
 
 
-<p>发布了 10 篇文章 | 共 35148 字</p>
+<p>发布了 10 篇文章 | 共 37443 字</p>
     </section>
     
    
