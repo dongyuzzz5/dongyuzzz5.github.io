@@ -8,6 +8,386 @@
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
         <lastBuildDate>Wed, 11 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PHP代码审计 --- XSS漏洞</title>
+        <link>https://dongyuzzz5.github.io/p/phpchat1/</link>
+        <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://dongyuzzz5.github.io/p/phpchat1/</guid>
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/phpchat1/111.png" alt="Featured image of post PHP代码审计 --- XSS漏洞" /&gt;&lt;h2 id=&#34;一-xss介绍及原理&#34;&gt;一. XSS介绍及原理
+&lt;/h2&gt;&lt;h3 id=&#34;1漏洞介绍&#34;&gt;1.漏洞介绍
+&lt;/h3&gt;&lt;p&gt;XSS漏洞通常指的是&lt;span style=&#34;color: #e74c3c;&#34;&gt;通过利用网页开发时留下的漏洞&lt;/span&gt;，通过巧妙的方法注入恶意指令代码到网页，使用户加载并执行攻击者恶意制造的网页程序。
+这些恶意网页程序&lt;span style=&#34;color: #e74c3c;&#34;&gt;通常是JavaScript&lt;/span&gt;,但实际上可以包括Java、ActiveX、VBScript、Flash或者甚至是普通的HTML。攻击成功后，攻击者可能得到
+但不限于更高的权限、私密网页内容、会话和cookie等各种内容。&lt;/p&gt;
+&lt;h3 id=&#34;2漏洞原理&#34;&gt;2.漏洞原理
+&lt;/h3&gt;&lt;p&gt;HTML是一种超文本标记语言，通过将一些字符特殊地对待来区别文本和标记，例如，小于符号(&amp;lt;)被看作是HTML标签的开始。当动态页面中插入的内容含有这些特殊符号时，用户&lt;span style=&#34;color: #e74c3c;&#34;&gt;浏览器会将其误认为
+是插入了HTML标签&lt;/span&gt;，当这些HTML标签引入一段JavaScript脚本时，这些脚本程序就将会在用户浏览器中执行。所以，当这些特殊字符不能别动态页面
+检查或检查出现错误时，就将会产生XSS漏洞。&lt;/p&gt;
+&lt;h3 id=&#34;3xss演示&#34;&gt;3.XSS演示
+&lt;/h3&gt;&lt;p&gt;下面通过两个例子加深一下对XSS漏洞的理解。&lt;br&gt;
+第一个：&lt;a class=&#34;link&#34; href=&#34;https://xss-game.appspot.com/level1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://xss-game.appspot.com/level1&lt;/a&gt;&lt;br&gt;
+进去后我们可以看到一个输入框，我们在输入框中随便输入一点东西后点确认，我们可以看到页面返回了我们刚刚输入的内容。&lt;br&gt;
+这就说明该页面可能存在XSS漏洞。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.1.jpg&#34;
+	width=&#34;1058&#34;
+	height=&#34;544&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.1_hu_fd261e83ab4178aa.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/1.1_hu_b88024321ccb7366.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;194&#34;
+		data-flex-basis=&#34;466px&#34;
+	
+&gt;&lt;br&gt;
+所以我们尝试一下下面这句简单的payload。将它输入到刚刚的输入框中。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;按回车后，可以看到网页弹出了内容为1的弹出，说明已经注入成功了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.2.jpg&#34;
+	width=&#34;693&#34;
+	height=&#34;351&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.2_hu_387ed4ca4db28dc8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/1.2_hu_f56abc2c3cb6c4b7.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;473px&#34;
+	
+&gt;&lt;br&gt;
+我们通过F12开发者工具，可以查看到该语句确实已经插入到网页中。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.3.jpg&#34;
+	width=&#34;994&#34;
+	height=&#34;504&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.3_hu_909cc8a4c465bccd.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/1.3_hu_f04001147abf0e83.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;473px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;接着我们来看第二个例子：&lt;a class=&#34;link&#34; href=&#34;https://xss-game.appspot.com/level2&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://xss-game.appspot.com/level2&lt;/a&gt;&lt;br&gt;
+我们尝试一下用刚刚的payload注入。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;hello&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;dongyu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/script&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;发现不起作用。&lt;br&gt;
+说明可能代码将&amp;lt;script&amp;gt;标签给过滤掉了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.4.jpg&#34;
+	width=&#34;1047&#34;
+	height=&#34;524&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.4_hu_7ba6bcd5a5d07b57.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/1.4_hu_302a7d2b977eeb5a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;199&#34;
+		data-flex-basis=&#34;479px&#34;
+	
+&gt;&lt;br&gt;
+我们可以尝试下另外一句简单的payload。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;img&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;onerror&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;javascript&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可以看到页面出现了弹窗，说明注入成功了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.5.jpg&#34;
+	width=&#34;693&#34;
+	height=&#34;351&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.5_hu_ef62d374a2925f0a.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/1.5_hu_2f10d178b01d9303.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;473px&#34;
+	
+&gt;&lt;br&gt;
+我们可以用开发者工具进行查看。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.6.jpg&#34;
+	width=&#34;888&#34;
+	height=&#34;294&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/1.6_hu_2a0053f2f6957e32.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/1.6_hu_a792cbf78375b6ff.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;302&#34;
+		data-flex-basis=&#34;724px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二-xss漏洞种类&#34;&gt;二. XSS漏洞种类
+&lt;/h2&gt;&lt;h3 id=&#34;1反射型xss&#34;&gt;1.反射型XSS
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;简介&lt;/strong&gt;：如果URL地址当中的恶意参数会直接被输出到页面中，导致攻击代码被触发，就称之为反射型XSS。&lt;/p&gt;
+&lt;p&gt;下面通过DVWA靶场进行演示。&lt;br&gt;
+该靶场的搭建可以看我的一篇教程：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/bachang/?t=1773227922879&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;靶场搭建教程&lt;/a&gt;&lt;br&gt;
+我们现将难度调到&lt;span style=&#34;color: #e74c3c;&#34;&gt;Low&lt;/span&gt;。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.1.jpg&#34;
+	width=&#34;1388&#34;
+	height=&#34;548&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.1_hu_64ef9da584ea4a22.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.1_hu_3d6009f73a450fb1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;253&#34;
+		data-flex-basis=&#34;607px&#34;
+	
+&gt;&lt;br&gt;
+选择反射型(Reflected),我们先输入一些东西进行观察。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.2.jpg&#34;
+	width=&#34;1318&#34;
+	height=&#34;790&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.2_hu_9d66bb0df1c622bb.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.2_hu_3ddbc83f5d4123e6.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;166&#34;
+		data-flex-basis=&#34;400px&#34;
+	
+&gt;&lt;br&gt;
+打开开发者工具查看输出在页面的字段。&lt;br&gt;
+我们可以看到该字段是通过Get提交的，而且没有用双引号做包围。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.3.jpg&#34;
+	width=&#34;697&#34;
+	height=&#34;294&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.3_hu_b12f5ec57e0156c2.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.3_hu_a5407d439a451fca.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;237&#34;
+		data-flex-basis=&#34;568px&#34;
+	
+&gt;&lt;br&gt;
+所以我们可以直接在网址处通过Get提交，注入payload。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.4.jpg&#34;
+	width=&#34;918&#34;
+	height=&#34;62&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.4_hu_b39999437818b1f1.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.4_hu_987c4f5969d04196.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1480&#34;
+		data-flex-basis=&#34;3553px&#34;
+	
+&gt;&lt;br&gt;
+按下回车，网页回显&amp;quot;1&amp;quot;。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.5.jpg&#34;
+	width=&#34;693&#34;
+	height=&#34;237&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.5_hu_33128b962747d44f.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.5_hu_7a072df3484ae884.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;292&#34;
+		data-flex-basis=&#34;701px&#34;
+	
+&gt;&lt;br&gt;
+说明注入成功了，我们也可以通过开发者工具查看到。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.6.jpg&#34;
+	width=&#34;628&#34;
+	height=&#34;250&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.6_hu_373202c2f56f5035.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.6_hu_723bf7f88733f314.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;251&#34;
+		data-flex-basis=&#34;602px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;接下来，将难度调到&lt;span style=&#34;color: #e74c3c;&#34;&gt;Medium&lt;/span&gt;。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.7.jpg&#34;
+	width=&#34;1312&#34;
+	height=&#34;537&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.7_hu_ff6dc94689d06c3c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.7_hu_8bcb3b5e72fa0bfd.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;244&#34;
+		data-flex-basis=&#34;586px&#34;
+	
+&gt;&lt;br&gt;
+我们先试一下用刚刚的方式进行注入。&lt;br&gt;
+发现页面弹窗，而是直接回显出alert(1)。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.8.jpg&#34;
+	width=&#34;1223&#34;
+	height=&#34;512&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.8_hu_8a1d5f1bd5093581.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.8_hu_22b0fb2f22d0f470.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;238&#34;
+		data-flex-basis=&#34;573px&#34;
+	
+&gt;&lt;br&gt;
+说明它将我们输入的&amp;lt;script&amp;gt;标签给删除掉了。&lt;br&gt;
+那我们要怎么办捏？我们可以看一下源码。&lt;br&gt;
+源码路径：&lt;span style=&#34;color: #e74c3c;&#34;&gt;\phpstudy_pro\WWW\dvwa\vulnerabilities\xss_r\source&lt;/span&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.9.jpg&#34;
+	width=&#34;1218&#34;
+	height=&#34;407&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.9_hu_47f20e6a540a7984.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.9_hu_74266ebcbf9e1fb0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;299&#34;
+		data-flex-basis=&#34;718px&#34;
+	
+&gt;&lt;br&gt;
+打开medium.php配置文件&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.10.jpg&#34;
+	width=&#34;951&#34;
+	height=&#34;362&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.10_hu_303ac180bee3fa17.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.10_hu_c35ced692c86f618.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;262&#34;
+		data-flex-basis=&#34;630px&#34;
+	
+&gt;&lt;br&gt;
+我们需要着重看一下下面这句。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;$name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;str_replace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;lt;script&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该语句用&lt;span style=&#34;color: #e74c3c;&#34;&gt;str_replace函数&lt;/span&gt;，将‘&amp;lt;script&amp;gt;’标签全部替换成&amp;rsquo; &amp;lsquo;。&lt;br&gt;
+知道原理后，我们可以重新构造payload。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Dongyu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ript&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;/sc&amp;lt;script&amp;gt;ript&amp;gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通过双写标签，即使代码将里面&amp;lt;script&amp;gt;标签删了，但外面的标签依然生效。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.11.jpg&#34;
+	width=&#34;1065&#34;
+	height=&#34;71&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.11_hu_5a99eef619c02bb1.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.11_hu_2ef8693b3e48bb65.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1500&#34;
+		data-flex-basis=&#34;3600px&#34;
+	
+&gt;&lt;br&gt;
+按下回车后，网页就成功弹窗了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.12.jpg&#34;
+	width=&#34;693&#34;
+	height=&#34;237&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.12_hu_33128b962747d44f.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.12_hu_7a072df3484ae884.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;292&#34;
+		data-flex-basis=&#34;701px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;再将难度调到&lt;span style=&#34;color: #e74c3c;&#34;&gt;High&lt;/span&gt;。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.13.jpg&#34;
+	width=&#34;1287&#34;
+	height=&#34;384&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.13_hu_a73dbd386a65644a.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.13_hu_956b167b8df2e634.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;335&#34;
+		data-flex-basis=&#34;804px&#34;
+	
+&gt;&lt;br&gt;
+我们尝试一下刚刚的payload,那自然是没有弹窗了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.14.jpg&#34;
+	width=&#34;1207&#34;
+	height=&#34;522&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.14_hu_536bbd056ec024f5.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.14_hu_30a17c4fcb9e5eb7.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;231&#34;
+		data-flex-basis=&#34;554px&#34;
+	
+&gt;&lt;br&gt;
+再来看一下源码，再刚刚的路径下打开high.php配置文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.15.jpg&#34;
+	width=&#34;1201&#34;
+	height=&#34;358&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.15_hu_8516878917da9a66.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.15_hu_9a6060b2baf21f75.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;335&#34;
+		data-flex-basis=&#34;805px&#34;
+	
+&gt;&lt;br&gt;
+通过观察红框中的语句。&lt;br&gt;
+我们发现该代码通过&lt;span style=&#34;color: #e74c3c;&#34;&gt; preg_replace函数&lt;/span&gt;与&lt;span style=&#34;color: #e74c3c;&#34;&gt;正则表达式&lt;/span&gt;，将有关&amp;lt;script&amp;gt;标签的字符全删掉了。&lt;br&gt;
+这种情况下就要用到另外一句常用的payload(img标签)了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Dongyu&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;img&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;onerror&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;按回车后就发现弹窗成功了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.16.jpg&#34;
+	width=&#34;1397&#34;
+	height=&#34;293&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat1/2.16_hu_f124593f87d47d34.jpg 480w, https://dongyuzzz5.github.io/p/phpchat1/2.16_hu_6ac52e1235bd0e94.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;476&#34;
+		data-flex-basis=&#34;1144px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2储存型xss&#34;&gt;2.储存型XSS
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;简介&lt;/strong&gt;：将恶意参数&lt;span style=&#34;color: #e74c3c;&#34;&gt;存储在后端服务区&lt;/span&gt;中，故储存型XSS在URL地址当中不会包含恶意参数，对于受害者来说，很难发现已经被攻击。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>靶场搭建教程</title>
         <link>https://dongyuzzz5.github.io/p/bachang/</link>
         <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
