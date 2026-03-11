@@ -8,12 +8,12 @@
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
         <lastBuildDate>Wed, 25 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>PHP代码设计工具安装教程</title>
+        <title>PHP代码审计工具安装教程</title>
         <link>https://dongyuzzz5.github.io/p/phptool/</link>
         <pubDate>Wed, 25 Feb 2026 00:00:00 +0000</pubDate>
         
         <guid>https://dongyuzzz5.github.io/p/phptool/</guid>
-        <description>&lt;img src="https://dongyuzzz5.github.io/p/phptool/111.png" alt="Featured image of post PHP代码设计工具安装教程" /&gt;&lt;h2 id=&#34;一-seay源码审计系统&#34;&gt;一. Seay源码审计系统
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/phptool/111.png" alt="Featured image of post PHP代码审计工具安装教程" /&gt;&lt;h2 id=&#34;一-seay源码审计系统&#34;&gt;一. Seay源码审计系统
 &lt;/h2&gt;&lt;h3 id=&#34;1-下载安装包&#34;&gt;1. 下载安装包
 &lt;/h3&gt;&lt;p&gt;在github可以找到，这里附上链接：&lt;a class=&#34;link&#34; href=&#34;https://github.com/f1tz/cnseay&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://github.com/f1tz/cnseay&lt;/a&gt;&lt;br&gt;
@@ -122,6 +122,153 @@
 		class=&#34;gallery-image&#34; 
 		data-flex-grow=&#34;130&#34;
 		data-flex-basis=&#34;314px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二-phpstudy小皮面板&#34;&gt;二. PhPStudy(小皮面板)
+&lt;/h2&gt;&lt;h3 id=&#34;1下载安装&#34;&gt;1.下载安装
+&lt;/h3&gt;&lt;p&gt;下载phpstudy最新版（根据操作系统选择32位或者64位）&lt;br&gt;
+官网：&lt;a class=&#34;link&#34; href=&#34;https://www.xp.cn/download.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.xp.cn/download.html &lt;/a&gt;&lt;br&gt;
+解压后得到exe，双击直接安装&lt;br&gt;
+默认安装路径：D:\phpstudy_pro&lt;br&gt;
+也可以自定义，&lt;span style=&#34;color: #e74c3c;&#34;&gt;注意安装路径不要包含中文&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2下载安装启动apache&#34;&gt;2.下载安装启动Apache
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.5.jpg&#34;
+	width=&#34;1176&#34;
+	height=&#34;934&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.5_hu_b3d52cfa730b0adc.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.5_hu_c681c5548da1c488.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;125&#34;
+		data-flex-basis=&#34;302px&#34;
+	
+&gt;&lt;br&gt;
+如果Apache启动以后自动停止，说明你的电脑上有其他程序占用了80端口。这个时候要先找出这个程序。&lt;br&gt;
+打开cmd，输入下面命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;netstat -ano&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;findstr &lt;span class=&#34;s2&#34;&gt;&amp;#34;80&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.6.jpg&#34;
+	width=&#34;1168&#34;
+	height=&#34;374&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.6_hu_55e93de33dca2a8c.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.6_hu_655dec4cb805f515.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;312&#34;
+		data-flex-basis=&#34;749px&#34;
+	
+&gt;&lt;br&gt;
+根据进程号查进程名，比如我这里查到的是“19416”&lt;br&gt;
+所以在cmd输入下面指令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tasklist&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;findstr &lt;span class=&#34;s2&#34;&gt;&amp;#34;19416&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.7.jpg&#34;
+	width=&#34;1192&#34;
+	height=&#34;111&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.7_hu_a8e68798c6ab5028.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.7_hu_7eae37816719966.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1073&#34;
+		data-flex-basis=&#34;2577px&#34;
+	
+&gt;&lt;br&gt;
+这里httpd.exe就是Apache的进程名，若你不是就需要通过下面命令删掉该进程。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;taskkill /f /t /im 进程名称
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如不想删掉原来的进程，也可以选择修改phpstudy的端口，但非常不建议。&lt;/p&gt;
+&lt;h3 id=&#34;3测试访问&#34;&gt;3.测试访问
+&lt;/h3&gt;&lt;p&gt;浏览器访问：&lt;a class=&#34;link&#34; href=&#34;http://localhost/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://localhost/&lt;/a&gt;&lt;br&gt;
+看到&amp;quot;站点创建成功&amp;quot;，即代表Apache安装启动成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.8.jpg&#34;
+	width=&#34;566&#34;
+	height=&#34;246&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.8_hu_af78aeac039d4a5.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.8_hu_19a6895005acf869.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;230&#34;
+		data-flex-basis=&#34;552px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;4运行mysql数据库&#34;&gt;4.运行MySQL数据库
+&lt;/h3&gt;&lt;p&gt;默认启动的是5.7.26版本&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.9.jpg&#34;
+	width=&#34;1194&#34;
+	height=&#34;936&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.9_hu_e93e61ce229f6944.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.9_hu_463e4161487f7ff1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;127&#34;
+		data-flex-basis=&#34;306px&#34;
+	
+&gt;&lt;br&gt;
+若想安装其他版本的可以自己在软件管理选项那里下载。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.10.jpg&#34;
+	width=&#34;1193&#34;
+	height=&#34;924&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.10_hu_ea580d14df4e53ac.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.10_hu_1c783a89f1cb5fe3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;129&#34;
+		data-flex-basis=&#34;309px&#34;
+	
+&gt;&lt;br&gt;
+phpstudy自带的MySQL数据库的默认用户名和密码都是root。&lt;br&gt;
+也可以在操作那里自行修改密码。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.11.jpg&#34;
+	width=&#34;1195&#34;
+	height=&#34;422&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.11_hu_52e03bc77ff60cbe.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.11_hu_f3870ffb166b5c43.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;283&#34;
+		data-flex-basis=&#34;679px&#34;
+	
+&gt;&lt;br&gt;
+然后就可以自行搭建网站或者靶场了，我这里不详细介绍，靶场搭建我会另写一篇教程。&lt;br&gt;
+MySQL的配置文件在：
+phpstudy_pro\Extensions\MySQL5.7.26&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phptool/3.12.jpg&#34;
+	width=&#34;1141&#34;
+	height=&#34;577&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phptool/3.12_hu_9e55304c6a7234b5.jpg 480w, https://dongyuzzz5.github.io/p/phptool/3.12_hu_52373b128226e5de.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;474px&#34;
 	
 &gt;&lt;/p&gt;
 </description>

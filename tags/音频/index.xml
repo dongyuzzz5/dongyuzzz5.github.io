@@ -537,8 +537,8 @@ Ps:若想做第二次时会发现以下情况。&lt;br&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install minimodem
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;注意，在在时一定要查看虚拟机是否联网，我但是在这里浪费很多时间&lt;br&gt;
-若即使联网也无法下载可以尝试使用虚拟环境，具体命令自行问ai&lt;br&gt;
+&lt;/div&gt;&lt;p&gt;注意，在下载时一定要查看虚拟机是否联网，我当时在这里浪费很多时间&lt;br&gt;
+若即使联网也无法下载可以尝试配置虚拟环境，具体命令自行问ai&lt;br&gt;
 下载完成后，使用下面命令&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -548,7 +548,7 @@ Ps:若想做第二次时会发现以下情况。&lt;br&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;minimodem -r -f encoded 文件频率
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;具体命令如下&lt;br&gt;
+&lt;/div&gt;&lt;p&gt;具体工具命令如下&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/misc1/4.1.jpg&#34;
 	width=&#34;1267&#34;
 	height=&#34;727&#34;
