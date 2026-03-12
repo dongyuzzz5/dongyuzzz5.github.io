@@ -366,6 +366,12 @@
         <li><a href="#2实操">2.实操</a></li>
       </ol>
     </li>
+    <li><a href="#四-实战">四. 实战</a>
+      <ol>
+        <li><a href="#靶场一vauditdemo">靶场一：VAuditDemo</a></li>
+        <li><a href="#靶场二yxcms前台">靶场二：YXCMS前台</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -1183,6 +1189,243 @@
 一帮用于导流量，常见于黑产给菠菜网站导流。</p>
 <p>4.<span style="color: #e74c3c;">CC攻击、获取敏感信息、结合CSRF漏洞</span>等等。</p>
 <h3 id="2实操">2.实操
+</h3><p>这里主要是要介绍一个XSS安全检测平台：<a class="link" href="https://xssaq.com/"  target="_blank" rel="noopener"
+    >https://xssaq.com/</a><br>
+打开后，先创建一个项目。模块选择默认模块，然后直接点击创建。<br>
+<img src="/p/phpchat1/2.24.jpg"
+	width="907"
+	height="679"
+	srcset="/p/phpchat1/2.24_hu_937b3eeb6f2985fb.jpg 480w, /p/phpchat1/2.24_hu_90c8cfe7fdb32bcb.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="320px"
+	
+><br>
+在创建的项目那里点击查看配置代码。<br>
+<img src="/p/phpchat1/3.1.jpg"
+	width="2220"
+	height="602"
+	srcset="/p/phpchat1/3.1_hu_a9f5c5029bb0d789.jpg 480w, /p/phpchat1/3.1_hu_593b8edbe6e3bc9d.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="368"
+		data-flex-basis="885px"
+	
+><br>
+选择一句payload。<br>
+<img src="/p/phpchat1/3.2.jpg"
+	width="2017"
+	height="977"
+	srcset="/p/phpchat1/3.2_hu_230a62be89012454.jpg 480w, /p/phpchat1/3.2_hu_849d9f85440af538.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="495px"
+	
+><br>
+来到有XSS漏洞的平台，输入刚刚的payload。<br>
+<img src="/p/phpchat1/3.3.jpg"
+	width="1363"
+	height="887"
+	srcset="/p/phpchat1/3.3_hu_8d48c6d4ee569b31.jpg 480w, /p/phpchat1/3.3_hu_df3dc70f3e52a899.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="368px"
+	
+><br>
+提交后等一会，再回到我们刚刚的检测平台，发现已经有数据包返回。<br>
+说明入侵成功了。<br>
+<img src="/p/phpchat1/3.4.jpg"
+	width="2215"
+	height="497"
+	srcset="/p/phpchat1/3.4_hu_63dbae3fda94bc1b.jpg 480w, /p/phpchat1/3.4_hu_55aa65e73cda7f09.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="445"
+		data-flex-basis="1069px"
+	
+></p>
+<h2 id="四-实战">四. 实战
+</h2><p>主要就是对一些靶场进行实践，靶场的搭建可以看我写的一篇教程：<a class="link" href="https://dongyuzzz5.github.io/p/bachang/?t=1773227922879"  target="_blank" rel="noopener"
+    >靶场搭建教程</a></p>
+<h3 id="靶场一vauditdemo">靶场一：VAuditDemo
+</h3><p>打开靶场，试着在搜索框输入点东西。<br>
+<img src="/p/phpchat1/4.1.jpg"
+	width="1764"
+	height="735"
+	srcset="/p/phpchat1/4.1_hu_e657c471d0b564e1.jpg 480w, /p/phpchat1/4.1_hu_b467c55bccdd0c7a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="240"
+		data-flex-basis="576px"
+	
+><br>
+按回车可以看到，URL出现搜索的参数，而且我们搜索的内容也回显到了页面中。<br>
+<img src="/p/phpchat1/4.2.jpg"
+	width="940"
+	height="413"
+	srcset="/p/phpchat1/4.2_hu_ff21d032216fee7b.jpg 480w, /p/phpchat1/4.2_hu_bac18c6dc2b1ab.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="227"
+		data-flex-basis="546px"
+	
+><br>
+我们试着将一句payload拼接在URL后。<br>
+<img src="/p/phpchat1/4.3.jpg"
+	width="1422"
+	height="278"
+	srcset="/p/phpchat1/4.3_hu_c9998d967df3b26e.jpg 480w, /p/phpchat1/4.3_hu_2464f6f880a4eb8a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="511"
+		data-flex-basis="1227px"
+	
+><br>
+可以看到也是成功弹窗了。这里有可能不会出现弹窗，可以换个浏览器试一下。</p>
+<p>然后我们来看一下源代码，分析一下该XSS漏洞形成原因。<br>
+打开该文件PHPstudy\phpstudy_pro\WWW\vauditdemo\search.php</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">include_once</span> <span class="s1">&#39;sys/config.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">include_once</span> <span class="s1">&#39;header.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;search&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM comment WHERE comment_text LIKE &#39;%</span><span class="si">{</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;search&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">%&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$data</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$conn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;div class=&#34;bs-example table-responsive&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;?php echo &#39;The result for [ &#39;.$_GET[&#39;search&#39;].&#39; ] is:&#39;?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;table class=&#34;table table-striped table-hover &#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;tr&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">		&lt;th&gt;#&lt;/th&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">		&lt;th&gt;Column heading&lt;/th&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;/tr&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="err">	while ( $com = mysql_fetch_array( $data ) ) {
+</span></span></span><span class="line"><span class="cl"><span class="err">		//净化输出变量
+</span></span></span><span class="line"><span class="cl"><span class="err">		$html[&#39;username&#39;] = htmlspecialchars( $com[&#39;user_name&#39;] );
+</span></span></span><span class="line"><span class="cl"><span class="err">		$html[&#39;comment_text&#39;] = htmlspecialchars( $com[&#39;comment_text&#39;] );
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">		echo &#39;&lt;tr&gt;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="err">		echo &#39;&lt;td&gt;&#39;.$html[&#39;username&#39;].&#39;&lt;/td&gt;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="err">		echo &#39;&lt;td&gt;&lt;a href=&#34;messageDetail.php?id=&#39;.$com[&#39;comment_id&#39;].&#39;&#34;&gt;&#39;.$html[&#39;comment_text&#39;].&#39;&lt;/a&gt;&lt;/td&gt;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="err">		echo &#39;&lt;/tr&gt;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="err">	}
+</span></span></span><span class="line"><span class="cl"><span class="err">	?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;/table&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="err">	if ( isset( $_SESSION[&#39;username&#39;] ) ) {
+</span></span></span><span class="line"><span class="cl"><span class="err">	?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;form action=&#34;messageSub.php&#34; method=&#34;post&#34; name=&#34;message&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">	&lt;div class=&#34;col-lg-10&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">        &lt;textarea class=&#34;form-control&#34; rows=&#34;3&#34; id=&#34;textArea&#34; name=&#34;message&#34;&gt;&lt;/textarea&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">    &lt;input type=&#34;submit&#34; name=&#34;submit&#34; value=&#34;留言&#34;/&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;/form&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;a href=&#34;user/user.php&#34;&gt;返回&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="err">&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="err">	}
+</span></span></span><span class="line"><span class="cl"><span class="err">}
+</span></span></span><span class="line"><span class="cl"><span class="err">require_once &#39;footer.php&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="err">?&gt;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们观察代码，可以看到下面这两处地方没有经过过滤就直接拼接在搜索语句中和回显到页面。<br>
+就造成了XSS漏洞。<br>
+<img src="/p/phpchat1/4.4.jpg"
+	width="1127"
+	height="357"
+	srcset="/p/phpchat1/4.4_hu_7a8417ca1334932b.jpg 480w, /p/phpchat1/4.4_hu_f0a0828fec04b693.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="315"
+		data-flex-basis="757px"
+	
+><br>
+然后我们再看下面代码，这里两处就用htmlspecialchars()函数进行了过滤处理。<br>
+这样就能有效避免XSS漏洞了。<br>
+<img src="/p/phpchat1/4.5.jpg"
+	width="1104"
+	height="353"
+	srcset="/p/phpchat1/4.5_hu_c43b68d3ae223f78.jpg 480w, /p/phpchat1/4.5_hu_66b0301778d43f38.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="312"
+		data-flex-basis="750px"
+	
+></p>
+<h3 id="靶场二yxcms前台">靶场二：YXCMS前台
 </h3>
 </section>
 
@@ -1359,7 +1602,7 @@
 
 
 
-<p>发布了 12 篇文章 | 共 42272 字</p>
+<p>发布了 12 篇文章 | 共 43247 字</p>
     </section>
     
    

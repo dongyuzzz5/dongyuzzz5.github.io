@@ -219,6 +219,64 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 		data-flex-basis=&#34;235px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;h2 id=&#34;二-xss实战靶场&#34;&gt;二. XSS实战靶场
+&lt;/h2&gt;&lt;p&gt;这里搭建的靶场也都是基于phpstudy的，而且过程都一样，所以我这里基本都给个下载地址，再截张配置的图片。&lt;br&gt;
+不过有些靶场搭建也要改点小细节。&lt;/p&gt;
+&lt;h3 id=&#34;1vauditdemo&#34;&gt;1.VAuditDemo
+&lt;/h3&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://github.com/1stPeak/VAuditDemo&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/1stPeak/VAuditDemo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;解压在WWW目录下后，将VAuditDemo_Release目录中所有的文件剪贴到vauditdemo目录下。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.2.jpg&#34;
+	width=&#34;1139&#34;
+	height=&#34;932&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/2.2_hu_70db33ef42d650b3.jpg 480w, https://dongyuzzz5.github.io/p/bachang/2.2_hu_6029921cbd25225.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;122&#34;
+		data-flex-basis=&#34;293px&#34;
+	
+&gt;&lt;br&gt;
+配置信息：&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.1.jpg&#34;
+	width=&#34;1391&#34;
+	height=&#34;1017&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/2.1_hu_42106fdb146bcefb.jpg 480w, https://dongyuzzz5.github.io/p/bachang/2.1_hu_d6ee70658c0153d4.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;136&#34;
+		data-flex-basis=&#34;328px&#34;
+	
+&gt;&lt;br&gt;
+这里要创建一个数据库。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.3.jpg&#34;
+	width=&#34;532&#34;
+	height=&#34;333&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/2.3_hu_d75fa112e0f3a17c.jpg 480w, https://dongyuzzz5.github.io/p/bachang/2.3_hu_64e432fdfab8fd47.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;159&#34;
+		data-flex-basis=&#34;383px&#34;
+	
+&gt;&lt;br&gt;
+访问 vauditdemo/ 即可进入靶场。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.4.jpg&#34;
+	width=&#34;2018&#34;
+	height=&#34;856&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/2.4_hu_d7929f089383f1e0.jpg 480w, https://dongyuzzz5.github.io/p/bachang/2.4_hu_d2d76d4045b60c71.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;235&#34;
+		data-flex-basis=&#34;565px&#34;
+	
+&gt;&lt;/p&gt;
 </description>
         </item>
         
