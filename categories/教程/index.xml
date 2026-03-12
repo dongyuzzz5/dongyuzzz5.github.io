@@ -14,7 +14,8 @@
         
         <guid>https://dongyuzzz5.github.io/p/bachang/</guid>
         <description>&lt;img src="https://dongyuzzz5.github.io/p/bachang/111.png" alt="Featured image of post 靶场搭建教程" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
-&lt;/h2&gt;&lt;p&gt;搭建靶场前需要用到PHP和Apache环境运行，我这里用的是phpstudy&lt;br&gt;
+&lt;/h2&gt;&lt;p&gt;搭建靶场前需要用到PHP和Apache环境运行，我这里用的是phpstudy。&lt;br&gt;
+在phpstudy上搭建靶场的步骤基本都一样，不过有些小细节还是要注意一下的。&lt;br&gt;
 该工具的具体安装可以看我的另一篇教程：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/phptool/?t=1773220648713&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;PHP代码审计工具安装教程&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;一-dvwa&#34;&gt;一. DVWA
@@ -219,13 +220,11 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 		data-flex-basis=&#34;235px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;二-xss实战靶场&#34;&gt;二. XSS实战靶场
-&lt;/h2&gt;&lt;p&gt;这里搭建的靶场也都是基于phpstudy的，而且过程都一样，所以我这里基本都给个下载地址，再截张配置的图片。&lt;br&gt;
-不过有些靶场搭建也要改点小细节。&lt;/p&gt;
-&lt;h3 id=&#34;1vauditdemo&#34;&gt;1.VAuditDemo
+&lt;h2 id=&#34;二-vauditdemo&#34;&gt;二. VAuditDemo
+&lt;/h2&gt;&lt;h3 id=&#34;1下载&#34;&gt;1.下载
 &lt;/h3&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://github.com/1stPeak/VAuditDemo&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/1stPeak/VAuditDemo&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;解压在WWW目录下后，将VAuditDemo_Release目录中所有的文件剪贴到vauditdemo目录下。&lt;br&gt;
+    &gt;https://github.com/1stPeak/VAuditDemo&lt;/a&gt;&lt;br&gt;
+解压在WWW目录下后，将VAuditDemo_Release目录中所有的文件剪贴到vauditdemo目录下。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.2.jpg&#34;
 	width=&#34;1139&#34;
 	height=&#34;932&#34;
@@ -237,9 +236,9 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 		data-flex-grow=&#34;122&#34;
 		data-flex-basis=&#34;293px&#34;
 	
-&gt;&lt;br&gt;
-配置信息：&lt;br&gt;
-&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.1.jpg&#34;
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2配置信息&#34;&gt;2.配置信息
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.1.jpg&#34;
 	width=&#34;1391&#34;
 	height=&#34;1017&#34;
 	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/2.1_hu_42106fdb146bcefb.jpg 480w, https://dongyuzzz5.github.io/p/bachang/2.1_hu_d6ee70658c0153d4.jpg 1024w&#34;
@@ -263,8 +262,9 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 		data-flex-grow=&#34;159&#34;
 		data-flex-basis=&#34;383px&#34;
 	
-&gt;&lt;br&gt;
-访问 vauditdemo/ 即可进入靶场。&lt;br&gt;
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3登录&#34;&gt;3.登录
+&lt;/h3&gt;&lt;p&gt;访问 vauditdemo/ 即可进入靶场。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/2.4.jpg&#34;
 	width=&#34;2018&#34;
 	height=&#34;856&#34;
@@ -275,6 +275,37 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 		class=&#34;gallery-image&#34; 
 		data-flex-grow=&#34;235&#34;
 		data-flex-basis=&#34;565px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三yxcms&#34;&gt;三.YXCMS
+&lt;/h2&gt;&lt;h3 id=&#34;1下载-1&#34;&gt;1.下载
+&lt;/h3&gt;&lt;p&gt;网盘连接：&lt;a class=&#34;link&#34; href=&#34;https://pan.baidu.com/s/1s3xM-6_XPgTHAcEdGQlTmA#list/path=%2F&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://pan.baidu.com/s/1s3xM-6_XPgTHAcEdGQlTmA#list/path=%2F&lt;/a&gt;&lt;br&gt;
+提取码：3148&lt;br&gt;
+将文件夹放在WWW目录下后，并将文件夹名字改为yxcms。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.1.jpg&#34;
+	width=&#34;1100&#34;
+	height=&#34;698&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.1_hu_9899cfde9c35937d.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.1_hu_f83a8720a3d99fc0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;157&#34;
+		data-flex-basis=&#34;378px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2配置信息-1&#34;&gt;2.配置信息
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.2.jpg&#34;
+	width=&#34;898&#34;
+	height=&#34;823&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.2_hu_dc8d16135e7827a7.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.2_hu_45f0ef8b8d379f13.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;109&#34;
+		data-flex-basis=&#34;261px&#34;
 	
 &gt;&lt;/p&gt;
 </description>
