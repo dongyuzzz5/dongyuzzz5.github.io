@@ -1426,7 +1426,367 @@
 	
 ></p>
 <h3 id="靶场二yxcms前台">靶场二：YXCMS前台
-</h3>
+</h3><p>这个平台的XSS漏洞存在于网站的留言板。<br>
+我们尝试在留言板写点东西提交。<br>
+<img src="/p/phpchat1/4.6.jpg"
+	width="1806"
+	height="845"
+	srcset="/p/phpchat1/4.6_hu_fb82f1e30e5d213b.jpg 480w, /p/phpchat1/4.6_hu_802a0212e32bf97c.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="512px"
+	
+><br>
+提交成功后有弹窗。<br>
+<img src="/p/phpchat1/4.7.jpg"
+	width="1351"
+	height="288"
+	srcset="/p/phpchat1/4.7_hu_3f704383b29c4496.jpg 480w, /p/phpchat1/4.7_hu_9f36e57c1bdfa59.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="469"
+		data-flex-basis="1125px"
+	
+></p>
+<p>然后我们来到后台看一下。<br>
+后台登录方式，可以看我配置该靶场的文章。<br>
+在后台，打开留言板，可以看到我们刚刚提交的信息。<br>
+<img src="/p/phpchat1/4.8.jpg"
+	width="2423"
+	height="778"
+	srcset="/p/phpchat1/4.8_hu_1d456527d63fce64.jpg 480w, /p/phpchat1/4.8_hu_3198907ab55b7cdc.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="311"
+		data-flex-basis="747px"
+	
+></p>
+<p>我们尝试在留言板上插入XSS的payload语句，但发现被进行了过滤。<br>
+<img src="/p/phpchat1/4.9.jpg"
+	width="2252"
+	height="254"
+	srcset="/p/phpchat1/4.9_hu_50c30c912d29ac84.jpg 480w, /p/phpchat1/4.9_hu_8139fda70fc3a1b0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="886"
+		data-flex-basis="2127px"
+	
+></p>
+<p>那我们先用bp抓一下包，演示一下如何利用这个XSS漏洞。<br>
+<img src="/p/phpchat1/4.10.jpg"
+	width="1984"
+	height="711"
+	srcset="/p/phpchat1/4.10_hu_86da05326df92e39.jpg 480w, /p/phpchat1/4.10_hu_cde093b2c4e6a884.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="279"
+		data-flex-basis="669px"
+	
+><br>
+将红框的语句改为下面这句payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">tname</span><span class="p">[]</span><span class="o">=</span><span class="nx">joe</span><span class="o">&lt;</span><span class="nx">script</span><span class="o">%</span><span class="mi">26</span><span class="nx">gt</span><span class="p">;</span><span class="nx">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;/</span><span class="nx">script</span><span class="o">%</span><span class="mi">26</span><span class="nx">gt</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/phpchat1/4.11.jpg"
+	width="1095"
+	height="423"
+	srcset="/p/phpchat1/4.11_hu_357444b635a02db4.jpg 480w, /p/phpchat1/4.11_hu_5d3d65dac10c4e52.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="621px"
+	
+><br>
+修改后放包，网页弹窗留言成功
+<img src="/p/phpchat1/4.12.jpg"
+	width="1350"
+	height="282"
+	srcset="/p/phpchat1/4.12_hu_8b1ef219ec89f2e7.jpg 480w, /p/phpchat1/4.12_hu_45df9a2a4a9c6323.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="478"
+		data-flex-basis="1148px"
+	
+></p>
+<p>现在我们回到yxcms后台，刷新一下。<br>
+出现弹窗，说明payload语句注入成功。<br>
+<img src="/p/phpchat1/4.13.jpg"
+	width="671"
+	height="203"
+	srcset="/p/phpchat1/4.13_hu_6a192d277aae14e5.jpg 480w, /p/phpchat1/4.13_hu_bd654f054942b517.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="330"
+		data-flex-basis="793px"
+	
+><br>
+<img src="/p/phpchat1/4.14.jpg"
+	width="2215"
+	height="324"
+	srcset="/p/phpchat1/4.14_hu_532f4ecce709ad77.jpg 480w, /p/phpchat1/4.14_hu_253b352742348314.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="683"
+		data-flex-basis="1640px"
+	
+></p>
+<p>那为什么需要用这句payload呢，下面详细讲一下。<br>
+这里先梳理一下整个留言功能的流程。<br>
+打开问题文件：\phpstudy_pro\WWW\yxcms\protected\apps\default\controller\columnController.php<br>
+代码开头这里先进行了一个简单的判断，将获取的一些参数传给$sortinfo，并判断它的type属于哪种类型。<br>
+<img src="/p/phpchat1/4.15.jpg"
+	width="1680"
+	height="815"
+	srcset="/p/phpchat1/4.15_hu_64ca300015325add.jpg 480w, /p/phpchat1/4.15_hu_fdf60cd1612f7291.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="494px"
+	
+></p>
+<p>为了确定我们输入的留言是属于哪种类型，我们可以通过下面操作。<br>
+在代码这里直接输出$sortinfo<br>
+<img src="/p/phpchat1/4.16.jpg"
+	width="738"
+	height="406"
+	srcset="/p/phpchat1/4.16_hu_5ed81db594b00747.jpg 480w, /p/phpchat1/4.16_hu_87a4d74558e94025.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="436px"
+	
+><br>
+然后我们在前台随便再提交一个留言。<br>
+页面就会返回下面内容。<br>
+<img src="/p/phpchat1/4.17.jpg"
+	width="2349"
+	height="478"
+	srcset="/p/phpchat1/4.17_hu_1ef45e20ed60e6eb.jpg 480w, /p/phpchat1/4.17_hu_63562c1cd2a7f20f.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="491"
+		data-flex-basis="1179px"
+	
+><br>
+可以看到type是6<br>
+说明留言的内容属于第6种类型，对应代码里的表单<br>
+<img src="/p/phpchat1/4.18.jpg"
+	width="690"
+	height="291"
+	srcset="/p/phpchat1/4.18_hu_f4f829d732ad9b05.jpg 480w, /p/phpchat1/4.18_hu_127964f56b5b9fa4.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="237"
+		data-flex-basis="569px"
+	
+></p>
+<p>然后我们跟踪一下指向的这个函数。<br>
+<img src="/p/phpchat1/4.19.jpg"
+	width="1487"
+	height="1034"
+	srcset="/p/phpchat1/4.19_hu_560175547e35ca1b.jpg 480w, /p/phpchat1/4.19_hu_466bbb0d4e5ee2ff.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="345px"
+	
+><br>
+我们重点看一下我下面图中红框里的这个判断。<br>
+这是判断了是否为一个post提交，那这里正常情况肯定是post,往else进行。<br>
+<img src="/p/phpchat1/4.20.jpg"
+	width="1405"
+	height="1000"
+	srcset="/p/phpchat1/4.20_hu_29a51a0509d95361.jpg 480w, /p/phpchat1/4.20_hu_89b60ea985fd64ac.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="337px"
+	
+><br>
+当然我们这里也可以测试一下，证明该处留言是以post提交。<br>
+我们在else里输出顺便一串字符。<br>
+<img src="/p/phpchat1/4.21.jpg"
+	width="940"
+	height="364"
+	srcset="/p/phpchat1/4.21_hu_a57cac221f9b2db1.jpg 480w, /p/phpchat1/4.21_hu_ca816f0b12205349.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="619px"
+	
+><br>
+保存后，再回到前台顺便提交一次留言。<br>
+发现返回了我们在代码里写的字符。<br>
+说明留言的提交为post提交。<br>
+<img src="/p/phpchat1/4.22.jpg"
+	width="1496"
+	height="452"
+	srcset="/p/phpchat1/4.22_hu_408415ed6039fcd3.jpg 480w, /p/phpchat1/4.22_hu_bfd5a0a670defc75.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="330"
+		data-flex-basis="794px"
+	
+></p>
+<p>所以我们具体审计一下else代码内容。<br>
+<img src="/p/phpchat1/4.23.jpg"
+	width="1456"
+	height="601"
+	srcset="/p/phpchat1/4.23_hu_8f2d7bf7190f3e79.jpg 480w, /p/phpchat1/4.23_hu_d7929d4f81dcc149.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="242"
+		data-flex-basis="581px"
+	
+><br>
+通过上图分析，而且我们传入的字段一般都为字符串，所以我们重点看一下else代码<br>
+可以看到代码对字符串长度进行一个判断后，传给了一个html_in函数<br>
+<img src="/p/phpchat1/4.24.jpg"
+	width="1227"
+	height="202"
+	srcset="/p/phpchat1/4.24_hu_e829a2771ed1576a.jpg 480w, /p/phpchat1/4.24_hu_9ba5c4d68b1b80f8.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="607"
+		data-flex-basis="1457px"
+	
+><br>
+我们跟踪一下这个函数。<br>
+我是用vscode的查找功能跟踪的。<br>
+路径：\phpstudy_pro\WWW\yxcms\protected\include\lib\<br>
+<img src="/p/phpchat1/4.25.jpg"
+	width="782"
+	height="400"
+	srcset="/p/phpchat1/4.25_hu_87d8f22e00adffed.jpg 480w, /p/phpchat1/4.25_hu_121b1bd9a7c9aee9.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="469px"
+	
+><br>
+可以看到这个函数也进行了一个判断。<br>
+判断这个$filter参数，这个参数在刚刚传进来是true<br>
+<img src="/p/phpchat1/4.26.jpg"
+	width="707"
+	height="235"
+	srcset="/p/phpchat1/4.26_hu_5a7406bca7edfac8.jpg 480w, /p/phpchat1/4.26_hu_51ed32278409a657.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="300"
+		data-flex-basis="722px"
+	
+><br>
+所以会直接进入这个RemoveXSS函数。<br>
+跟踪过去可以看到它对参数进行了一个很严格的过滤。<br>
+而且下面的代码也通过htmlspecialchars()函数进行一个html实体化。<br>
+所以通过字符串输入，不会造成严重的XSS漏洞。</p>
+<p>那我们就要回去看一下else代码里若传入的是数组，代码会做何处理。<br>
+<img src="/p/phpchat1/4.28.jpg"
+	width="1432"
+	height="374"
+	srcset="/p/phpchat1/4.28_hu_499861fa0ebae807.jpg 480w, /p/phpchat1/4.28_hu_3939b53045165c27.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="382"
+		data-flex-basis="918px"
+	
+><br>
+我们先看一下上面这个语句。<br>
+这个语句中的implode()函数是将传入的数组的每一个字段用“，”拼接起来。<br>
+并将拼接后的参数传给了deletehtml()函数。<br>
+跟踪一下该函数。
+<img src="/p/phpchat1/4.27.jpg"
+	width="1117"
+	height="763"
+	srcset="/p/phpchat1/4.27_hu_82a3f0c348134530.jpg 480w, /p/phpchat1/4.27_hu_8d3c891ab62ae7c8.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="146"
+		data-flex-basis="351px"
+	
+><br>
+在这里我们需要特别注意一下，这里通过正则表达式判断标签<br>
+也也是为什么我们payload中要将两个符号改为html实体编码的原因。<br>
+然后我们再回到刚刚那里<br>
+发现代码将返回的参数还交给了一个in()函数。<br>
+<img src="/p/phpchat1/4.29.jpg"
+	width="1161"
+	height="232"
+	srcset="/p/phpchat1/4.29_hu_eef28b616ace6f91.jpg 480w, /p/phpchat1/4.29_hu_4f75823e21f08101.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="500"
+		data-flex-basis="1201px"
+	
+><br>
+我们再vscode按CTRL+SHIFT+F搜索一下该函数。<br>
+<img src="/p/phpchat1/4.30.jpg"
+	width="586"
+	height="289"
+	srcset="/p/phpchat1/4.30_hu_59a9ee882567ae8.jpg 480w, /p/phpchat1/4.30_hu_fc2b330f011b6d8f.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="202"
+		data-flex-basis="486px"
+	
+></p>
+
 </section>
 
 
@@ -1602,7 +1962,7 @@
 
 
 
-<p>发布了 12 篇文章 | 共 43339 字</p>
+<p>发布了 12 篇文章 | 共 44819 字</p>
     </section>
     
    

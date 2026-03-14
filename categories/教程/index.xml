@@ -279,9 +279,9 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;三yxcms&#34;&gt;三.YXCMS
 &lt;/h2&gt;&lt;h3 id=&#34;1下载-1&#34;&gt;1.下载
-&lt;/h3&gt;&lt;p&gt;网盘连接：&lt;a class=&#34;link&#34; href=&#34;https://pan.baidu.com/s/1s3xM-6_XPgTHAcEdGQlTmA#list/path=%2F&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://pan.baidu.com/s/1s3xM-6_XPgTHAcEdGQlTmA#list/path=%2F&lt;/a&gt;&lt;br&gt;
-提取码：3148&lt;br&gt;
+&lt;/h3&gt;&lt;p&gt;网盘连接：&lt;a class=&#34;link&#34; href=&#34;https://pan.baidu.com/s/1q_GHo4PPvreWHACpIYH2qg&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt; https://pan.baidu.com/s/1q_GHo4PPvreWHACpIYH2qg&lt;/a&gt;&lt;br&gt;
+提取码：q265&lt;br&gt;
 将文件夹放在WWW目录下后，并将文件夹名字改为yxcms。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.1.jpg&#34;
 	width=&#34;1100&#34;
@@ -297,15 +297,110 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;2配置信息-1&#34;&gt;2.配置信息
 &lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.2.jpg&#34;
-	width=&#34;898&#34;
-	height=&#34;823&#34;
-	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.2_hu_dc8d16135e7827a7.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.2_hu_45f0ef8b8d379f13.jpg 1024w&#34;
+	width=&#34;686&#34;
+	height=&#34;693&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.2_hu_6f5f1c614fe62431.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.2_hu_c0262e741ef9f6cc.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;109&#34;
-		data-flex-basis=&#34;261px&#34;
+		data-flex-grow=&#34;98&#34;
+		data-flex-basis=&#34;237px&#34;
+	
+&gt;&lt;br&gt;
+创建数据库需要和config.php文件信息一样。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.6.jpg&#34;
+	width=&#34;686&#34;
+	height=&#34;693&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.6_hu_ac6a4b9f715202ed.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.6_hu_df6f3aa29962fc9b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;98&#34;
+		data-flex-basis=&#34;237px&#34;
+	
+&gt;&lt;br&gt;
+打开文件&lt;span style=&#34;color: #e74c3c;&#34;&gt;\phpstudy_pro\WWW\yxcms\protected\config.php&lt;/span&gt;&lt;br&gt;
+数据库配置信息保证与该文件配置信息一致。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.5.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;717&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.5_hu_2010d2174aedd1f4.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.5_hu_71b821596cb69055.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;361px&#34;
+	
+&gt;&lt;br&gt;
+创建好网站和数据库后，在访问浏览器访问/localhost/yxcms&lt;br&gt;
+会自动进入安装导向，在数据库安装的选项上需要与刚刚的配置信息一致。&lt;br&gt;
+其他的一直下一步即可。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.4.jpg&#34;
+	width=&#34;1400&#34;
+	height=&#34;968&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.4_hu_b024f5687ed9dcb5.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.4_hu_e36288b5e5674a60.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;347px&#34;
+	
+&gt;&lt;br&gt;
+然后就安装完成了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.8.jpg&#34;
+	width=&#34;1890&#34;
+	height=&#34;996&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.8_hu_3e4a76974dbfa04.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.8_hu_bc66cf5427a2688e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;189&#34;
+		data-flex-basis=&#34;455px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3登录后台&#34;&gt;3.登录后台
+&lt;/h3&gt;&lt;p&gt;登录该网站后台需要输入URL:http://yxcms/index.php?r=admin/index/login
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.9.jpg&#34;
+	width=&#34;669&#34;
+	height=&#34;68&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.9_hu_ca14f64de5747c06.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.9_hu_597e578048dda4e9.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;983&#34;
+		data-flex-basis=&#34;2361px&#34;
+	
+&gt;&lt;br&gt;
+输入账号密码：admin/123456&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.10.jpg&#34;
+	width=&#34;734&#34;
+	height=&#34;512&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.10_hu_ae7da02caaf6f83f.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.10_hu_d55fd094b73900fa.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;143&#34;
+		data-flex-basis=&#34;344px&#34;
+	
+&gt;&lt;br&gt;
+登录成功&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/3.11.jpg&#34;
+	width=&#34;2416&#34;
+	height=&#34;903&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/3.11_hu_5fe3779ee94185dc.jpg 480w, https://dongyuzzz5.github.io/p/bachang/3.11_hu_f1440ee711e616bc.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;267&#34;
+		data-flex-basis=&#34;642px&#34;
 	
 &gt;&lt;/p&gt;
 </description>
