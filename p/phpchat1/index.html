@@ -1785,7 +1785,172 @@
 		data-flex-grow="202"
 		data-flex-basis="486px"
 	
-></p>
+><br>
+可以看到代码这里对输入的数据进行了过滤。<br>
+<img src="/p/phpchat1/4.31.jpg"
+	width="951"
+	height="495"
+	srcset="/p/phpchat1/4.31_hu_35a2963423859d26.jpg 480w, /p/phpchat1/4.31_hu_9fdff9adb4b5d95f.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="461px"
+	
+><br>
+然后开发者就认为很安全了。<br>
+但其实漏了一个点，就是输出部分。</p>
+<p>通过上面测试我们知道，我们输入的内容会再后台呈现出来，那我们在该页面查看源代码。<br>
+<img src="/p/phpchat1/4.32.jpg"
+	width="2049"
+	height="995"
+	srcset="/p/phpchat1/4.32_hu_3162e5548ddaa97f.jpg 480w, /p/phpchat1/4.32_hu_f85eac0133da4ee0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="205"
+		data-flex-basis="494px"
+	
+><br>
+通过该源代码页面的URL，我们可以查看一下该文件。<br>
+<img src="/p/phpchat1/4.33.jpg"
+	width="1100"
+	height="600"
+	srcset="/p/phpchat1/4.33_hu_f4c908ac71da9e6a.jpg 480w, /p/phpchat1/4.33_hu_8497b8a5e0293eb.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="183"
+		data-flex-basis="440px"
+	
+><br>
+具体路劲为：\phpstudy_pro\WWW\yxcms\protected\apps\admin\controller\extendfieldController.php<br>
+打开该文件，往下拉，就可以看到一个叫meslist的函数。<br>
+<img src="/p/phpchat1/4.34.jpg"
+	width="1392"
+	height="563"
+	srcset="/p/phpchat1/4.34_hu_137c0fffcaad7d3a.jpg 480w, /p/phpchat1/4.34_hu_90cf45ea221ad60a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="247"
+		data-flex-basis="593px"
+	
+><br>
+在该函数中，下图中的语句就是获取数据的主要方法。<br>
+<img src="/p/phpchat1/4.35.jpg"
+	width="1372"
+	height="512"
+	srcset="/p/phpchat1/4.35_hu_efdb88f8fda9d88d.jpg 480w, /p/phpchat1/4.35_hu_450336c31a0095ac.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="643px"
+	
+><br>
+你可以通过在该语句下面，写入var_dump($list);和前面的方法一样进行测试。<br>
+我这里就不进行测试了。<br>
+再往下看，代码还进行了许多处理，最后传给了一个display()函数。<br>
+<img src="/p/phpchat1/4.36.jpg"
+	width="1003"
+	height="508"
+	srcset="/p/phpchat1/4.36_hu_88163238cf084304.jpg 480w, /p/phpchat1/4.36_hu_7fc24a3b77832265.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="197"
+		data-flex-basis="473px"
+	
+><br>
+我们跟踪一下。<br>
+<img src="/p/phpchat1/4.37.jpg"
+	width="1517"
+	height="768"
+	srcset="/p/phpchat1/4.37_hu_b2100e6514370a19.jpg 480w, /p/phpchat1/4.37_hu_437f9e759a2e40f1.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="197"
+		data-flex-basis="474px"
+	
+><br>
+在这个函数最下面，有一段叫模板编译核心的东西。<br>
+我们在下面echo测试一下。<br>
+<img src="/p/phpchat1/4.38.jpg"
+	width="1377"
+	height="746"
+	srcset="/p/phpchat1/4.38_hu_3256f1a0e9570edd.jpg 480w, /p/phpchat1/4.38_hu_82de5eee4e2a9afc.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="184"
+		data-flex-basis="443px"
+	
+><br>
+保存后我们到后台刷新一下。<br>
+<img src="/p/phpchat1/4.39.jpg"
+	width="2308"
+	height="524"
+	srcset="/p/phpchat1/4.39_hu_cc2a6edafb2e9f49.jpg 480w, /p/phpchat1/4.39_hu_868be3e0844c1910.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="440"
+		data-flex-basis="1057px"
+	
+><br>
+如上图所示，页面输出了一个语句。<br>
+说明代码还对数据进行了一个html_out()函数的处理。</p>
+<p>我们搜索一下。<br>
+<img src="/p/phpchat1/4.40.jpg"
+	width="1458"
+	height="564"
+	srcset="/p/phpchat1/4.40_hu_e96c3e091c747681.jpg 480w, /p/phpchat1/4.40_hu_76870a30e52e5339.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="620px"
+	
+><br>
+这个代码就出现了最根本的问题，它使用了htmlspecialchars_decode()函数。<br>
+<img src="/p/phpchat1/4.41.jpg"
+	width="958"
+	height="347"
+	srcset="/p/phpchat1/4.41_hu_ae4a1537e85f6517.jpg 480w, /p/phpchat1/4.41_hu_657341a0f183c4c3.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="276"
+		data-flex-basis="662px"
+	
+><br>
+这个函数与htmlspecialchars()是相反的，它将html实体化的标签还原了。<br>
+所以再回头看一下我们那句payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">tname</span><span class="p">[]</span><span class="o">=</span><span class="nx">joe</span><span class="o">&lt;</span><span class="nx">script</span><span class="o">%</span><span class="mi">26</span><span class="nx">gt</span><span class="p">;</span><span class="nx">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;/</span><span class="nx">script</span><span class="o">%</span><span class="mi">26</span><span class="nx">gt</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>先通过传入tname[]让代码认为我们传入的是数组，然后再后面拼接XSS语句。<br>
+这个语句由于前面提到的正则表达式，需要将两个符号进行html实体化。<br>
+本来由于实体化后该语句无法生效，但是代码在输出部分又将这些实体化的标签还原了。<br>
+导致该payload成功生效，造成XSS漏洞！</p>
 
 </section>
 
@@ -1962,7 +2127,7 @@
 
 
 
-<p>发布了 12 篇文章 | 共 44819 字</p>
+<p>发布了 12 篇文章 | 共 45518 字</p>
     </section>
     
    
