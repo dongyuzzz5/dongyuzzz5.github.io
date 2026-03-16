@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>文件包含 on 冬 鱼 🐟️</title>
+        <link>https://dongyuzzz5.github.io/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</link>
+        <description>Recent content in 文件包含 on 冬 鱼 🐟️</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Dongyu</copyright>
+        <lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PHP代码审计 --- 文件包含漏洞</title>
+        <link>https://dongyuzzz5.github.io/p/phpchat2/</link>
+        <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://dongyuzzz5.github.io/p/phpchat2/</guid>
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/phpchat2/111.png" alt="Featured image of post PHP代码审计 --- 文件包含漏洞" /&gt;&lt;h2 id=&#34;一-文件包含漏洞简介&#34;&gt;一. 文件包含漏洞简介
+&lt;/h2&gt;&lt;h3 id=&#34;1漏洞介绍&#34;&gt;1.漏洞介绍
+&lt;/h3&gt;&lt;p&gt;程序开发人员通常会把重复使用的函数写到单个文件中，在使用某些函数时再调用，这种调用文件的过程就叫包含。&lt;br&gt;
+这种动态调用非常灵活，但正由于这种灵活性，从而导致客户端可以调用一个恶意文件，造成文件包含漏洞。&lt;br&gt;
+文件包含漏洞在PHP Web Application中居多，而在JSP,ASP,ASP.NET程序中非常少，甚至没有。&lt;br&gt;
+下面附上他们的对比图。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.1.jpg&#34;
+	width=&#34;798&#34;
+	height=&#34;395&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.1_hu_74a63aa4ed65e8e3.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/1.1_hu_168f632ad2bc885b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2漏洞原理&#34;&gt;2.漏洞原理
+&lt;/h3&gt;&lt;p&gt;文件包含是因为服务器端某些程序对用户提交参数过滤不当造成的，该程序一般具有以读取方式输出文件内容(任意文件读取)或者下载文件。&lt;br&gt;
+通常在以下情况下存在漏洞：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过在请求参数中传入相对路径或绝对路劲，如：download.php?filename=index.html&lt;/li&gt;
+&lt;li&gt;PHP代码中存在本地文件包含漏洞，如：include、include_once、require、require_once&lt;/li&gt;
+&lt;li&gt;Web目录映射到根目录，如：http://127.0.0.1/etc/passwd&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3导致文件包含的函数&#34;&gt;3.导致文件包含的函数
+&lt;/h3&gt;&lt;p&gt;include() 、 include_once() 、 require() 、 require_once 、 fopen() 、 readfile()&lt;/p&gt;
+&lt;p&gt;前4个函数包含一个新文件时，只要文件内容符合PHP语法规范，任何扩展名都可以被PHP解析。可以使用 file:// 和 php:// 协议进行读取。&lt;br&gt;
+include()和require()的区别是，include在包含过程中如果出现错误，会抛出一个警告，程序继续正常进行，而require会退出程序。&lt;br&gt;
+而include_once()，require_once()与前两个不同之处在于这两个函数只包含一次。&lt;/p&gt;
+&lt;h3 id=&#34;4例子&#34;&gt;4.例子
+&lt;/h3&gt;&lt;p&gt;这里简单介绍一个文件包含漏洞的例子。&lt;br&gt;
+我们打开DVWA靶场(靶场搭建可以看我另一篇文章：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/bachang/?t=1773656521582&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;靶场搭建教程&lt;/a&gt;)&lt;br&gt;
+将难度调到Low级别后，进入File Inclusion选项。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.2.jpg&#34;
+	width=&#34;1369&#34;
+	height=&#34;1069&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.2_hu_27f4259a4e73c3b8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/1.2_hu_7d76273fc48cc74b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;307px&#34;
+	
+&gt;&lt;br&gt;
+打开file1,可以看到是直接打开了这个php文件进行访问，那么久可能存在文件包含漏洞。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.3.jpg&#34;
+	width=&#34;1537&#34;
+	height=&#34;672&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.3_hu_9289c618ab1cf9a0.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/1.3_hu_21175980299e67f3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;228&#34;
+		data-flex-basis=&#34;548px&#34;
+	
+&gt;&lt;br&gt;
+这里我们使用下面的这句协议。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;php://filter/read/convert.base64-encode/resource&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.4.jpg&#34;
+	width=&#34;1548&#34;
+	height=&#34;686&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.4_hu_bc54074e85e2e923.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/1.4_hu_c7f8db1fca9a30b5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;225&#34;
+		data-flex-basis=&#34;541px&#34;
+	
+&gt;&lt;br&gt;
+使用这句协议，会将文件源代码以base64编码的形式在页面显示出来。&lt;br&gt;
+按回车后我们右键查看网页源代码看一下。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.5.jpg&#34;
+	width=&#34;1562&#34;
+	height=&#34;475&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.5_hu_f15ebfa63dd7eeda.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/1.5_hu_9398f42c73479f77.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;328&#34;
+		data-flex-basis=&#34;789px&#34;
+	
+&gt;&lt;br&gt;
+我们将这段base64进行解码。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.6.jpg&#34;
+	width=&#34;1785&#34;
+	height=&#34;1325&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/1.6_hu_d376032c37a577a2.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/1.6_hu_aceae9c6d9ad2ac2.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;134&#34;
+		data-flex-basis=&#34;323px&#34;
+	
+&gt;&lt;br&gt;
+然后就可以看到file1的文件源代码了。&lt;br&gt;
+同理，我们将协议里的file1改为file2，也可以查看file2的文件源代码。&lt;/p&gt;
+&lt;h2 id=&#34;二-漏洞种类&#34;&gt;二. 漏洞种类
+&lt;/h2&gt;&lt;h3 id=&#34;1本地文件包含&#34;&gt;1.本地文件包含
+&lt;/h3&gt;&lt;p&gt;假如用户可以控制file参数，那么通过控制file的值来读取文件。&lt;/p&gt;
+&lt;p&gt;下面讲一个简单的例子加强理解。&lt;br&gt;
+我们先在WWW目录下创建一个文件夹。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.1.jpg&#34;
+	width=&#34;1135&#34;
+	height=&#34;748&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.1_hu_bbbd621dc1751d3c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.1_hu_f81aa780d62cfb37.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;151&#34;
+		data-flex-basis=&#34;364px&#34;
+	
+&gt;&lt;br&gt;
+在文件夹里新建一个php文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.2.jpg&#34;
+	width=&#34;856&#34;
+	height=&#34;276&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.2_hu_e2e171e32d162a36.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.2_hu_30c38ad7fe532464.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;310&#34;
+		data-flex-basis=&#34;744px&#34;
+	
+&gt;&lt;br&gt;
+在该文件中写入下面代码。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;file&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;file_exists&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;home/&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;home/&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后再同级目录下创建一个home文件夹。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.3.jpg&#34;
+	width=&#34;1096&#34;
+	height=&#34;314&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.3_hu_79deea8b9cf0d649.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.3_hu_f868644789c21101.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;349&#34;
+		data-flex-basis=&#34;837px&#34;
+	
+&gt;&lt;br&gt;
+在home路径下创建一个phpinfo.php文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.4.jpg&#34;
+	width=&#34;1097&#34;
+	height=&#34;271&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.4_hu_7a74f43de1c66704.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.4_hu_360829527d67d14f.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;404&#34;
+		data-flex-basis=&#34;971px&#34;
+	
+&gt;&lt;br&gt;
+文件写入下面代码。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;phpinfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;接着在浏览器访问&lt;span style=&#34;color: #e74c3c;&#34;&gt;127.0.0.1/learn/learnfile.php?file=phpinfo.php&lt;/span&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.5.jpg&#34;
+	width=&#34;1820&#34;
+	height=&#34;935&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.5_hu_9b907f6e22175767.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.5_hu_35ac6ed6fd9656b1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;194&#34;
+		data-flex-basis=&#34;467px&#34;
+	
+&gt;&lt;br&gt;
+可以看到它直接执行了phpinfo的命令。&lt;br&gt;
+但我们在原来的learnfile.php文件下是没有写的，是因为我们在代码里包含了home目录下的文件。&lt;br&gt;
+这也就造成了文件包含漏洞。&lt;/p&gt;
+&lt;p&gt;那这个漏洞只能范文该目录下的吗，是否能访问根目录下的文件呢？&lt;br&gt;
+我们这里试一下在路径下输入....\。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.6.jpg&#34;
+	width=&#34;971&#34;
+	height=&#34;316&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.6_hu_2984f68a90b888d6.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.6_hu_70e1fa387702768a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;307&#34;
+		data-flex-basis=&#34;737px&#34;
+	
+&gt;&lt;br&gt;
+按下回车，会发现我们直接来到根目录下(两个..\，也就是两级目录)。&lt;/p&gt;
+&lt;p&gt;按照这个逻辑，我们尝试在网页上读取下根目录下的password.txt文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.7.jpg&#34;
+	width=&#34;1128&#34;
+	height=&#34;556&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.7_hu_afa95176b297f4d0.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.7_hu_aa3cef610abdd8b5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;486px&#34;
+	
+&gt;&lt;br&gt;
+将URL改为http://127.0.0.1/learn/learnfile.php?file=../../../password.txt&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.8.jpg&#34;
+	width=&#34;921&#34;
+	height=&#34;246&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.8_hu_d0092d7706737ec1.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.8_hu_39002779806987d0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;374&#34;
+		data-flex-basis=&#34;898px&#34;
+	
+&gt;&lt;br&gt;
+成功读取。&lt;/p&gt;
+&lt;p&gt;这里我们也可以尝试一个特性。&lt;br&gt;
+我们将password.txt的内容改为执行phpinfo()函数。
+然后再次刷新页面。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.9.jpg&#34;
+	width=&#34;1795&#34;
+	height=&#34;510&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.9_hu_f365f545299cf900.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.9_hu_f451d4e5891c46c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;351&#34;
+		data-flex-basis=&#34;844px&#34;
+	
+&gt;&lt;br&gt;
+可以看到依旧解析了php的代码，即使文件后缀名为txt.&lt;/p&gt;
+&lt;h3 id=&#34;2远程文件包含&#34;&gt;2.远程文件包含
+&lt;/h3&gt;&lt;p&gt;如果PHP的配置选项allow_url_include为ON的话，则include/require函数是可以加载远程文件的，这种漏洞被称为远程文件漏洞。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;allow_url_include&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ON&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;是否允许include&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;require远程文件&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;allow_url_fopen&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;ON&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;是否允许打开远程文件&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;下面也是简单举一个例子。&lt;br&gt;
+我们将刚刚的learnfile.php文件代码改一下。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;file&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后将刚刚的password.txt文件放到WWW文件目录下。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.10.jpg&#34;
+	width=&#34;1095&#34;
+	height=&#34;776&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.10_hu_4bca3d0852ec7fac.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.10_hu_f39424c64dabaef3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;338px&#34;
+	
+&gt;&lt;br&gt;
+在浏览器URL改为：http://127.0.0.1/learn/learnfile.php?file=http://127.0.0.1/password.txt&lt;br&gt;
+按回车执行password文件代码。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.11.jpg&#34;
+	width=&#34;1070&#34;
+	height=&#34;609&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/2.11_hu_d488106b29c64748.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/2.11_hu_8e9ff3da09adf04e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;175&#34;
+		data-flex-basis=&#34;421px&#34;
+	
+&gt;&lt;br&gt;
+这里URL中的 http://127.0.0.1/ 只是举个例子，一般会是一个服务器的地址。&lt;/p&gt;
+&lt;h2 id=&#34;三-漏洞探测方法黑盒与利用&#34;&gt;三. 漏洞探测方法(黑盒)与利用
+&lt;/h2&gt;&lt;h3 id=&#34;1漏洞探测方法&#34;&gt;1.漏洞探测方法
+&lt;/h3&gt;&lt;p&gt;探测方法一般有两种，且都是黑盒测试。&lt;br&gt;
+分为&lt;span style=&#34;color: #e74c3c;&#34;&gt;工具扫描&lt;/span&gt;和Brupsuite网站浏览关注有路劲的请求参数进行&lt;span style=&#34;color: #e74c3c;&#34;&gt;手工探测&lt;/span&gt;。&lt;br&gt;
+下面主要讲一下手工探测的典型步骤。&lt;/p&gt;
+&lt;p&gt;第一步：正常请求&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://127.0.0.1/download.php?filename&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xxx.doc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这是一个正常的URL，用于确认这个下载功能确实工作，作为后续对比的基准。&lt;/p&gt;
+&lt;p&gt;第二部：测试路径回溯&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://127.0.0.1/download.php?filename&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;abc/../xxx.doc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里abc可以替换成任意名字。&lt;br&gt;
+如果服务器能正确解析 ../ 并返回相同文件，说明它没有对路径进行严格过滤(abc被忽略)，存在被利用的可能。&lt;/p&gt;
+&lt;p&gt;第三步：尝试读取敏感系统文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://127.0.0.1/download.php?filename&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;../../../../etc/passwd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;../../../../etc/passwd&lt;br&gt;
+↓&lt;br&gt;
+../../../  →  连续向上返回4级目录，直到系统根目录 /&lt;br&gt;
+/etc/passwd →  Linux系统的用户账号信息文件（非常敏感）&lt;/p&gt;
+&lt;h3 id=&#34;2漏洞的利用&#34;&gt;2.漏洞的利用
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;1.收集信息：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;思路一：下载系统内文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.1.jpg&#34;
+	width=&#34;798&#34;
+	height=&#34;294&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.1_hu_6b890ace38cdbef4.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.1_hu_33c3ae7629aa8fdd.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;271&#34;
+		data-flex-basis=&#34;651px&#34;
+	
+&gt;&lt;br&gt;
+思路二：扫描或猜解站点可能存在的测试文件、探针文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.2.jpg&#34;
+	width=&#34;969&#34;
+	height=&#34;142&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.2_hu_5c429675b64822d8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.2_hu_9a273e6af0fe0e86.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;682&#34;
+		data-flex-basis=&#34;1637px&#34;
+	
+&gt;&lt;br&gt;
+思路三：源码管理站点，收集其中包含的地址信息，配置信息等。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.3.jpg&#34;
+	width=&#34;1045&#34;
+	height=&#34;153&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.3_hu_85d3a391284762b5.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.3_hu_5eac9cfe7b8b8975.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;683&#34;
+		data-flex-basis=&#34;1639px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;2.找WEB目录：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在WEB服务器配置中找&lt;br&gt;
+猜解常见路劲，如：/var/www,/home/www,/home/htdocs等&lt;br&gt;
+在脚本文件中，如phpinfo中的BASEPATH等&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;3.获取地址列表：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;利用爬虫程序将网站的目录和文件全部爬取下来，整理出URL地址列表。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;4.批量下载脚本文件：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过自动化脚本程序将URL地址列表中的脚步文件全部下载下来。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;5.分析已经下载的文件：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;进行代码审计，分析源码中可能存在的各类漏洞，包括SQL注入，文件包含，命令执行，代码执行，上传漏洞等。&lt;/p&gt;
+&lt;h3 id=&#34;3漏洞利用技巧&#34;&gt;3.漏洞利用技巧
+&lt;/h3&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
