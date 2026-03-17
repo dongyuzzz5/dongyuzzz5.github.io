@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
-        <lastBuildDate>Wed, 11 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/categories/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>靶场搭建教程</title>
         <link>https://dongyuzzz5.github.io/p/bachang/</link>
-        <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+        <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://dongyuzzz5.github.io/p/bachang/</guid>
         <description>&lt;img src="https://dongyuzzz5.github.io/p/bachang/111.png" alt="Featured image of post 靶场搭建教程" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言
@@ -403,6 +403,149 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 		data-flex-basis=&#34;642px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;h2 id=&#34;四-phpcms&#34;&gt;四. PHPCMS
+&lt;/h2&gt;&lt;h3 id=&#34;1下载-2&#34;&gt;1.下载
+&lt;/h3&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://www.phpcmsv9.cn/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://www.phpcmsv9.cn/&lt;/a&gt;&lt;br&gt;
+如果该网站不可用了，可以直接在浏览器搜phpcms官网，如下图：&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.1.jpg&#34;
+	width=&#34;1052&#34;
+	height=&#34;1039&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.1_hu_72f253c937e05767.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.1_hu_18db19a70aa165ee.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;101&#34;
+		data-flex-basis=&#34;243px&#34;
+	
+&gt;&lt;br&gt;
+下载UTF8版本。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.2.jpg&#34;
+	width=&#34;1001&#34;
+	height=&#34;555&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.2_hu_34b6719f55fc1d70.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.2_hu_f3db916663634926.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;432px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2安装与配置&#34;&gt;2.安装与配置
+&lt;/h3&gt;&lt;p&gt;文件解压后，将里面的install_package文件夹复制到phpstudy里的WWW目录下。&lt;br&gt;
+并将文件夹改名为phpcms。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.3.jpg&#34;
+	width=&#34;1111&#34;
+	height=&#34;557&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.3_hu_b1296ca0b6f29e0f.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.3_hu_53e481084d5f0143.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;199&#34;
+		data-flex-basis=&#34;478px&#34;
+	
+&gt;&lt;br&gt;
+然后我们直接在浏览器访问该URL：http://127.0.0.1/phpcms/install/install.php&lt;br&gt;
+然后点击进行安装。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.4.jpg&#34;
+	width=&#34;1893&#34;
+	height=&#34;1256&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.4_hu_b7e2f4507562de5c.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.4_hu_ac55488fe5dd1677.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;150&#34;
+		data-flex-basis=&#34;361px&#34;
+	
+&gt;&lt;br&gt;
+选择第一个，点击下一步。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.5.jpg&#34;
+	width=&#34;1627&#34;
+	height=&#34;1052&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.5_hu_d5ede53e58afbaaf.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.5_hu_2c40785188c5ce0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;154&#34;
+		data-flex-basis=&#34;371px&#34;
+	
+&gt;&lt;br&gt;
+账号甚至如下：&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.7.jpg&#34;
+	width=&#34;1609&#34;
+	height=&#34;1109&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.7_hu_926983d43a842699.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.7_hu_76d8b8881e54bf17.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;348px&#34;
+	
+&gt;&lt;br&gt;
+同时记得在phpstudy上创建一个数据库，且配置信息和上面一致。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.6.jpg&#34;
+	width=&#34;760&#34;
+	height=&#34;624&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.6_hu_441803add8a71d37.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.6_hu_780a62835628eb02.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;121&#34;
+		data-flex-basis=&#34;292px&#34;
+	
+&gt;&lt;br&gt;
+点击安装一直下一步就安装成功了。&lt;/p&gt;
+&lt;h3 id=&#34;3登录后台-1&#34;&gt;3.登录后台
+&lt;/h3&gt;&lt;p&gt;输入刚刚的账号密码。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.8.jpg&#34;
+	width=&#34;908&#34;
+	height=&#34;549&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.8_hu_50b4810947dced7c.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.8_hu_5fe4efe06740617b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;165&#34;
+		data-flex-basis=&#34;396px&#34;
+	
+&gt;&lt;br&gt;
+登录成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.10.jpg&#34;
+	width=&#34;1840&#34;
+	height=&#34;961&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.10_hu_d2042f39b9e02290.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.10_hu_198230aa9d17f9c5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;191&#34;
+		data-flex-basis=&#34;459px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;ps:若是第一次密码输错，可能会导致60分钟后才能重新登录(别问我怎么知道的TOT)。&lt;br&gt;
+若是你也遇到了，可以改一下index.php中的登录次数限制。&lt;br&gt;
+具体文件路径为：phpcms/modules/admin/index.php&lt;br&gt;
+修改内容如下：&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/4.9.jpg&#34;
+	width=&#34;1407&#34;
+	height=&#34;779&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/4.9_hu_37c9b1fb4ed22ba0.jpg 480w, https://dongyuzzz5.github.io/p/bachang/4.9_hu_ca5eb6fab64bca38.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;433px&#34;
+	
+&gt;&lt;br&gt;
+这样就能试错100了嘻嘻。&lt;/p&gt;
 </description>
         </item>
         <item>

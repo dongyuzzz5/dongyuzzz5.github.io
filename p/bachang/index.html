@@ -10,7 +10,7 @@
 <meta property='og:description' content="学习代码审计时搭建的一些靶场，记录一下">
 <meta property='og:url' content='https://dongyuzzz5.github.io/p/bachang/'>
 <meta property='og:site_name' content='冬 鱼 🐟️'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='靶场' /><meta property='article:tag' content='PHP' /><meta property='article:published_time' content='2026-03-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-11T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/bachang/111.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='靶场' /><meta property='article:tag' content='PHP' /><meta property='article:published_time' content='2026-03-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/bachang/111.png' />
 <meta name="twitter:title" content="靶场搭建教程">
 <meta name="twitter:description" content="学习代码审计时搭建的一些靶场，记录一下"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/bachang/111.png' /><div class="loading">
@@ -370,6 +370,13 @@
         <li><a href="#3登录后台">3.登录后台</a></li>
       </ol>
     </li>
+    <li><a href="#四-phpcms">四. PHPCMS</a>
+      <ol>
+        <li><a href="#1下载-2">1.下载</a></li>
+        <li><a href="#2安装与配置">2.安装与配置</a></li>
+        <li><a href="#3登录后台-1">3.登录后台</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -442,7 +449,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-03-11T00:00:00Z'>2026-03-11</time>
+                <time class="article-time--published" datetime='2026-03-15T00:00:00Z'>2026-03-15</time>
             </div>
         
 
@@ -858,6 +865,149 @@ http://localhost/dvwa 或者 http://dvwa/<br>
 		data-flex-basis="642px"
 	
 ></p>
+<h2 id="四-phpcms">四. PHPCMS
+</h2><h3 id="1下载-2">1.下载
+</h3><p>下载地址：<a class="link" href="https://www.phpcmsv9.cn/"  target="_blank" rel="noopener"
+    >https://www.phpcmsv9.cn/</a><br>
+如果该网站不可用了，可以直接在浏览器搜phpcms官网，如下图：<br>
+<img src="/p/bachang/4.1.jpg"
+	width="1052"
+	height="1039"
+	srcset="/p/bachang/4.1_hu_72f253c937e05767.jpg 480w, /p/bachang/4.1_hu_18db19a70aa165ee.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="243px"
+	
+><br>
+下载UTF8版本。<br>
+<img src="/p/bachang/4.2.jpg"
+	width="1001"
+	height="555"
+	srcset="/p/bachang/4.2_hu_34b6719f55fc1d70.jpg 480w, /p/bachang/4.2_hu_f3db916663634926.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="432px"
+	
+></p>
+<h3 id="2安装与配置">2.安装与配置
+</h3><p>文件解压后，将里面的install_package文件夹复制到phpstudy里的WWW目录下。<br>
+并将文件夹改名为phpcms。<br>
+<img src="/p/bachang/4.3.jpg"
+	width="1111"
+	height="557"
+	srcset="/p/bachang/4.3_hu_b1296ca0b6f29e0f.jpg 480w, /p/bachang/4.3_hu_53e481084d5f0143.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="199"
+		data-flex-basis="478px"
+	
+><br>
+然后我们直接在浏览器访问该URL：http://127.0.0.1/phpcms/install/install.php<br>
+然后点击进行安装。<br>
+<img src="/p/bachang/4.4.jpg"
+	width="1893"
+	height="1256"
+	srcset="/p/bachang/4.4_hu_b7e2f4507562de5c.jpg 480w, /p/bachang/4.4_hu_ac55488fe5dd1677.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="361px"
+	
+><br>
+选择第一个，点击下一步。<br>
+<img src="/p/bachang/4.5.jpg"
+	width="1627"
+	height="1052"
+	srcset="/p/bachang/4.5_hu_d5ede53e58afbaaf.jpg 480w, /p/bachang/4.5_hu_2c40785188c5ce0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="371px"
+	
+><br>
+账号甚至如下：<br>
+<img src="/p/bachang/4.7.jpg"
+	width="1609"
+	height="1109"
+	srcset="/p/bachang/4.7_hu_926983d43a842699.jpg 480w, /p/bachang/4.7_hu_76d8b8881e54bf17.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="348px"
+	
+><br>
+同时记得在phpstudy上创建一个数据库，且配置信息和上面一致。<br>
+<img src="/p/bachang/4.6.jpg"
+	width="760"
+	height="624"
+	srcset="/p/bachang/4.6_hu_441803add8a71d37.jpg 480w, /p/bachang/4.6_hu_780a62835628eb02.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="121"
+		data-flex-basis="292px"
+	
+><br>
+点击安装一直下一步就安装成功了。</p>
+<h3 id="3登录后台-1">3.登录后台
+</h3><p>输入刚刚的账号密码。<br>
+<img src="/p/bachang/4.8.jpg"
+	width="908"
+	height="549"
+	srcset="/p/bachang/4.8_hu_50b4810947dced7c.jpg 480w, /p/bachang/4.8_hu_5fe4efe06740617b.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="396px"
+	
+><br>
+登录成功。<br>
+<img src="/p/bachang/4.10.jpg"
+	width="1840"
+	height="961"
+	srcset="/p/bachang/4.10_hu_d2042f39b9e02290.jpg 480w, /p/bachang/4.10_hu_198230aa9d17f9c5.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="191"
+		data-flex-basis="459px"
+	
+></p>
+<p>ps:若是第一次密码输错，可能会导致60分钟后才能重新登录(别问我怎么知道的TOT)。<br>
+若是你也遇到了，可以改一下index.php中的登录次数限制。<br>
+具体文件路径为：phpcms/modules/admin/index.php<br>
+修改内容如下：<br>
+<img src="/p/bachang/4.9.jpg"
+	width="1407"
+	height="779"
+	srcset="/p/bachang/4.9_hu_37c9b1fb4ed22ba0.jpg 480w, /p/bachang/4.9_hu_ca5eb6fab64bca38.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+><br>
+这样就能试错100了嘻嘻。</p>
 
 </section>
 
@@ -1034,7 +1184,7 @@ http://localhost/dvwa 或者 http://dvwa/<br>
 
 
 
-<p>发布了 13 篇文章 | 共 47963 字</p>
+<p>发布了 13 篇文章 | 共 49315 字</p>
     </section>
     
    

