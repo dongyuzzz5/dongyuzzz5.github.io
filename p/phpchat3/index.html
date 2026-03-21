@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="upload-labs靶场是一个练习上传漏洞很不错的平台">
+<title>PHP上传漏洞 --- upload-labs靶场练习</title>
+
+<link rel='canonical' href='https://dongyuzzz5.github.io/p/phpchat3/'>
+
+<link rel="stylesheet" href="/scss/style.min.cf7589fc4c53a823b25bfc75ff7250de92bd297ebbe98b50828ce2dc9ef784fb.css"><meta property='og:title' content="PHP上传漏洞 --- upload-labs靶场练习">
+<meta property='og:description' content="upload-labs靶场是一个练习上传漏洞很不错的平台">
+<meta property='og:url' content='https://dongyuzzz5.github.io/p/phpchat3/'>
+<meta property='og:site_name' content='冬 鱼 🐟️'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PHP' /><meta property='article:tag' content='上传' /><meta property='article:tag' content='漏洞' /><meta property='article:published_time' content='2026-03-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://dongyuzzz5.github.io/p/phpchat3/111.png' />
+<meta name="twitter:title" content="PHP上传漏洞 --- upload-labs靶场练习">
+<meta name="twitter:description" content="upload-labs靶场是一个练习上传漏洞很不错的平台"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://dongyuzzz5.github.io/p/phpchat3/111.png' /><div class="loading">
+    <div class="spinner">
+        
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<style>
+    .loading {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;  
+        background-color: rgba(245, 245, 250, 0.5);
+         
+        transition: all .6s ease-out;
+    }
+	
+.spinner {
+  width: 70.4px;
+  height: 70.4px;
+  --clr: rgb(30, 136, 229);
+  --clr-alpha: rgb(30, 136, 229,.1);
+  animation: spinner 1.6s infinite ease;
+  transform-style: preserve-3d;
+}
+
+.spinner > div {
+  background-color: var(--clr-alpha);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 3.5px solid var(--clr);
+}
+
+.spinner div:nth-of-type(1) {
+  transform: translateZ(-35.2px) rotateY(180deg);
+}
+
+.spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+}
+
+.spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+}
+
+.spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+}
+
+.spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+}
+
+.spinner div:nth-of-type(6) {
+  transform: translateZ(35.2px);
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
+
+  50% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
+
+  100% {
+    transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+}
+</style>
+
+<script>	
+    function initLoading() {
+        let loading = document.querySelector(".loading");
+        
+        setTimeout(() => {
+            
+            loading.style.opacity = 0;
+            setTimeout(() => {
+                loading.style.display = "none";
+            }, 600)
+        }, 1000);
+    }
+    
+    initLoading();
+</script>
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_96a5ff7ba96a3e31.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🤔</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">冬 鱼 🐟️</a></h1>
+            <h2 class="site-description">ctf?坎公骑冠剑！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://wiki.biligame.com/gt/%E9%A6%96%E9%A1%B5'
+                        target="_blank"
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-bilibili"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6" /><path d="M8 3l2 3" /><path d="M16 3l-2 3" /><path d="M9 13v-2" /><path d="M15 11v2" /></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/dashboard'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/cats-tags/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-tag"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.5 7.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l5.592 -5.592a2.41 2.41 0 0 0 0 -3.408l-7.71 -7.71a2 2 0 0 0 -1.414 -.586h-5.172a3 3 0 0 0 -3 3" /></svg>
+                
+                <span>分类&amp;标签</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一-上传漏洞简介">一. 上传漏洞简介</a>
+      <ol>
+        <li><a href="#1漏洞介绍">1.漏洞介绍</a></li>
+        <li><a href="#2漏洞条件">2.漏洞条件</a></li>
+        <li><a href="#3相关函数">3.相关函数</a></li>
+        <li><a href="#4判断上传漏洞类型">4.判断上传漏洞类型</a></li>
+        <li><a href="#5选择绕过方法">5.选择绕过方法</a></li>
+      </ol>
+    </li>
+    <li><a href="#二-靶场实例练习">二. 靶场实例练习</a>
+      <ol>
+        <li><a href="#1前言">1.前言</a></li>
+        <li><a href="#2pass-01">2.Pass-01</a></li>
+        <li><a href="#3pass-02">3.Pass-02</a></li>
+        <li><a href="#4pass-03">4.Pass-03</a></li>
+        <li><a href="#5pass-04">5.Pass-04</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/phpchat3/">
+                <img src="/p/phpchat3/111_hu_a8739cc9e9c531bd.png"
+                        srcset="/p/phpchat3/111_hu_a8739cc9e9c531bd.png 800w, /p/phpchat3/111_hu_b2e28ad3ce69e3cb.png 1600w"
+                        width="800" 
+                        height="600" 
+                        loading="lazy"
+                        alt="Featured image of post PHP上传漏洞 --- upload-labs靶场练习" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #f39c12; color: #fff;">
+            
+                学习笔记
+            </a>
+        
+            <a href="/categories/ctf/" style="background-color: #e74c3c; color: #fff;">
+            
+                CTF
+            </a>
+        
+  
+    <a class="tag" href="/tags/php">PHP</a>
+  
+    <a class="tag" href="/tags/%E4%B8%8A%E4%BC%A0">上传</a>
+  
+    <a class="tag" href="/tags/%E6%BC%8F%E6%B4%9E">漏洞</a>
+  
+    </header>
+    
+
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/phpchat3/">PHP上传漏洞 --- upload-labs靶场练习</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            upload-labs靶场是一个练习上传漏洞很不错的平台
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-03-21T00:00:00Z'>2026-03-21</time>
+            </div>
+        
+
+        
+		
+		
+        <div id="viewCount">
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" /></svg>
+            <time class="article-time--reading">
+                
+                <span id="vercount_value_page_pv">loading... </span>次
+            </time>
+        </div>
+
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="一-上传漏洞简介">一. 上传漏洞简介
+</h2><h3 id="1漏洞介绍">1.漏洞介绍
+</h3><p>文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获取了执行服务器端命令的能力，这种攻击方式是最直接和有效的，文件上传本身是没有问题的，有问题的是文件上传后，服务器怎么处理，解析文件。通过服务器的处理逻辑做的不够安全，则会导致上传漏洞。</p>
+<h3 id="2漏洞条件">2.漏洞条件
+</h3><ul>
+<li>文件可上传</li>
+<li>知道文件上传漏洞</li>
+<li>上传文件可以被访问</li>
+<li>上传文件可以被执行</li>
+</ul>
+<h3 id="3相关函数">3.相关函数
+</h3><p>下面介绍一些文件上传漏洞相关的函数：</p>
+<ul>
+<li><span style="color: #e74c3c;">move_uploaded_file(file,newloc)</span>:函数将上传的文件移动到新的位置。</li>
+<li><span style="color: #e74c3c;">strolower()</span>:函数把字符串转换为小写。</li>
+<li><span style="color: #e74c3c;">trim()</span>:函数移除字符串两侧的空白字符或其他预定义字符。</li>
+<li><span style="color: #e74c3c;">strrchr()</span>:函数查找字符串在另一个字符串中最后一次出现的位置，并返回从该位置到字符串结尾的所有字符。</li>
+<li><span style="color: #e74c3c;">srt_ireplace()</span>:函数替换字符串中的一些字符(不区分大小写)。</li>
+<li><span style="color: #e74c3c;">getimagesize()</span>:函数用于获取图像大小及相关信息，成功返回一个数组，失败则返回FALSE并产生一条E_WARNING的错误信息。</li>
+<li><span style="color: #e74c3c;">exif_imagetype()</span>:读取一个图像的第一个字节并检查其签名。</li>
+<li><span style="color: #e74c3c;">substr()</span>:函数返回字符串的一部分。</li>
+<li><span style="color: #e74c3c;">fopen()</span>:函数打卡文件或URL。</li>
+<li><span style="color: #e74c3c;">fread()</span>:函数读取文件(可安全用于二进制文件)。</li>
+<li><span style="color: #e74c3c;">fwrite()</span>:函数写入文件(可安全用于二进制文件)。</li>
+</ul>
+<h3 id="4判断上传漏洞类型">4.判断上传漏洞类型
+</h3><p>上传漏洞类型有很多，下面提供一张思维导图，可以通过该导图一步一步判断上传漏洞类型，从而进行利用。<br>
+<img src="/p/phpchat3/1.1.png"
+	width="1860"
+	height="1129"
+	srcset="/p/phpchat3/1.1_hu_30df23ae7100ad9a.png 480w, /p/phpchat3/1.1_hu_bcaa037ffeaecfd8.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="395px"
+	
+><br>
+上图中的白名单就是判断条件的内容允许通过，黑名单就是判断条件的内容不允许通过。</p>
+<h3 id="5选择绕过方法">5.选择绕过方法
+</h3><p><img src="/p/phpchat3/1.2.png"
+	width="1462"
+	height="1057"
+	srcset="/p/phpchat3/1.2_hu_ca2461d4ed4db953.png 480w, /p/phpchat3/1.2_hu_a9e7f4db10ffa547.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="331px"
+	
+></p>
+<h2 id="二-靶场实例练习">二. 靶场实例练习
+</h2><h3 id="1前言">1.前言
+</h3><p>本文章主要是讲一下upload-labs靶场的部分闯关题解。<br>
+这个平台涵盖了大部分的文件上传漏洞的类型。<br>
+该靶场练习不仅是加强对PHP文件上传漏洞的理解，也是对在CTF比赛中该类型题目的练习。<br>
+ps:该靶场搭建可以看我的另一篇文章：<a class="link" href="https://dongyuzzz5.github.io/p/bachang/?t=1774088174234"  target="_blank" rel="noopener"
+    >靶场搭建教程</a></p>
+<h3 id="2pass-01">2.Pass-01
+</h3><p>我们先准备好一个php文件,里面写入一句话木马。<br>
+<img src="/p/phpchat3/2.1.jpg"
+	width="963"
+	height="303"
+	srcset="/p/phpchat3/2.1_hu_134e0a588b770719.jpg 480w, /p/phpchat3/2.1_hu_abfd549743b08af0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="317"
+		data-flex-basis="762px"
+	
+><br>
+我们先尝试上传这个文件。<br>
+<img src="/p/phpchat3/2.2.jpg"
+	width="1004"
+	height="633"
+	srcset="/p/phpchat3/2.2_hu_14d8c5d801973041.jpg 480w, /p/phpchat3/2.2_hu_9dfe04c4ad273fb0.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="380px"
+	
+><br>
+发现提示只能上传.jpg|.png|.gif格式文件。<br>
+而且在外面点击上传后，页面立马回应，通过思维导图，我们可以判断它是通过客户端(js)检查的。<br>
+我们右键查看网页源代码可以清楚的看到。<br>
+<img src="/p/phpchat3/2.3.jpg"
+	width="1416"
+	height="1365"
+	srcset="/p/phpchat3/2.3_hu_281cd2457181979d.jpg 480w, /p/phpchat3/2.3_hu_a44b0e872965df5.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="103"
+		data-flex-basis="248px"
+	
+><br>
+按照这个逻辑，我们可以修改php文件后缀绕过客户端代码的判断。<br>
+再bp抓包后修改其后缀名进行上传。<br>
+<img src="/p/phpchat3/2.4.jpg"
+	width="1228"
+	height="1099"
+	srcset="/p/phpchat3/2.4_hu_3d05288df09beb0.jpg 480w, /p/phpchat3/2.4_hu_e7bb4294345eb41b.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="111"
+		data-flex-basis="268px"
+	
+><br>
+我们来到upload目录(该靶场储存上传文件的地方)下，可以看到php文件已成功上传。<br>
+<img src="/p/phpchat3/2.5.jpg"
+	width="911"
+	height="401"
+	srcset="/p/phpchat3/2.5_hu_94d27f93cafa3c99.jpg 480w, /p/phpchat3/2.5_hu_4d462f67653018d6.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="227"
+		data-flex-basis="545px"
+	
+><br>
+蚁剑也可以成功链接。<br>
+<img src="/p/phpchat3/2.6.jpg"
+	width="1530"
+	height="1026"
+	srcset="/p/phpchat3/2.6_hu_d8e3cafed44fe1a0.jpg 480w, /p/phpchat3/2.6_hu_bc995d4c9c813f77.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="149"
+		data-flex-basis="357px"
+	
+></p>
+<p>这一道题也有另外一种绕过方式。<br>
+可以先通过pb抓包拦截执行请求后放包<br>
+修改js代码，放包后再上传我们的php脚本文件。<br>
+<img src="/p/phpchat3/2.7.jpg"
+	width="1270"
+	height="1083"
+	srcset="/p/phpchat3/2.7_hu_11e0c1f292292875.jpg 480w, /p/phpchat3/2.7_hu_b2d5f09cd3e9bc15.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="117"
+		data-flex-basis="281px"
+	
+><br>
+<img src="/p/phpchat3/2.8.jpg"
+	width="1227"
+	height="945"
+	srcset="/p/phpchat3/2.8_hu_1a5a6e611daf423.jpg 480w, /p/phpchat3/2.8_hu_fdfa41e85c618915.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="129"
+		data-flex-basis="311px"
+	
+><br>
+然后直接上传php文件。<br>
+<img src="/p/phpchat3/2.9.jpg"
+	width="873"
+	height="465"
+	srcset="/p/phpchat3/2.9_hu_305948be9073edf7.jpg 480w, /p/phpchat3/2.9_hu_962a966e536e4008.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="187"
+		data-flex-basis="450px"
+	
+><br>
+打开upload文件夹，上传成功。<br>
+<img src="/p/phpchat3/2.10.jpg"
+	width="1061"
+	height="465"
+	srcset="/p/phpchat3/2.10_hu_84c43c0e55aa3c38.jpg 480w, /p/phpchat3/2.10_hu_3433248a956373c6.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="228"
+		data-flex-basis="547px"
+	
+></p>
+<h3 id="3pass-02">3.Pass-02
+</h3><p>这道题讲的是服务端校验中，对数据包的MIME进行检查。<br>
+<img src="/p/phpchat3/2.11.jpg"
+	width="1052"
+	height="579"
+	srcset="/p/phpchat3/2.11_hu_d8f8d9476186662d.jpg 480w, /p/phpchat3/2.11_hu_68052f74fbd09855.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="436px"
+	
+><br>
+我们先上传php文件，抓包查看一下。<br>
+<img src="/p/phpchat3/2.12.jpg"
+	width="1403"
+	height="881"
+	srcset="/p/phpchat3/2.12_hu_def428c082d8ba56.jpg 480w, /p/phpchat3/2.12_hu_de05e445ffc6211c.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="159"
+		data-flex-basis="382px"
+	
+><br>
+可以看到这个Content-Type就是对MIME进行检查。<br>
+我们放包后也可以看到是无法通过的。<br>
+<img src="/p/phpchat3/2.13.jpg"
+	width="799"
+	height="433"
+	srcset="/p/phpchat3/2.13_hu_eef21990ab8a58fa.jpg 480w, /p/phpchat3/2.13_hu_ca927d9c13574cea.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="184"
+		data-flex-basis="442px"
+	
+><br>
+我们可以打开右上角查看源码。<br>
+可以看到它只允许下面三种格式的文件通过。<br>
+<img src="/p/phpchat3/2.14.jpg"
+	width="1657"
+	height="1086"
+	srcset="/p/phpchat3/2.14_hu_d96ca178421a6cc.jpg 480w, /p/phpchat3/2.14_hu_ee76c9a01d3ce013.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="152"
+		data-flex-basis="366px"
+	
+><br>
+我们复制其中一种，在bp抓包后进行修改。<br>
+<img src="/p/phpchat3/2.15.jpg"
+	width="1192"
+	height="833"
+	srcset="/p/phpchat3/2.15_hu_6de27c0b2d4233c5.jpg 480w, /p/phpchat3/2.15_hu_22c691d22fa1abc7.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="343px"
+	
+><br>
+打开upload文件夹也可以看到文件成功上传。<br>
+<img src="/p/phpchat3/2.16.jpg"
+	width="1122"
+	height="327"
+	srcset="/p/phpchat3/2.16_hu_48803cc630593517.jpg 480w, /p/phpchat3/2.16_hu_ba34bae28c7a28c6.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="343"
+		data-flex-basis="823px"
+	
+></p>
+<h3 id="4pass-03">4.Pass-03
+</h3><p>这道题讲的是服务端校验中的后缀名黑名单校验。<br>
+我们可以打开提示，这些后缀名就是黑名单，无法上传这些文件。<br>
+<img src="/p/phpchat3/2.17.jpg"
+	width="600"
+	height="333"
+	srcset="/p/phpchat3/2.17_hu_39ea8daf4dc77a57.jpg 480w, /p/phpchat3/2.17_hu_1df81ae3136ab9a9.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="432px"
+	
+><br>
+我们查看源码也可以清楚的看到。<br>
+<img src="/p/phpchat3/2.18.jpg"
+	width="1566"
+	height="923"
+	srcset="/p/phpchat3/2.18_hu_e78dad614d9fd3f8.jpg 480w, /p/phpchat3/2.18_hu_405b61d8fd1b9ecb.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="407px"
+	
+><br>
+这里绕过就需要用到Apache的特性，Apache不只可以解析php后缀的文件，还可以解析许多类型。<br>
+下面是对Apache课解析文件的整理。<br>
+<img src="/p/phpchat3/2.1.png"
+	width="1087"
+	height="840"
+	srcset="/p/phpchat3/2.1_hu_bf92050780bb4947.png 480w, /p/phpchat3/2.1_hu_df0cdc6553f47f07.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="129"
+		data-flex-basis="310px"
+	
+><br>
+所以这里我们尝试上传一个.php3后缀的脚本文件。<br>
+<img src="/p/phpchat3/2.19.jpg"
+	width="751"
+	height="332"
+	srcset="/p/phpchat3/2.19_hu_fd530107b01a04cc.jpg 480w, /p/phpchat3/2.19_hu_2019defa2aadcde1.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="542px"
+	
+><br>
+在upload文件夹看到已经上传成功。<br>
+<img src="/p/phpchat3/2.20.jpg"
+	width="877"
+	height="335"
+	srcset="/p/phpchat3/2.20_hu_ffe50c7b2a6a5fc7.jpg 480w, /p/phpchat3/2.20_hu_ee5d7aa38a077f3b.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="261"
+		data-flex-basis="628px"
+	
+><br>
+不过这里蚁剑可能会连接不上。<br>
+这里和phpstudy的Apache配置有关。<br>
+有兴趣的可以自己找下怎么修改配置，这里就不过多赘述。</p>
+<h3 id="5pass-04">5.Pass-04
+</h3><p>这道题也是讲服务端校验中的后缀名黑名单校验。<br>
+不过它杜绝了绝大多的文件后缀格式。<br>
+<img src="/p/phpchat3/2.21.jpg"
+	width="600"
+	height="333"
+	srcset="/p/phpchat3/2.21_hu_c8c10ee4945a10f3.jpg 480w, /p/phpchat3/2.21_hu_7475deaf74622e28.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="432px"
+	
+><br>
+不过这道需要先上传一个.htaccess文件(Apache配置文件)，该文件中的代码可以解析.jpg文件为.php文件。<br>
+我们先创建一个.htaccess文件，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">FilesMatch</span> <span class="s2">&#34;evil.jpg&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">SetHandler</span> <span class="nx">application</span><span class="o">/</span><span class="nx">x</span><span class="o">-</span><span class="nx">httpd</span><span class="o">-</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;/</span><span class="nx">FilesMatch</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/phpchat3/2.22.jpg"
+	width="1001"
+	height="397"
+	srcset="/p/phpchat3/2.22_hu_53bf843d12a72c0e.jpg 480w, /p/phpchat3/2.22_hu_7d3a78b09149dd1d.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="605px"
+	
+><br>
+将这个文件进行上传。<br>
+<img src="/p/phpchat3/2.23.jpg"
+	width="719"
+	height="382"
+	srcset="/p/phpchat3/2.23_hu_f71bb1a2827e434f.jpg 480w, /p/phpchat3/2.23_hu_b1e9d9f3dc37e206.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="188"
+		data-flex-basis="451px"
+	
+><br>
+然后我们再上传一个evil.jpg，文件内容为一句话木马。<br>
+<img src="/p/phpchat3/2.24.jpg"
+	width="766"
+	height="415"
+	srcset="/p/phpchat3/2.24_hu_f5a386aa242a8dcf.jpg 480w, /p/phpchat3/2.24_hu_791780f5cf76804f.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="184"
+		data-flex-basis="442px"
+	
+><br>
+打开upload文件夹发现已经上传成功，但是会发现无法连接蚁剑。<br>
+这与Apache的配置有关。<br>
+我们可以来到下图目录下，打开配置文件http.conf。<br>
+<img src="/p/phpchat3/2.26.jpg"
+	width="1111"
+	height="638"
+	srcset="/p/phpchat3/2.26_hu_220789e54958b17b.jpg 480w, /p/phpchat3/2.26_hu_17d9744f98e52653.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="174"
+		data-flex-basis="417px"
+	
+><br>
+进行下图的修改。<br>
+<img src="/p/phpchat3/2.25.jpg"
+	width="1187"
+	height="716"
+	srcset="/p/phpchat3/2.25_hu_13ca737a97469218.jpg 480w, /p/phpchat3/2.25_hu_dea6577090764a8a.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="397px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/php/">PHP</a>
+        
+            <a href="/tags/%E4%B8%8A%E4%BC%A0/">上传</a>
+        
+            <a href="/tags/%E6%BC%8F%E6%B4%9E/">漏洞</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/phpchat2/">
+        
+        
+            <div class="article-image">
+                <img src="/p/phpchat2/111.ece579ea65c9d14255f5f21989fa4d4e_hu_f3f22efaafa5d2bc.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post PHP代码审计 --- 文件包含漏洞"
+                        data-key="phpchat2" 
+                        data-hash="md5-7OV56mXJ0UJV9fIZifpNTg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PHP代码审计 --- 文件包含漏洞</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/phpchat1/">
+        
+        
+            <div class="article-image">
+                <img src="/p/phpchat1/111.93dc117252d312caffa31bbd92711044_hu_7ad6c06070abe115.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post PHP代码审计 --- XSS漏洞"
+                        data-key="phpchat1" 
+                        data-hash="md5-k9wRclLTEsr/oxu9knEQRA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PHP代码审计 --- XSS漏洞</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/php2/">
+        
+        
+            <div class="article-image">
+                <img src="/p/php2/111.980164b5c7a73cf9410984782ead7768_hu_1378e9b9fc0d255a.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post PHP学习日志(二) --- 表单"
+                        data-key="php2" 
+                        data-hash="md5-mAFktcenPPlBCYR4Lq13aA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PHP学习日志(二) --- 表单</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/php1/">
+        
+        
+            <div class="article-image">
+                <img src="/p/php1/111.17ff221432d34bc5358a1969c92f34b3_hu_7399e1d6dc77409d.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post PHP学习日志(一) --- 基础"
+                        data-key="php1" 
+                        data-hash="md5-F/8iFDLTS8U1ihlpyS80sw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PHP学习日志(一) --- 基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/misc1/">
+        
+        
+            <div class="article-image">
+                <img src="/p/misc1/111.29e5e944baf6543c490ff2705fd13d10_hu_2d23c9dbd53d2d93.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Misc音频题类型及例题"
+                        data-key="misc1" 
+                        data-hash="md5-KeXpRLr2VDxJD/JwX9E9EA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Misc音频题类型及例题</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="dongyuzzz5/dongyuzzz5.github.io"
+    data-repo-id="R_kgDOQ0vvqQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOQ0vvqc4C1ExU"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_tritanopia');
+            }
+        }
+    })();
+</script>
+
+    <div class="comment"></div>
+    
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 Dongyu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>发布了 14 篇文章 | 共 54728 字</p>
+    </section>
+    
+   
+
+
+</footer>
+
+
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.b4654cd74006fe7475d7723cd7373672b5ea2035ab23404eb9ff511cb27b581c.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script>
+const home = "https://dongyuzzz5.github.io/";
+console.log(home);
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    lrcType: 3,
+    listMaxHeight: '160px',
+    audio:  [{
+        name: '海浪、海鸥与你',
+        artist: 'AnRain安林',
+        url: home + 'music/AnRain安林 - 海浪、海鸥与你/song.mp3',
+        cover: home + 'music/AnRain安林 - 海浪、海鸥与你/cover.png',
+        lrc: home + 'music/AnRain安林 - 海浪、海鸥与你/lyric.lrc'
+    },{
+        name: '老派约会之必要',
+        artist: 'MC 张天赋',
+        url: home + 'music/MC 张天赋 - 老派约会之必要/song.mp3',
+        cover: home + 'music/MC 张天赋 - 老派约会之必要/cover.png',
+        lrc: home + 'music/MC 张天赋 - 老派约会之必要/lyric.lrc'
+    },{
+        name: 'Love Story',
+        artist: 'ALisa',
+        url: home + 'music/ALisa - Love Story/song.mp3',
+        cover: home + 'music/ALisa - Love Story/cover.png',
+        lrc: home + 'music/ALisa - Love Story/lyric.lrc'
+    },{
+        name: '萤火之森',
+        artist: 'CMJ',
+        url: home + 'music/CMJ - 萤火之森/song.mp3',
+        cover: home + 'music/CMJ - 萤火之森/cover.png',
+        lrc: home + 'music/CMJ - 萤火之森/lyric.lrc'
+    },{
+        name: 'Time to love (相爱时间)',
+        artist: 'OCTOBER',
+        url: home + 'music/OCTOBER - Time to love (相爱时间)/song.mp3',
+        cover: home + 'music/OCTOBER - Time to love (相爱时间)/cover.png',
+        lrc: home + 'music/OCTOBER - Time to love (相爱时间)/lyric.lrc'
+    },{
+        name: '夜、萤火虫和你',
+        artist: '九千七',
+        url: home + 'music/九千七 - 夜、萤火虫和你/song.mp3',
+        cover: home + 'music/九千七 - 夜、萤火虫和你/cover.png',
+        lrc: home + 'music/九千七 - 夜、萤火虫和你/lyric.lrc'
+    },{
+        name: '城南花已开',
+        artist: '三亩地',
+        url: home + 'music/三亩地 - 城南花已开/song.mp3',
+        cover: home + 'music/三亩地 - 城南花已开/cover.png',
+        lrc: home + 'music/三亩地 - 城南花已开/lyric.lrc'
+    },{
+        name: '夏野与暗恋',
+        artist: '闫东炜',
+        url: home + 'music/闫东炜 - 夏野与暗恋/song.mp3',
+        cover: home + 'music/闫东炜 - 夏野与暗恋/cover.png',
+        lrc: home + 'music/闫东炜 - 夏野与暗恋/lyric.lrc'
+    }],
+    fixed: true
+});
+
+    
+
+    window.onbeforeunload = () => {
+        
+        const playInfo = {
+            index: ap.list.index,
+            currentTime: ap.audio.currentTime,
+            paused: ap.paused
+        };
+        localStorage.setItem("playInfo", JSON.stringify(playInfo));
+    };
+
+    
+
+    window.onload = () => {
+        
+        const playInfo = JSON.parse(localStorage.getItem("playInfo"));
+        if (!playInfo) {
+            return;
+        }
+        
+        ap.list.switch(playInfo.index);
+        
+        setTimeout(() => {
+            
+            ap.seek(playInfo.currentTime);
+            
+            if (!playInfo.paused) {
+                ap.play()
+            }
+        }, 500);
+    };
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+<script>
+    var pjax = new Pjax({
+        selectors: [
+            ".main-container",
+            ".js-Pjax" 
+        ]
+    })
+
+    pjax._handleResponse = pjax.handleResponse;
+    pjax.handleResponse = function(responseText, request, href, options) {
+        if (request.responseText.match("<html")) {
+            if (responseText) {
+                
+                let newDom = new DOMParser().parseFromString(responseText, 'text/html');
+                
+                let bodyClass = newDom.body.className;
+                document.body.setAttribute("class", bodyClass)
+            }
+            
+            pjax._handleResponse(responseText, request, href, options);
+        } else {
+            
+        }
+    }
+
+    document.addEventListener('pjax:complete', () => {
+        
+        window.Stack.init();
+    })
+</script><div class="js-Pjax">
+<script>
+    (function () {
+        
+        let comment = document.querySelector(".comment");
+        if (!comment) {
+            return
+        }
+        let script = document.createElement('script');
+        
+        script.setAttribute('src', 'https://giscus.app/client.js');
+        script.setAttribute('data-repo','dongyuzzz5\/dongyuzzz5.github.io');
+        script.setAttribute('data-repo-id','R_kgDOQ0vvqQ');
+        script.setAttribute('data-category', 'Announcements');
+        script.setAttribute('data-category-id','DIC_kwDOQ0vvqc4C1ExU');
+        script.setAttribute('data-mapping','pathname');
+        script.setAttribute('data-strict','0');
+        script.setAttribute('data-reactions-enabled', '1');
+        script.setAttribute('data-emit-metadata', '1');
+        script.setAttribute('data-input-position', 'top');
+        script.setAttribute('data-theme','light');
+        script.setAttribute('data-lang','zh-CN');
+        script.setAttribute('data-loading', '');
+        script.setAttribute('data-loading', 'lazy');
+        script.setAttribute('crossorigin', 'anonymous');
+        script.async = true;
+        
+        comment.appendChild(script);
+        initGiscus();
+        document.querySelector('.site-footer').before(script)
+    })(document);
+</script>
+<div>
+<style>
+  @font-face {
+    font-family: 'ziti';
+    src: url(https://dongyuzzz5.github.io/font/%E6%B1%87%E6%96%87%E4%BB%BF%E5%AE%8Bv1.001.ttf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'ziti';
+    --code-font-family: 'ziti';
+  }
+</style>
+
+<style>
+    #backTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        z-index: 99;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-image: url(https://dongyuzzz5.github.io/icons/backTop.svg);
+    }
+</style>
+
+<script>
+    
+
+    function initScrollTop() {
+        let rightSideBar = document.querySelector(".right-sidebar");
+        if (!rightSideBar) {
+            return;
+        }
+        
+        let btn = document.createElement("div");
+        btn.id = "backTopBtn";
+        btn.onclick = backToTop
+        rightSideBar.appendChild(btn)
+        
+        window.onscroll = function() {
+            
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+    }
+
+    
+
+    function backToTop(){
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
+    initScrollTop();
+</script>
+
+<style>
+    .highlight {
+         
+        max-height: 230px;
+        overflow: hidden;
+    }
+
+    .code-show {
+        max-height: none !important;
+    }
+
+    .code-more-box {
+        width: 100%;
+        padding-top: 78px;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(#fff));
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+
+    .code-more-btn {
+        display: block;
+        margin: auto;
+        width: 44px;
+        height: 22px;
+        background: #f0f0f5;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-top: 6px;
+        cursor: pointer;
+    }
+
+    .code-more-img {
+        cursor: pointer !important;
+        display: block;
+        margin: auto;
+        width: 22px;
+        height: 16px;
+    }
+</style>
+
+<script>
+  function initCodeMoreBox() {
+    let codeBlocks = document.querySelectorAll(".highlight");
+    if (!codeBlocks) {
+      return;
+    }
+    codeBlocks.forEach(codeBlock => {
+      
+      if (codeBlock.scrollHeight <= codeBlock.clientHeight) {
+        return;
+      }
+      
+      
+      let codeMoreBox = document.createElement('div');
+      codeMoreBox.classList.add('code-more-box');
+      
+      let codeMoreBtn = document.createElement('span');
+      codeMoreBtn.classList.add('code-more-btn');
+      codeMoreBtn.addEventListener('click', () => {
+        codeBlock.classList.add('code-show');
+        codeMoreBox.style.display = 'none';
+        
+        window.dispatchEvent(new Event('resize'))
+      })
+      
+      let img = document.createElement('img');
+      img.classList.add('code-more-img');
+      img.src = "https://dongyuzzz5.github.io/icons/codeMore.png"
+      
+      codeMoreBtn.appendChild(img);
+      codeMoreBox.appendChild(codeMoreBtn);
+      codeBlock.appendChild(codeMoreBox)
+    })
+  }
+  
+  initCodeMoreBox();
+</script>
+
+<script>
+    async function renderKaTeX() {
+        
+        let katex = document.querySelector(".math-katex");
+        if (!katex) {
+            return;
+        }
+        
+        while (typeof renderMathInElement !== 'function') {
+            await delay(500);
+        }        
+        
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });
+    }
+    
+    
+
+    function delay(time) {
+        return new Promise(resolve => {
+            setTimeout(resolve, time)
+        })
+    }
+
+    document.addEventListener('pjax:complete', () => {
+        renderKaTeX();
+    })
+</script>
+
+<style>
+    #TableOfContents > ul, ol {
+        ul, ol {
+            display: none;
+        }
+        .open {
+            display: block;
+        }
+    }
+</style>
+
+<script>
+    function initTocHide() {
+        
+        let toc = document.querySelector(".widget--toc");
+        if (!toc) {
+            return;
+        }
+        
+        window.addEventListener('scroll', function() {
+            
+            let openUl = document.querySelectorAll(".open");
+            if (openUl.length > 0) {
+              openUl.forEach((ul) => {
+                ul.classList.remove("open")
+              })
+            }
+            
+            let currentLi = document.querySelector(".active-class");
+            if (!currentLi) {
+                return
+            }
+            
+            if (currentLi.children.length > 1) {
+                currentLi.children[1].classList.add("open")
+            }
+            
+            let ul = currentLi.parentElement;
+            do {
+                ul.classList.add("open");
+                ul = ul.parentElement.parentElement
+            } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'))
+        });
+    }
+    initTocHide()
+</script>
+
+
+
+<div id="jsi-flying-fish-container"></div>
+
+
+<style>
+#jsi-flying-fish-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    z-index: -1;
+    opacity: 0;           
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity .3s;
+
+}
+
+ 
+.show-fish #jsi-flying-fish-container {
+    opacity: .5;
+}
+</style>
+
+
+<script>
+window.initFlyingFish = function () {
+    const container = document.getElementById('jsi-flying-fish-container');
+    if (!container) return;
+
+     
+    const oldCanvas = container.querySelector('canvas');
+    if (oldCanvas) oldCanvas.remove();
+
+     
+    const script = document.createElement('script');
+    script.src = '/js/fish.js';   
+    script.onload = function () {
+        if (typeof RENDERER !== 'undefined') RENDERER.init();
+    };
+    document.head.appendChild(script);
+
+     
+    function checkBottom() {
+        const doc = document.documentElement;
+        const isBottom = (window.innerHeight + Math.ceil(window.pageYOffset))
+                         >= (doc.scrollHeight - 10);
+        document.body.classList.toggle('show-fish', isBottom);
+    }
+
+     
+    window.addEventListener('scroll', checkBottom);
+    checkBottom(); 
+};
+
+ 
+document.addEventListener('DOMContentLoaded', initFlyingFish);
+
+ 
+document.addEventListener('pjax:complete', initFlyingFish);
+</script>
+
+<div id="toast-stack"></div>
+
+<script>
+ 
+(() => {
+  const toastStack = document.getElementById('toast-stack');
+  let toastCount = 0;
+  const MAX_TOAST = 5;
+  const DURATION  = 2500;
+
+   
+  let lastText = '';
+  let lastTime = 0;
+
+  window.pushToast = function (msg = '✅ 哎嘿！复制成功 🍬') {
+    const now = Date.now();
+    if (msg === lastText && now - lastTime < 500) return; 
+    lastText = msg;
+    lastTime = now;
+
+     
+    if (toastCount >= MAX_TOAST) toastStack.firstElementChild?.closeToast();
+
+    const item = document.createElement('div');
+    item.className = 'snack-left-top';
+    item.textContent = msg;
+
+    let closeTimer = null;
+    function closeToast() {
+      if (item.isClosing) return;
+      item.isClosing = true;
+      item.classList.remove('show');
+      item.addEventListener('transitionend', () => {
+        item.remove();
+        toastCount--;
+      }, { once: true });
+      clearTimeout(closeTimer);
+    }
+    item.closeToast = closeToast;
+
+    toastStack.appendChild(item);
+    toastCount++;
+    void item.offsetWidth;
+    item.classList.add('show');
+    closeTimer = setTimeout(closeToast, DURATION);
+  };
+
+   
+  document.addEventListener('copy', e => {
+    const text = window.getSelection().toString().trim();
+    if (!text) return;
+    e.preventDefault();
+    navigator.clipboard.writeText(text)
+      .then(() => pushToast())
+      .catch(console.warn);
+  });
+
+   
+  const container = document.querySelector('.article-content');
+  if (container) {
+    container.addEventListener('click', e => {
+      if (!e.target.matches('.copyCodeButton')) return;
+      const wrap = e.target.closest('pre, .highlight');
+      const codeTd = wrap?.querySelector('td:nth-child(2)') || wrap;
+      const txt = codeTd ? codeTd.textContent.trim() : '';
+      navigator.clipboard.writeText(txt)
+        .then(() => pushToast())
+        .catch(err => alert('复制失败：' + err));
+    });
+  }
+})();
+</script>
+
+<style>
+ 
+.copyCodeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: #3d3c3c;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.copyCodeButton:hover {
+  background: #34d399;
+  color: #fff;
+}
+
+ 
+.snack-left-top {
+  position: fixed;
+  left: 20px;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  transform: translateX(calc(-100% - 20px));
+  width: 300px;
+  height: 60px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 15px;
+  background: #34d399;
+  color: #fff;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, .35);
+  z-index: 9999;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+}
+ 
+.snack-left-top.show {
+  transform: translateX(0);
+}
+ 
+#toast-stack {
+  position: fixed;
+  left: 0;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  z-index: 9999;
+  pointer-events: none;
+}
+
+ 
+#toast-stack .snack-left-top {
+  position: relative;    
+  margin-bottom: 12px;   
+  pointer-events: auto;
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1),
+              opacity   .35s cubic-bezier(.4, 0, .2, 1);
+  opacity: 0;
+  transform: translateX(calc(-100% - 20px));
+}
+
+#toast-stack .snack-left-top.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+</style>
+<div class="js-Pjax">
+    <script>
+        (function() {
+            let script = document.createElement('script');
+            script.defer = true;
+            script.src = "https://cn.vercount.one/js";
+            let footer = document.querySelector("footer")
+            if (footer) {
+                showHideView()
+                footer.appendChild(script);
+            }
+        })(document)
+
+        function showHideView() {
+            let viewCounts = document.querySelectorAll("#viewCount");
+            if (viewCounts) {
+                const style = document.querySelector(".article-page") ? '' : 'none';
+                viewCounts.forEach(ele => {
+                        ele.style.display = style;
+                    }
+                )
+            }
+        }
+    </script>
+</div>
+
+
+<script>
+    
+    topbar.config({
+        barColors: {
+            '0': 'rgba(255,  255, 255, 1)', 
+            '1.0': 'rgba(0, 149, 234,  1)' 
+        }
+    })
+	
+    document.addEventListener('pjax:send', () => {
+        
+        topbar.show();
+    })
+	
+    document.addEventListener('pjax:complete', () => {
+        ....
+        
+        topbar.hide();
+    })
+</script>
+
+//引入查看浏览量
+<script defer src="https://cn.vercount.one/js"></script>
+
+<script>
+    function showHideView() {
+        
+        let viewCounts = document.querySelectorAll("#viewCount");
+        if (viewCounts) {
+            
+            let article =  document.querySelector(".article-page");
+            if (!article) {
+                viewCounts.forEach(ele => {
+                    ele.style.display = 'none';
+                });
+            }
+        }
+    }
+    
+    showHideView();
+</script>
+
+<script>
+    
+
+    window.onbeforeunload = () => {
+        
+        const playInfo = {
+            index: ap.list.index,
+            currentTime: ap.audio.currentTime,
+            paused: ap.paused
+        };
+        localStorage.setItem("playInfo", JSON.stringify(playInfo));
+    };
+
+    
+
+    window.onload = () => {
+        
+        const playInfo = JSON.parse(localStorage.getItem("playInfo"));
+        if (!playInfo) {
+            return;
+        }
+        
+        ap.list.switch(playInfo.index);
+        
+        setTimeout(() => {
+            
+            ap.seek(playInfo.currentTime);
+            
+            if (!playInfo.paused) {
+                ap.play()
+            }
+        }, 500);
+    };
+</script>
+
+<style>
+[data-scheme="light"] {
+body {
+    background: url(/background/640.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+  
+[data-scheme="dark"] {
+body {
+    background: url(/background/backphoto.png) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
+
+</style>
+
+<div id="custom-footer">
+<script src=https://github.com/dongyuzzz5/hugo-main/blob/main/assets/background/particles/particles.js></script>
+
+
+<link rel="stylesheet" href=https://github.com/dongyuzzz5/hugo-main/blob/main/assets/background/particles/style.css>
+<div id="particles-js"></div>
+
+<script src=https://dongyuzzz5.github.io/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+</style>
+
+
+
+    </body>
+</html>

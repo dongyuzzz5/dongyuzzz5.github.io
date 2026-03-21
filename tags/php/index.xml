@@ -7,7 +7,457 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
-        <lastBuildDate>Thu, 19 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 21 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PHP上传漏洞 --- upload-labs靶场练习</title>
+        <link>https://dongyuzzz5.github.io/p/phpchat3/</link>
+        <pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://dongyuzzz5.github.io/p/phpchat3/</guid>
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/phpchat3/111.png" alt="Featured image of post PHP上传漏洞 --- upload-labs靶场练习" /&gt;&lt;h2 id=&#34;一-上传漏洞简介&#34;&gt;一. 上传漏洞简介
+&lt;/h2&gt;&lt;h3 id=&#34;1漏洞介绍&#34;&gt;1.漏洞介绍
+&lt;/h3&gt;&lt;p&gt;文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获取了执行服务器端命令的能力，这种攻击方式是最直接和有效的，文件上传本身是没有问题的，有问题的是文件上传后，服务器怎么处理，解析文件。通过服务器的处理逻辑做的不够安全，则会导致上传漏洞。&lt;/p&gt;
+&lt;h3 id=&#34;2漏洞条件&#34;&gt;2.漏洞条件
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;文件可上传&lt;/li&gt;
+&lt;li&gt;知道文件上传漏洞&lt;/li&gt;
+&lt;li&gt;上传文件可以被访问&lt;/li&gt;
+&lt;li&gt;上传文件可以被执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3相关函数&#34;&gt;3.相关函数
+&lt;/h3&gt;&lt;p&gt;下面介绍一些文件上传漏洞相关的函数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;move_uploaded_file(file,newloc)&lt;/span&gt;:函数将上传的文件移动到新的位置。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;strolower()&lt;/span&gt;:函数把字符串转换为小写。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;trim()&lt;/span&gt;:函数移除字符串两侧的空白字符或其他预定义字符。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;strrchr()&lt;/span&gt;:函数查找字符串在另一个字符串中最后一次出现的位置，并返回从该位置到字符串结尾的所有字符。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;srt_ireplace()&lt;/span&gt;:函数替换字符串中的一些字符(不区分大小写)。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;getimagesize()&lt;/span&gt;:函数用于获取图像大小及相关信息，成功返回一个数组，失败则返回FALSE并产生一条E_WARNING的错误信息。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;exif_imagetype()&lt;/span&gt;:读取一个图像的第一个字节并检查其签名。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;substr()&lt;/span&gt;:函数返回字符串的一部分。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;fopen()&lt;/span&gt;:函数打卡文件或URL。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;fread()&lt;/span&gt;:函数读取文件(可安全用于二进制文件)。&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color: #e74c3c;&#34;&gt;fwrite()&lt;/span&gt;:函数写入文件(可安全用于二进制文件)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4判断上传漏洞类型&#34;&gt;4.判断上传漏洞类型
+&lt;/h3&gt;&lt;p&gt;上传漏洞类型有很多，下面提供一张思维导图，可以通过该导图一步一步判断上传漏洞类型，从而进行利用。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/1.1.png&#34;
+	width=&#34;1860&#34;
+	height=&#34;1129&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/1.1_hu_30df23ae7100ad9a.png 480w, https://dongyuzzz5.github.io/p/phpchat3/1.1_hu_bcaa037ffeaecfd8.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;164&#34;
+		data-flex-basis=&#34;395px&#34;
+	
+&gt;&lt;br&gt;
+上图中的白名单就是判断条件的内容允许通过，黑名单就是判断条件的内容不允许通过。&lt;/p&gt;
+&lt;h3 id=&#34;5选择绕过方法&#34;&gt;5.选择绕过方法
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/1.2.png&#34;
+	width=&#34;1462&#34;
+	height=&#34;1057&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/1.2_hu_ca2461d4ed4db953.png 480w, https://dongyuzzz5.github.io/p/phpchat3/1.2_hu_a9e7f4db10ffa547.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;331px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二-靶场实例练习&#34;&gt;二. 靶场实例练习
+&lt;/h2&gt;&lt;h3 id=&#34;1前言&#34;&gt;1.前言
+&lt;/h3&gt;&lt;p&gt;本文章主要是讲一下upload-labs靶场的部分闯关题解。&lt;br&gt;
+这个平台涵盖了大部分的文件上传漏洞的类型。&lt;br&gt;
+该靶场练习不仅是加强对PHP文件上传漏洞的理解，也是对在CTF比赛中该类型题目的练习。&lt;br&gt;
+ps:该靶场搭建可以看我的另一篇文章：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/bachang/?t=1774088174234&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;靶场搭建教程&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2pass-01&#34;&gt;2.Pass-01
+&lt;/h3&gt;&lt;p&gt;我们先准备好一个php文件,里面写入一句话木马。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.1.jpg&#34;
+	width=&#34;963&#34;
+	height=&#34;303&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.1_hu_134e0a588b770719.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.1_hu_abfd549743b08af0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;317&#34;
+		data-flex-basis=&#34;762px&#34;
+	
+&gt;&lt;br&gt;
+我们先尝试上传这个文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.2.jpg&#34;
+	width=&#34;1004&#34;
+	height=&#34;633&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.2_hu_14d8c5d801973041.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.2_hu_9dfe04c4ad273fb0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;380px&#34;
+	
+&gt;&lt;br&gt;
+发现提示只能上传.jpg|.png|.gif格式文件。&lt;br&gt;
+而且在外面点击上传后，页面立马回应，通过思维导图，我们可以判断它是通过客户端(js)检查的。&lt;br&gt;
+我们右键查看网页源代码可以清楚的看到。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.3.jpg&#34;
+	width=&#34;1416&#34;
+	height=&#34;1365&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.3_hu_281cd2457181979d.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.3_hu_a44b0e872965df5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;103&#34;
+		data-flex-basis=&#34;248px&#34;
+	
+&gt;&lt;br&gt;
+按照这个逻辑，我们可以修改php文件后缀绕过客户端代码的判断。&lt;br&gt;
+再bp抓包后修改其后缀名进行上传。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.4.jpg&#34;
+	width=&#34;1228&#34;
+	height=&#34;1099&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.4_hu_3d05288df09beb0.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.4_hu_e7bb4294345eb41b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;111&#34;
+		data-flex-basis=&#34;268px&#34;
+	
+&gt;&lt;br&gt;
+我们来到upload目录(该靶场储存上传文件的地方)下，可以看到php文件已成功上传。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.5.jpg&#34;
+	width=&#34;911&#34;
+	height=&#34;401&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.5_hu_94d27f93cafa3c99.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.5_hu_4d462f67653018d6.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;227&#34;
+		data-flex-basis=&#34;545px&#34;
+	
+&gt;&lt;br&gt;
+蚁剑也可以成功链接。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.6.jpg&#34;
+	width=&#34;1530&#34;
+	height=&#34;1026&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.6_hu_d8e3cafed44fe1a0.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.6_hu_bc995d4c9c813f77.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;357px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这一道题也有另外一种绕过方式。&lt;br&gt;
+可以先通过pb抓包拦截执行请求后放包&lt;br&gt;
+修改js代码，放包后再上传我们的php脚本文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.7.jpg&#34;
+	width=&#34;1270&#34;
+	height=&#34;1083&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.7_hu_11e0c1f292292875.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.7_hu_b2d5f09cd3e9bc15.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;117&#34;
+		data-flex-basis=&#34;281px&#34;
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.8.jpg&#34;
+	width=&#34;1227&#34;
+	height=&#34;945&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.8_hu_1a5a6e611daf423.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.8_hu_fdfa41e85c618915.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;129&#34;
+		data-flex-basis=&#34;311px&#34;
+	
+&gt;&lt;br&gt;
+然后直接上传php文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.9.jpg&#34;
+	width=&#34;873&#34;
+	height=&#34;465&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.9_hu_305948be9073edf7.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.9_hu_962a966e536e4008.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;187&#34;
+		data-flex-basis=&#34;450px&#34;
+	
+&gt;&lt;br&gt;
+打开upload文件夹，上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.10.jpg&#34;
+	width=&#34;1061&#34;
+	height=&#34;465&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.10_hu_84c43c0e55aa3c38.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.10_hu_3433248a956373c6.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;228&#34;
+		data-flex-basis=&#34;547px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3pass-02&#34;&gt;3.Pass-02
+&lt;/h3&gt;&lt;p&gt;这道题讲的是服务端校验中，对数据包的MIME进行检查。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.11.jpg&#34;
+	width=&#34;1052&#34;
+	height=&#34;579&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.11_hu_d8f8d9476186662d.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.11_hu_68052f74fbd09855.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;181&#34;
+		data-flex-basis=&#34;436px&#34;
+	
+&gt;&lt;br&gt;
+我们先上传php文件，抓包查看一下。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.12.jpg&#34;
+	width=&#34;1403&#34;
+	height=&#34;881&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.12_hu_def428c082d8ba56.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.12_hu_de05e445ffc6211c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;159&#34;
+		data-flex-basis=&#34;382px&#34;
+	
+&gt;&lt;br&gt;
+可以看到这个Content-Type就是对MIME进行检查。&lt;br&gt;
+我们放包后也可以看到是无法通过的。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.13.jpg&#34;
+	width=&#34;799&#34;
+	height=&#34;433&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.13_hu_eef21990ab8a58fa.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.13_hu_ca927d9c13574cea.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;184&#34;
+		data-flex-basis=&#34;442px&#34;
+	
+&gt;&lt;br&gt;
+我们可以打开右上角查看源码。&lt;br&gt;
+可以看到它只允许下面三种格式的文件通过。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.14.jpg&#34;
+	width=&#34;1657&#34;
+	height=&#34;1086&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.14_hu_d96ca178421a6cc.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.14_hu_ee76c9a01d3ce013.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;152&#34;
+		data-flex-basis=&#34;366px&#34;
+	
+&gt;&lt;br&gt;
+我们复制其中一种，在bp抓包后进行修改。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.15.jpg&#34;
+	width=&#34;1192&#34;
+	height=&#34;833&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.15_hu_6de27c0b2d4233c5.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.15_hu_22c691d22fa1abc7.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;143&#34;
+		data-flex-basis=&#34;343px&#34;
+	
+&gt;&lt;br&gt;
+打开upload文件夹也可以看到文件成功上传。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.16.jpg&#34;
+	width=&#34;1122&#34;
+	height=&#34;327&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.16_hu_48803cc630593517.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.16_hu_ba34bae28c7a28c6.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;343&#34;
+		data-flex-basis=&#34;823px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;4pass-03&#34;&gt;4.Pass-03
+&lt;/h3&gt;&lt;p&gt;这道题讲的是服务端校验中的后缀名黑名单校验。&lt;br&gt;
+我们可以打开提示，这些后缀名就是黑名单，无法上传这些文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.17.jpg&#34;
+	width=&#34;600&#34;
+	height=&#34;333&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.17_hu_39ea8daf4dc77a57.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.17_hu_1df81ae3136ab9a9.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;432px&#34;
+	
+&gt;&lt;br&gt;
+我们查看源码也可以清楚的看到。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.18.jpg&#34;
+	width=&#34;1566&#34;
+	height=&#34;923&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.18_hu_e78dad614d9fd3f8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.18_hu_405b61d8fd1b9ecb.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;169&#34;
+		data-flex-basis=&#34;407px&#34;
+	
+&gt;&lt;br&gt;
+这里绕过就需要用到Apache的特性，Apache不只可以解析php后缀的文件，还可以解析许多类型。&lt;br&gt;
+下面是对Apache课解析文件的整理。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.1.png&#34;
+	width=&#34;1087&#34;
+	height=&#34;840&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.1_hu_bf92050780bb4947.png 480w, https://dongyuzzz5.github.io/p/phpchat3/2.1_hu_df0cdc6553f47f07.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;129&#34;
+		data-flex-basis=&#34;310px&#34;
+	
+&gt;&lt;br&gt;
+所以这里我们尝试上传一个.php3后缀的脚本文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.19.jpg&#34;
+	width=&#34;751&#34;
+	height=&#34;332&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.19_hu_fd530107b01a04cc.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.19_hu_2019defa2aadcde1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;226&#34;
+		data-flex-basis=&#34;542px&#34;
+	
+&gt;&lt;br&gt;
+在upload文件夹看到已经上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.20.jpg&#34;
+	width=&#34;877&#34;
+	height=&#34;335&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.20_hu_ffe50c7b2a6a5fc7.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.20_hu_ee5d7aa38a077f3b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;261&#34;
+		data-flex-basis=&#34;628px&#34;
+	
+&gt;&lt;br&gt;
+不过这里蚁剑可能会连接不上。&lt;br&gt;
+这里和phpstudy的Apache配置有关。&lt;br&gt;
+有兴趣的可以自己找下怎么修改配置，这里就不过多赘述。&lt;/p&gt;
+&lt;h3 id=&#34;5pass-04&#34;&gt;5.Pass-04
+&lt;/h3&gt;&lt;p&gt;这道题也是讲服务端校验中的后缀名黑名单校验。&lt;br&gt;
+不过它杜绝了绝大多的文件后缀格式。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.21.jpg&#34;
+	width=&#34;600&#34;
+	height=&#34;333&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.21_hu_c8c10ee4945a10f3.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.21_hu_7475deaf74622e28.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;432px&#34;
+	
+&gt;&lt;br&gt;
+不过这道需要先上传一个.htaccess文件(Apache配置文件)，该文件中的代码可以解析.jpg文件为.php文件。&lt;br&gt;
+我们先创建一个.htaccess文件，内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;FilesMatch&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;evil.jpg&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;SetHandler&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;application&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;httpd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;FilesMatch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.22.jpg&#34;
+	width=&#34;1001&#34;
+	height=&#34;397&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.22_hu_53bf843d12a72c0e.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.22_hu_7d3a78b09149dd1d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;252&#34;
+		data-flex-basis=&#34;605px&#34;
+	
+&gt;&lt;br&gt;
+将这个文件进行上传。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.23.jpg&#34;
+	width=&#34;719&#34;
+	height=&#34;382&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.23_hu_f71bb1a2827e434f.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.23_hu_b1e9d9f3dc37e206.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;188&#34;
+		data-flex-basis=&#34;451px&#34;
+	
+&gt;&lt;br&gt;
+然后我们再上传一个evil.jpg，文件内容为一句话木马。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.24.jpg&#34;
+	width=&#34;766&#34;
+	height=&#34;415&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.24_hu_f5a386aa242a8dcf.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.24_hu_791780f5cf76804f.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;184&#34;
+		data-flex-basis=&#34;442px&#34;
+	
+&gt;&lt;br&gt;
+打开upload文件夹发现已经上传成功，但是会发现无法连接蚁剑。&lt;br&gt;
+这与Apache的配置有关。&lt;br&gt;
+我们可以来到下图目录下，打开配置文件http.conf。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.26.jpg&#34;
+	width=&#34;1111&#34;
+	height=&#34;638&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.26_hu_220789e54958b17b.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.26_hu_17d9744f98e52653.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;174&#34;
+		data-flex-basis=&#34;417px&#34;
+	
+&gt;&lt;br&gt;
+进行下图的修改。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.25.jpg&#34;
+	width=&#34;1187&#34;
+	height=&#34;716&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.25_hu_13ca737a97469218.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.25_hu_dea6577090764a8a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;165&#34;
+		data-flex-basis=&#34;397px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>PHP代码审计 --- 文件包含漏洞</title>
         <link>https://dongyuzzz5.github.io/p/phpchat2/</link>
         <pubDate>Thu, 19 Mar 2026 00:00:00 +0000</pubDate>
@@ -2246,6 +2696,62 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 	
 &gt;&lt;br&gt;
 这样就能试错100了嘻嘻。&lt;/p&gt;
+&lt;h2 id=&#34;五-upload-labs&#34;&gt;五. upload-labs
+&lt;/h2&gt;&lt;h3 id=&#34;1下载与启动&#34;&gt;1.下载与启动
+&lt;/h3&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://github.com/c0ny1/upload-labs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/c0ny1/upload-labs&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.1.jpg&#34;
+	width=&#34;1414&#34;
+	height=&#34;750&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.1_hu_a342fc0ec9ef22a.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.1_hu_c203ea0db7ddd915.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;188&#34;
+		data-flex-basis=&#34;452px&#34;
+	
+&gt;&lt;br&gt;
+解压到WWW文件夹下，并改名为upload-labs。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.2.jpg&#34;
+	width=&#34;1096&#34;
+	height=&#34;785&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.2_hu_5852f5fb80c35945.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.2_hu_4452b50026ec062c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;335px&#34;
+	
+&gt;&lt;br&gt;
+这个靶场无需配置，直接打开phpstudy并启动Apache。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.4.jpg&#34;
+	width=&#34;879&#34;
+	height=&#34;498&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.4_hu_4311db43438c115b.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.4_hu_1d24d4da632a65a0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;423px&#34;
+	
+&gt;&lt;br&gt;
+然后浏览器访问&lt;a class=&#34;link&#34; href=&#34;http://127.0.0.1/upload-labs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://127.0.0.1/upload-labs/&lt;/a&gt; 即可。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.3.jpg&#34;
+	width=&#34;2037&#34;
+	height=&#34;1330&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.3_hu_4b73f313a6e60de6.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.3_hu_1a988fdc6431ee54.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;153&#34;
+		data-flex-basis=&#34;367px&#34;
+	
+&gt;&lt;/p&gt;
 </description>
         </item>
         <item>

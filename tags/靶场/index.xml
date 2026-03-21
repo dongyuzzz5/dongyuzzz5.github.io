@@ -546,6 +546,62 @@ http://localhost/dvwa 或者 http://dvwa/&lt;br&gt;
 	
 &gt;&lt;br&gt;
 这样就能试错100了嘻嘻。&lt;/p&gt;
+&lt;h2 id=&#34;五-upload-labs&#34;&gt;五. upload-labs
+&lt;/h2&gt;&lt;h3 id=&#34;1下载与启动&#34;&gt;1.下载与启动
+&lt;/h3&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://github.com/c0ny1/upload-labs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/c0ny1/upload-labs&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.1.jpg&#34;
+	width=&#34;1414&#34;
+	height=&#34;750&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.1_hu_a342fc0ec9ef22a.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.1_hu_c203ea0db7ddd915.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;188&#34;
+		data-flex-basis=&#34;452px&#34;
+	
+&gt;&lt;br&gt;
+解压到WWW文件夹下，并改名为upload-labs。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.2.jpg&#34;
+	width=&#34;1096&#34;
+	height=&#34;785&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.2_hu_5852f5fb80c35945.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.2_hu_4452b50026ec062c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;139&#34;
+		data-flex-basis=&#34;335px&#34;
+	
+&gt;&lt;br&gt;
+这个靶场无需配置，直接打开phpstudy并启动Apache。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.4.jpg&#34;
+	width=&#34;879&#34;
+	height=&#34;498&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.4_hu_4311db43438c115b.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.4_hu_1d24d4da632a65a0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;423px&#34;
+	
+&gt;&lt;br&gt;
+然后浏览器访问&lt;a class=&#34;link&#34; href=&#34;http://127.0.0.1/upload-labs/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://127.0.0.1/upload-labs/&lt;/a&gt; 即可。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/bachang/5.3.jpg&#34;
+	width=&#34;2037&#34;
+	height=&#34;1330&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/bachang/5.3_hu_4b73f313a6e60de6.jpg 480w, https://dongyuzzz5.github.io/p/bachang/5.3_hu_1a988fdc6431ee54.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;153&#34;
+		data-flex-basis=&#34;367px&#34;
+	
+&gt;&lt;/p&gt;
 </description>
         </item>
         
