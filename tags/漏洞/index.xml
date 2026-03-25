@@ -7,13 +7,451 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Dongyu</copyright>
-        <lastBuildDate>Sat, 21 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 24 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://dongyuzzz5.github.io/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>PHP代码审计 --- CSRF漏洞</title>
+        <link>https://dongyuzzz5.github.io/p/phpchat26324/</link>
+        <pubDate>Tue, 24 Mar 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://dongyuzzz5.github.io/p/phpchat26324/</guid>
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/phpchat26324/111.png" alt="Featured image of post PHP代码审计 --- CSRF漏洞" /&gt;&lt;h2 id=&#34;一-认识csrf漏洞&#34;&gt;一. 认识CSRF漏洞
+&lt;/h2&gt;&lt;h3 id=&#34;1漏洞介绍&#34;&gt;1.漏洞介绍
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;CSRF跨站请求伪造，攻击者盗用用户身份，&lt;span style=&#34;color: #e74c3c;&#34;&gt;以用户的名义向第三方网站发送恶意请求&lt;/span&gt;，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，
+比如以用户的名义发送邮件，发私信，设置于交易转账等等。&lt;/li&gt;
+&lt;li&gt;攻击者在用户浏览网页时，利用&lt;span style=&#34;color: #e74c3c;&#34;&gt;页面元素(如img的src)&lt;/span&gt;,强迫受害者的浏览器向Web应用程序发送一个改变用户信息的请求。&lt;/li&gt;
+&lt;li&gt;CSRF攻击有两种发起方式：&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;从站内发起&lt;/span&gt;：需要利用网站本身业务，比如“自定义头像”功能，恶意用户指定自己的头像URL是一个修改用户的信息的链接，当其他已登录用户浏览恶意用户头像时，
+会自动向这个链接发送修改信息请求。&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;从站外发起&lt;/span&gt;：需要恶意用户在自己的服务器上，放一个自动提交修改个人信息的htm页面，并把页面地址发给受害者用户，受害者用户打开时，会发起一个请求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2实例演示&#34;&gt;2.实例演示
+&lt;/h3&gt;&lt;p&gt;为了加强理解，这里用DVWA上的CSRF漏洞演示一下，靶场的搭建也是看的&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/bachang/?t=1774345651255&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;另外一篇文章&lt;/a&gt;&lt;br&gt;
+打开靶场，将难度调到Low,点击CSRF选项。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.1.jpg&#34;
+	width=&#34;1392&#34;
+	height=&#34;977&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.1_hu_4107212fb752e5ed.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.1_hu_280ea6202780669.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;142&#34;
+		data-flex-basis=&#34;341px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到一个修改密码的页面，现在我们先模拟一下正常修改密码的过程。&lt;br&gt;
+我们输入新密码和确认密码，点击提交。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.2.jpg&#34;
+	width=&#34;1246&#34;
+	height=&#34;536&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.2_hu_795283188f8d91a0.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.2_hu_3987a54ea226b49f.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;232&#34;
+		data-flex-basis=&#34;557px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;会看到页面显示密码修改成功。&lt;br&gt;
+然后我们点击那个Test Credentials按钮测试一下(老版的DVWA靶场可能没有这个选项，可以重新在浏览器打开靶场进行测试)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.3.jpg&#34;
+	width=&#34;1056&#34;
+	height=&#34;690&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.3_hu_647e4825d341f59.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.3_hu_bc3cca14cb618a6c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;153&#34;
+		data-flex-basis=&#34;367px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;点击提交后，页面返回Valid password for &amp;lsquo;admin&amp;rsquo;，说成功登入，也就是说密码成功修改为654321。&lt;br&gt;
+接下来我们演示下攻击者通过这个漏洞修改密码。&lt;br&gt;
+首先我们看一下源代码，可以看到这里是通过Get获取修改的密码参数。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.4.jpg&#34;
+	width=&#34;1217&#34;
+	height=&#34;985&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.4_hu_8e0cc6a271a32a19.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.4_hu_a5593b3bc5f1a0ad.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;123&#34;
+		data-flex-basis=&#34;296px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;那我们看一下URL就可以看到看到我们修改密码时上传的参数，这可以然后攻击者编写恶意代码。&lt;br&gt;
+我们将其复制下来。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.5.jpg&#34;
+	width=&#34;1322&#34;
+	height=&#34;284&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.5_hu_26a74b3af0444602.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.5_hu_ea16c1487005a94b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;465&#34;
+		data-flex-basis=&#34;1117px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;接着我们在桌面新建一个html文件(网站)，命名test，模拟的是攻击者创建的攻击网站。&lt;br&gt;
+打开该文件，写入恶意代码。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;img&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;http://dvwa/vulnerabilities/csrf/?password_new=password&amp;amp;password_conf=password&amp;amp;Change=Change#&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里两个值修改成自己要改的密码，我这里改成我之前的密码。&lt;br&gt;
+攻击者创建这个有恶意代码的网站后，通过钓鱼或者其他社会工程学方法发给普通用户。&lt;br&gt;
+普通用户如果在打开带有CSRF漏洞的网站(这里指靶场)的时候，同时点击了攻击者发出的这个恶意网站，就会中招。&lt;br&gt;
+我们这里模仿普通用户打开该网站。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.6.jpg&#34;
+	width=&#34;956&#34;
+	height=&#34;329&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.6_hu_727f312b74b4fee5.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.6_hu_99b19bd76f2f920e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;290&#34;
+		data-flex-basis=&#34;697px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后回到dvwa靶场退出登录，使用密码654321发现无法登录，输入密码password登录成功。&lt;br&gt;
+注意：打开的恶意代码页面要和dvwa的登录页面&lt;span style=&#34;color: #e74c3c;&#34;&gt;要在同一个浏览器&lt;/sapn&gt;。&lt;/p&gt;
+&lt;p&gt;ps:
+我这里在复现的时候遇到了一个问题，就是打开后没有修改密码成功。&lt;br&gt;
+如果你点击恶意代码页面，点击查看源代码，然后点击那条恶意代码链接。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.7.jpg&#34;
+	width=&#34;1308&#34;
+	height=&#34;465&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.7_hu_b2baec13c1a7d26c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.7_hu_77dda0deff499dfa.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;281&#34;
+		data-flex-basis=&#34;675px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后来到这个页面。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.8.jpg&#34;
+	width=&#34;1502&#34;
+	height=&#34;1208&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.8_hu_1f4ae44f04371508.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.8_hu_7a057d34f311b857.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;124&#34;
+		data-flex-basis=&#34;298px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;你会发现选择CSRF一直会在impossible这个难度，怎么改low都改不回去，密码也修改失败。&lt;br&gt;
+我这个初步判断是dvwa的版本问题，他的impossible代码跳转有问题。&lt;br&gt;
+具体原因能力问题无法找到。&lt;br&gt;
+直接的解决方法就会先将下面目录下的impossible文件先拿出去。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.9.jpg&#34;
+	width=&#34;1080&#34;
+	height=&#34;459&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.9_hu_62b17d436935cef1.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.9_hu_365da3bb8a450c09.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;235&#34;
+		data-flex-basis=&#34;564px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;等复现完其他难度后再放回去。&lt;br&gt;
+(这个问题真的卡了我好久，哭了ToT)&lt;/p&gt;
+&lt;h3 id=&#34;3总结&#34;&gt;3.总结
+&lt;/h3&gt;&lt;p&gt;通过上面实例，就可以很好理解下面这张图了。&lt;br&gt;
+总结了CSRF漏洞的一个利用过程。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.10.png&#34;
+	width=&#34;1501&#34;
+	height=&#34;751&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/1.10_hu_9e2b9abdc1dda08b.png 480w, https://dongyuzzz5.github.io/p/phpchat26324/1.10_hu_d399a0e86ce12254.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;199&#34;
+		data-flex-basis=&#34;479px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二-csrf的绕过与利用&#34;&gt;二. CSRF的绕过与利用
+&lt;/h2&gt;&lt;h3 id=&#34;1绕过&#34;&gt;1.绕过
+&lt;/h3&gt;&lt;p&gt;我这里通过dvwa的medium和high来讲一下CSRF的绕过。&lt;br&gt;
+我们先将难度调到&lt;span style=&#34;color: #e74c3c;&#34;&gt;medium&lt;/span&gt;。&lt;br&gt;
+然后我们用Low级别的方法，通过直接修改URL修改密码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.1.jpg&#34;
+	width=&#34;1393&#34;
+	height=&#34;569&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.1_hu_21e575f282301bd8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.1_hu_e133b663c61f68d0.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;244&#34;
+		data-flex-basis=&#34;587px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;会看到该请求无法执行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.2.jpg&#34;
+	width=&#34;758&#34;
+	height=&#34;485&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.2_hu_219b6ce471117b4b.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.2_hu_77007cb5b29b9e04.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;156&#34;
+		data-flex-basis=&#34;375px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们先看一下源代码分析一下。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.3.jpg&#34;
+	width=&#34;1241&#34;
+	height=&#34;943&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.3_hu_d929df1abf8ba488.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.3_hu_ca12cca3032d9a2d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;131&#34;
+		data-flex-basis=&#34;315px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到比Low级别多了一句判断。&lt;br&gt;
+它通过判断&amp;rsquo;SERVER_NAME&amp;rsquo;这个参数是否在&amp;rsquo;HTTP_REFERER&amp;rsquo;中，返回true才会继续向下执行。&lt;br&gt;
+这个&amp;rsquo;SERVER_NAME&amp;rsquo;其实指的就是我们的主机服务器。&lt;br&gt;
+也就是判断这个请求是不是通过你的主机发出去的。&lt;br&gt;
+我们通过抓包查看，可以看到正常提交会比URL提交多了一个referer参数。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.4.jpg&#34;
+	width=&#34;1265&#34;
+	height=&#34;702&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.4_hu_fb3fcef90b1d6764.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.4_hu_80586abe1d666982.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;432px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;所以我们可以在URL提交的页面添加一个Referer参数，并将恶意文件名称修改为host名称。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.5.jpg&#34;
+	width=&#34;595&#34;
+	height=&#34;647&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.5_hu_889f3cb487443777.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.5_hu_8302ad8e59762188.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;91&#34;
+		data-flex-basis=&#34;220px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;点击send提交，可以看到页面返回修改成功。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.6.jpg&#34;
+	width=&#34;1186&#34;
+	height=&#34;712&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.6_hu_45a75c74af6b0998.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.6_hu_24838b192f61ce3f.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;166&#34;
+		data-flex-basis=&#34;399px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们再将难度调到&lt;span style=&#34;color: #e74c3c;&#34;&gt;high&lt;/span&gt;。&lt;br&gt;
+然后修改密码，我们会看到在high级别的URL发生了变化。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.7.jpg&#34;
+	width=&#34;1587&#34;
+	height=&#34;1271&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.7_hu_9391a94c448c4302.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.7_hu_53bde1fc30f5df57.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;124&#34;
+		data-flex-basis=&#34;299px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们查看下源代码，会看到high级别添加了一个checkToken函数来进行判断。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.8.jpg&#34;
+	width=&#34;1518&#34;
+	height=&#34;1052&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.8_hu_c8cb12825f5ea36e.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.8_hu_dd55c904f51ab92e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;346px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们用&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/phptool/?t=1774436523037&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;sublime&lt;/a&gt; 打开跟踪一下。&lt;br&gt;
+打开根目录文件夹，选择high.php.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.9.jpg&#34;
+	width=&#34;1872&#34;
+	height=&#34;1134&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.9_hu_dc08450af7008e9c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.9_hu_9357b3dcbc720551.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;165&#34;
+		data-flex-basis=&#34;396px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到这个函数传入了三个参数。&lt;br&gt;
+然后判断user_token与session_token是否相同、session_token是否存在。&lt;br&gt;
+若不为true就会返回到returnURL。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.10.jpg&#34;
+	width=&#34;1243&#34;
+	height=&#34;510&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.10_hu_3647aafc0a17d7cb.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.10_hu_ebe23fa2fd11f98e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;243&#34;
+		data-flex-basis=&#34;584px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;而我们还可以往下看到session_token这个参数是通过md5派发的。&lt;br&gt;
+这就说明我们没办法通过对这个session_token做手脚来绕过。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.12.jpg&#34;
+	width=&#34;1315&#34;
+	height=&#34;565&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.12_hu_742c12a290cd9544.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.12_hu_5b0e06e17ac8e8c1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;232&#34;
+		data-flex-basis=&#34;558px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;那这一关的绕过确实想要配合之前学的XSS漏洞来获取session_token的值。&lt;br&gt;
+(不亏是high级别，耗南)&lt;br&gt;
+下面简单说一下通过XSS漏洞获取该值。&lt;br&gt;
+我们点开XSS存储漏洞，随便输入点东西进行抓包。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.11.jpg&#34;
+	width=&#34;1507&#34;
+	height=&#34;944&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.11_hu_d23286149f4672ce.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.11_hu_a4e4e5624e7f86c5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;159&#34;
+		data-flex-basis=&#34;383px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;将mtxMessage的值改为下面这句URL。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;iframe&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;../csrf&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;onload&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;alert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;frames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getElementsByName&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;user token&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.13.jpg&#34;
+	width=&#34;1417&#34;
+	height=&#34;657&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.13_hu_467594c96e1b9522.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.13_hu_ef1556dc746d5771.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;215&#34;
+		data-flex-basis=&#34;517px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然后点击放包，页面就返回了token值。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.14.jpg&#34;
+	width=&#34;1414&#34;
+	height=&#34;788&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.14_hu_2ae9755a1ca1c20f.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.14_hu_85d99c945633b5d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;179&#34;
+		data-flex-basis=&#34;430px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;若没有返回，已经将难度调到Low,再进行上面的抓包和修改操作，然后放包后改为High难度。&lt;br&gt;
+再回到储存型XSS漏洞的页面就有了。&lt;/p&gt;
+&lt;h3 id=&#34;2利用&#34;&gt;2.利用
+&lt;/h3&gt;&lt;p&gt;关于CSRF漏洞的利用通常有两个步骤。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1.如果是一个URL =&amp;gt; 直接发送URL或装换为短链接之后再发送给受害者。&lt;/li&gt;
+&lt;li&gt;2.如果是一个表单 =&amp;gt; 使用bp抓包 =&amp;gt; 构造一个表单 =&amp;gt; 构造页面发送给受害者。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.15.jpg&#34;
+	width=&#34;1019&#34;
+	height=&#34;702&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.15_hu_a1da74eb3e10f7e3.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.15_hu_d4962beb2be11ebf.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;348px&#34;
+	
+&gt;&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.16.jpg&#34;
+	width=&#34;1091&#34;
+	height=&#34;549&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26324/2.16_hu_9718cbae1633d562.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26324/2.16_hu_3a9eb993ed0afabf.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;198&#34;
+		data-flex-basis=&#34;476px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;三-实战&#34;&gt;三. 实战
+&lt;/h2&gt;&lt;h3 id=&#34;1&#34;&gt;1.
+&lt;/h3&gt;</description>
+        </item>
+        <item>
         <title>PHP上传漏洞 --- upload-labs靶场练习</title>
         <link>https://dongyuzzz5.github.io/p/phpchat3/</link>
         <pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate>
         
         <guid>https://dongyuzzz5.github.io/p/phpchat3/</guid>
-        <description>&lt;img src="https://dongyuzzz5.github.io/p/phpchat3/111.png" alt="Featured image of post PHP上传漏洞 --- upload-labs靶场练习" /&gt;&lt;h2 id=&#34;一-上传漏洞简介&#34;&gt;一. 上传漏洞简介
+        <description>&lt;img src="https://dongyuzzz5.github.io/p/phpchat3/111.png" alt="Featured image of post PHP上传漏洞 --- upload-labs靶场练习" /&gt;&lt;h2 id=&#34;一-知识储备&#34;&gt;一. 知识储备
 &lt;/h2&gt;&lt;h3 id=&#34;1漏洞介绍&#34;&gt;1.漏洞介绍
 &lt;/h3&gt;&lt;p&gt;文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获取了执行服务器端命令的能力，这种攻击方式是最直接和有效的，文件上传本身是没有问题的，有问题的是文件上传后，服务器怎么处理，解析文件。通过服务器的处理逻辑做的不够安全，则会导致上传漏洞。&lt;/p&gt;
 &lt;h3 id=&#34;2漏洞条件&#34;&gt;2.漏洞条件
@@ -67,13 +505,13 @@
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;二-靶场实例练习&#34;&gt;二. 靶场实例练习
-&lt;/h2&gt;&lt;h3 id=&#34;1前言&#34;&gt;1.前言
+&lt;/h2&gt;&lt;h3 id=&#34;前言&#34;&gt;前言
 &lt;/h3&gt;&lt;p&gt;本文章主要是讲一下upload-labs靶场的部分闯关题解。&lt;br&gt;
 这个平台涵盖了大部分的文件上传漏洞的类型。&lt;br&gt;
 该靶场练习不仅是加强对PHP文件上传漏洞的理解，也是对在CTF比赛中该类型题目的练习。&lt;br&gt;
 ps:该靶场搭建可以看我的另一篇文章：&lt;a class=&#34;link&#34; href=&#34;https://dongyuzzz5.github.io/p/bachang/?t=1774088174234&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;靶场搭建教程&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;2pass-01&#34;&gt;2.Pass-01
+&lt;h3 id=&#34;pass-01&#34;&gt;Pass-01
 &lt;/h3&gt;&lt;p&gt;我们先准备好一个php文件,里面写入一句话木马。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.1.jpg&#34;
 	width=&#34;963&#34;
@@ -208,7 +646,7 @@ ps:该靶场搭建可以看我的另一篇文章：&lt;a class=&#34;link&#34; hr
 		data-flex-basis=&#34;547px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;3pass-02&#34;&gt;3.Pass-02
+&lt;h3 id=&#34;pass-02&#34;&gt;Pass-02
 &lt;/h3&gt;&lt;p&gt;这道题讲的是服务端校验中，对数据包的MIME进行检查。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.11.jpg&#34;
 	width=&#34;1052&#34;
@@ -289,7 +727,7 @@ ps:该靶场搭建可以看我的另一篇文章：&lt;a class=&#34;link&#34; hr
 		data-flex-basis=&#34;823px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;4pass-03&#34;&gt;4.Pass-03
+&lt;h3 id=&#34;pass-03&#34;&gt;Pass-03
 &lt;/h3&gt;&lt;p&gt;这道题讲的是服务端校验中的后缀名黑名单校验。&lt;br&gt;
 我们可以打开提示，这些后缀名就是黑名单，无法上传这些文件。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.17.jpg&#34;
@@ -360,7 +798,7 @@ ps:该靶场搭建可以看我的另一篇文章：&lt;a class=&#34;link&#34; hr
 不过这里蚁剑可能会连接不上。&lt;br&gt;
 这里和phpstudy的Apache配置有关。&lt;br&gt;
 有兴趣的可以自己找下怎么修改配置，这里就不过多赘述。&lt;/p&gt;
-&lt;h3 id=&#34;5pass-04&#34;&gt;5.Pass-04
+&lt;h3 id=&#34;pass-04&#34;&gt;Pass-04
 &lt;/h3&gt;&lt;p&gt;这道题也是讲服务端校验中的后缀名黑名单校验。&lt;br&gt;
 不过它杜绝了绝大多的文件后缀格式。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.21.jpg&#34;
@@ -444,17 +882,589 @@ ps:该靶场搭建可以看我的另一篇文章：&lt;a class=&#34;link&#34; hr
 &gt;&lt;br&gt;
 进行下图的修改。&lt;br&gt;
 &lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.25.jpg&#34;
-	width=&#34;1187&#34;
-	height=&#34;716&#34;
-	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.25_hu_13ca737a97469218.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.25_hu_dea6577090764a8a.jpg 1024w&#34;
+	width=&#34;869&#34;
+	height=&#34;335&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.25_hu_15261382a86b1532.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.25_hu_77d260de2b4ed0b9.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;165&#34;
-		data-flex-basis=&#34;397px&#34;
+		data-flex-grow=&#34;259&#34;
+		data-flex-basis=&#34;622px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;h3 id=&#34;pass-06&#34;&gt;Pass-06
+&lt;/h3&gt;&lt;p&gt;可以看到提示里比上一题的后缀过滤多了.htaccess文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.27.jpg&#34;
+	width=&#34;602&#34;
+	height=&#34;333&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.27_hu_1cb957026d9e6cef.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.27_hu_1a97f34b53216494.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;180&#34;
+		data-flex-basis=&#34;433px&#34;
+	
+&gt;&lt;br&gt;
+我们看一源码，会发现它比pass4少了一句函数。&lt;br&gt;
+少了将装换为小写的语句。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.28.jpg&#34;
+	width=&#34;1228&#34;
+	height=&#34;482&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.28_hu_e7736a00756344cd.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.28_hu_398f5751ee63ce38.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;254&#34;
+		data-flex-basis=&#34;611px&#34;
+	
+&gt;&lt;br&gt;
+黑名单中也只是过滤了.pHp，那我们就可以将后缀改为.PhP就行了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.30.jpg&#34;
+	width=&#34;839&#34;
+	height=&#34;375&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.30_hu_e93bc45b19953d3b.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.30_hu_20f944349dc2eff1.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;223&#34;
+		data-flex-basis=&#34;536px&#34;
+	
+&gt;&lt;br&gt;
+来到upload文件夹，文件上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.31.jpg&#34;
+	width=&#34;1118&#34;
+	height=&#34;361&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.31_hu_6deb6ec4f321eab.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.31_hu_ddd4eb3c78f9e977.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;309&#34;
+		data-flex-basis=&#34;743px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pass-08&#34;&gt;Pass-08
+&lt;/h3&gt;&lt;p&gt;这是一道点绕过题目。&lt;br&gt;
+可以看到源码也是通过黑名单进行过滤，而且杜绝了所有php后缀名。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.32.jpg&#34;
+	width=&#34;1554&#34;
+	height=&#34;579&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.32_hu_b08481ed1b43c83a.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.32_hu_abcb303391bef0c7.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;268&#34;
+		data-flex-basis=&#34;644px&#34;
+	
+&gt;&lt;br&gt;
+我们可以对比一下Pass4的源代码，会发现少一条语句。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.33.jpg&#34;
+	width=&#34;1396&#34;
+	height=&#34;572&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.33_hu_5dfb96a9dcdd3afa.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.33_hu_e786f842ea427c2a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;244&#34;
+		data-flex-basis=&#34;585px&#34;
+	
+&gt;&lt;br&gt;
+它没有删除末尾的点。&lt;br&gt;
+那我们就可以利用另外一条语句。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.34.jpg&#34;
+	width=&#34;1382&#34;
+	height=&#34;553&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.34_hu_183232693d4aab5d.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.34_hu_74bd620b96623494.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;249&#34;
+		data-flex-basis=&#34;599px&#34;
+	
+&gt;&lt;br&gt;
+这条语句的strrchr()函数是通过获取点后的字符串作为文件后缀名。&lt;br&gt;
+那我们通过bp抓包后，在文件后面加一个.&lt;br&gt;
+那代码就会将后缀名识别为空，也就成功绕过。&lt;br&gt;
+具体操作如下&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.35.jpg&#34;
+	width=&#34;1515&#34;
+	height=&#34;813&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.35_hu_ada109d63e9dd51.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.35_hu_f83c87ae011335de.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;186&#34;
+		data-flex-basis=&#34;447px&#34;
+	
+&gt;&lt;br&gt;
+如果还是显示上传错误，可以尝试加两个.&lt;br&gt;
+然后在upload文件夹看到文件已经上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.36.jpg&#34;
+	width=&#34;1140&#34;
+	height=&#34;357&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.36_hu_541d5a4b2ae0bbc8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.36_hu_74fc8896c4b4dbf4.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;319&#34;
+		data-flex-basis=&#34;766px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pass-09&#34;&gt;Pass-09
+&lt;/h3&gt;&lt;p&gt;这是一道windows文件流特性绕过的题目。&lt;br&gt;
+同样的方便解析我们先看一下这道题的源码。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.37.jpg&#34;
+	width=&#34;1189&#34;
+	height=&#34;543&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.37_hu_950219dc48e1a2db.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.37_hu_e96a8fd9f5a28711.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;218&#34;
+		data-flex-basis=&#34;525px&#34;
+	
+&gt;&lt;br&gt;
+对比前面的源码，我们可以清楚看到少了去除字符串::$DATA的语句。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.38.jpg&#34;
+	width=&#34;1291&#34;
+	height=&#34;528&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.38_hu_cf5224056154c702.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.38_hu_bc799b0ddf6a4f9.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;244&#34;
+		data-flex-basis=&#34;586px&#34;
+	
+&gt;&lt;br&gt;
+::$DATA是一个windows文件流特性，这里不多解释，感兴趣自行搜索。&lt;br&gt;
+和Pass8一样，通过抓包，然后修改文件后缀名就可以了。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.39.jpg&#34;
+	width=&#34;1530&#34;
+	height=&#34;911&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.39_hu_7b70c74dafd590eb.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.39_hu_c8170ac98a7e3fe9.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;167&#34;
+		data-flex-basis=&#34;403px&#34;
+	
+&gt;&lt;br&gt;
+文件上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.40.jpg&#34;
+	width=&#34;1086&#34;
+	height=&#34;333&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.40_hu_982aaa697f662250.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.40_hu_9d0c566ce64c659d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;326&#34;
+		data-flex-basis=&#34;782px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pass-11&#34;&gt;Pass-11
+&lt;/h3&gt;&lt;p&gt;第十一关是一道双写绕过。&lt;br&gt;
+有经验的肯定一眼看出来，原理就是str_irplace()函数将黑名单的字符串替代为空。&lt;br&gt;
+但为什么可以通过双写字符串，让另一个字符串依然生效。&lt;br&gt;
+下面都会源码&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.41.jpg&#34;
+	width=&#34;1277&#34;
+	height=&#34;568&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.41_hu_3c9248519ac877af.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.41_hu_80bc203a9ca1bd58.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;224&#34;
+		data-flex-basis=&#34;539px&#34;
+	
+&gt;&lt;br&gt;
+抓包后将后缀名php改为pphphp。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.42.jpg&#34;
+	width=&#34;1401&#34;
+	height=&#34;669&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.42_hu_cb1e4a82d54d84ca.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.42_hu_34ab8b1eb70851f3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;209&#34;
+		data-flex-basis=&#34;502px&#34;
+	
+&gt;&lt;br&gt;
+放包后，上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.43.jpg&#34;
+	width=&#34;1091&#34;
+	height=&#34;287&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.43_hu_5e69dc6e15197327.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.43_hu_c0845d7c8780a005.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;380&#34;
+		data-flex-basis=&#34;912px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;pass-12&#34;&gt;Pass-12
+&lt;/h3&gt;&lt;p&gt;这一关关于%00截断绕过。&lt;br&gt;
+这个绕过方式比较古老，所以是有条件的。&lt;br&gt;
+首先PHP版本要小于5.2.4,我们这里打开phpstudy修改一下。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.44.jpg&#34;
+	width=&#34;688&#34;
+	height=&#34;689&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.44_hu_efef64fc0f51e708.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.44_hu_65940f0f91c76321.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;99&#34;
+		data-flex-basis=&#34;239px&#34;
+	
+&gt;&lt;br&gt;
+其次就是php扩展中的magic_quotes_gpc要为关闭状态。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.45.jpg&#34;
+	width=&#34;981&#34;
+	height=&#34;471&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.45_hu_921b4cb9d9161d3b.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.45_hu_9b367a43b5e1730e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;208&#34;
+		data-flex-basis=&#34;499px&#34;
+	
+&gt;&lt;br&gt;
+然后我先复现一下漏洞，具体操作如下图。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.46.jpg&#34;
+	width=&#34;1645&#34;
+	height=&#34;936&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.46_hu_64ec317818e7f569.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.46_hu_ecf8b7ea9d40d184.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;175&#34;
+		data-flex-basis=&#34;421px&#34;
+	
+&gt;&lt;br&gt;
+然后就上传成功了。&lt;br&gt;
+其原理就是它代码判断的filename是你上传的jpg&lt;br&gt;
+成功绕过了代码里的白名单检测。&lt;br&gt;
+然后通过修改URL，%00的作用服务端保存时，会将%00后的内容省略(a.jpg)&lt;br&gt;
+直接保存为a.php&lt;br&gt;
+这样也就造成了，上传成功的同时，还能将文件命名为php格式让服务器解析。&lt;br&gt;
+不过这种绕过方式非常古老，现在基本不会碰到，做个了解即可。&lt;/p&gt;
+&lt;h3 id=&#34;pass-15&#34;&gt;Pass-15
+&lt;/h3&gt;&lt;p&gt;来到这关，你会发现和前面的关卡都不太一样，它要求我们上传图片马。&lt;br&gt;
+我们先试着上传php文件。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.47.jpg&#34;
+	width=&#34;927&#34;
+	height=&#34;547&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.47_hu_23861f629371ef51.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.47_hu_d22b3495d2e25bbd.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;169&#34;
+		data-flex-basis=&#34;406px&#34;
+	
+&gt;&lt;br&gt;
+发现上传失败，我们在生成jpg文件，但包含一句话木马。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.48.jpg&#34;
+	width=&#34;944&#34;
+	height=&#34;582&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.48_hu_5c9c6f1b40b9d14d.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.48_hu_652cbcbb9ebd0e58.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;162&#34;
+		data-flex-basis=&#34;389px&#34;
+	
+&gt;&lt;br&gt;
+发现还是失败，这是为什么呢？&lt;br&gt;
+我们来看一下源码。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.49.jpg&#34;
+	width=&#34;1100&#34;
+	height=&#34;521&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.49_hu_c08fadb6424f825c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.49_hu_ab4e4b6593662109.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;211&#34;
+		data-flex-basis=&#34;506px&#34;
+	
+&gt;&lt;br&gt;
+我们可以看到这里不是直接判断字符串来判断文件格式。&lt;br&gt;
+它是先通过getimagesize()函数获取文件名的大小。&lt;br&gt;
+再通过image_type_to_extension()函数来判断它的格式。&lt;br&gt;
+那么要绕过就需要知道每种格式都会有文件头，我们只要在文件内容中添加对应的文件头即可。&lt;br&gt;
+比如gif文件，我们将文件内容修改如下&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;GIF89a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;phpinfo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.50.jpg&#34;
+	width=&#34;615&#34;
+	height=&#34;233&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.50_hu_2dd04a4a76252b3d.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.50_hu_b43491789a1b08.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;263&#34;
+		data-flex-basis=&#34;633px&#34;
+	
+&gt;&lt;br&gt;
+文件名也要改为a.gif&lt;br&gt;
+上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.51.jpg&#34;
+	width=&#34;958&#34;
+	height=&#34;919&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.51_hu_33bb2475673514b6.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.51_hu_6ecec034a239eea8.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;104&#34;
+		data-flex-basis=&#34;250px&#34;
+	
+&gt;&lt;br&gt;
+我们用浏览器访问一下图片。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.52.jpg&#34;
+	width=&#34;1246&#34;
+	height=&#34;230&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.52_hu_a245ca965d515c3f.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.52_hu_ba56d65aa36a01e7.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;541&#34;
+		data-flex-basis=&#34;1300px&#34;
+	
+&gt;&lt;br&gt;
+发现显示错误。&lt;br&gt;
+这是因为这道题还联动了文件包含漏洞。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.53.jpg&#34;
+	width=&#34;903&#34;
+	height=&#34;537&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.53_hu_81ce64287b5ecc7c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.53_hu_feb9e9e92dd57b8d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;168&#34;
+		data-flex-basis=&#34;403px&#34;
+	
+&gt;&lt;br&gt;
+点击进去看一下。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.54.jpg&#34;
+	width=&#34;1010&#34;
+	height=&#34;502&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.54_hu_70fc8410e364f48.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.54_hu_70da0c2e1bb12bbb.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;201&#34;
+		data-flex-basis=&#34;482px&#34;
+	
+&gt;&lt;br&gt;
+我们修改一下URL后回车。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.55.jpg&#34;
+	width=&#34;1831&#34;
+	height=&#34;731&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.55_hu_777195db9f4b9026.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.55_hu_6ee87b766dd6eb0d.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;250&#34;
+		data-flex-basis=&#34;601px&#34;
+	
+&gt;&lt;br&gt;
+成功getshell。&lt;/p&gt;
+&lt;p&gt;而对于jpg和png图片，我们需要将一张真正的图片直接用notepad++打开。&lt;br&gt;
+在相对中间的地方(防止替换刀正确文件头)写入phpinfo语句。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.56.jpg&#34;
+	width=&#34;1224&#34;
+	height=&#34;405&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.56_hu_181188fd3d44dca.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.56_hu_2fadafed69ddc47b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;302&#34;
+		data-flex-basis=&#34;725px&#34;
+	
+&gt;&lt;br&gt;
+同样上传成功。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.57.jpg&#34;
+	width=&#34;1018&#34;
+	height=&#34;792&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.57_hu_9c51ab207daa348a.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.57_hu_731b177ef95b47e5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;128&#34;
+		data-flex-basis=&#34;308px&#34;
+	
+&gt;&lt;br&gt;
+修改URL后回车，也是成功getshell。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.58.jpg&#34;
+	width=&#34;1373&#34;
+	height=&#34;997&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.58_hu_987137be383c2ed8.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.58_hu_1c0d236577e989.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;137&#34;
+		data-flex-basis=&#34;330px&#34;
+	
+&gt;&lt;br&gt;
+png也是同理，且记得图片大小量选小点。&lt;/p&gt;
+&lt;h3 id=&#34;pass-17&#34;&gt;Pass-17
+&lt;/h3&gt;&lt;p&gt;第十七关是一道关于二次渲染的题目。&lt;br&gt;
+什么是二次渲染呢，我们可以来直接演示一下。&lt;br&gt;
+直接上床一张图片，然后将上传前后的图片点击属性进行对比。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.59.jpeg&#34;
+	width=&#34;1463&#34;
+	height=&#34;904&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.59_hu_dad6ee92d5d6844a.jpeg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.59_hu_d8280bc7e94dc0c9.jpeg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;161&#34;
+		data-flex-basis=&#34;388px&#34;
+	
+&gt;&lt;br&gt;
+可以很明显的看到，上传前后图片大小出现了很明显的变化。&lt;br&gt;
+这就是二次渲染。&lt;br&gt;
+我们尝试第15关的方法进行上传，发现无法上传。&lt;br&gt;
+这是因为源代码对其的审查更加的严格。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.60.jpg&#34;
+	width=&#34;936&#34;
+	height=&#34;535&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.60_hu_fc455cbe373a37e7.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.60_hu_bb78011c82edad44.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;174&#34;
+		data-flex-basis=&#34;419px&#34;
+	
+&gt;&lt;br&gt;
+那我们要如何饶过呢?&lt;br&gt;
+这里需要用到国外大佬写的一个php代码。&lt;br&gt;
+该代码可以直接生成一个带有一句话木马的图片。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mh&#34;&gt;0xa3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x9f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x67&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xf7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x0e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x93&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x1b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x23&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;mh&#34;&gt;0xbe&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x2c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x8a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xd0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xf9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xe1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xae&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;mh&#34;&gt;0x22&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xf6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xd9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x43&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x5d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xfb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xae&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xcc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;mh&#34;&gt;0x5a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xdc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x5a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xdc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xa3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x9f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;mh&#34;&gt;0x67&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xa5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xbe&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x5f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x76&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x74&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x5a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x4c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;mh&#34;&gt;0xa1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x3f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x7a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xbf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x6b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x88&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x2d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;mh&#34;&gt;0x60&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x65&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x7d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x52&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x9d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xad&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x88&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0xa1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           &lt;span class=&#34;mh&#34;&gt;0x66&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x44&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x50&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$img&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;imagecreatetruecolor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;$r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;$g&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$y&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;$b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$y&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;$color&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;imagecolorallocate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nx&#34;&gt;imagesetpixel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;round&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$color&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;imagepng&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;./1.png&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.61.jpg&#34;
+	width=&#34;971&#34;
+	height=&#34;263&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.61_hu_a574c4065876cb51.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.61_hu_bc69c3d52bb610f5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;369&#34;
+		data-flex-basis=&#34;886px&#34;
+	
+&gt;&lt;br&gt;
+若电脑没有安装php,可以和我一样，在phpstudy中的php打开cmd执行。&lt;br&gt;
+打开图片，可以看到里面包含了一句话木马。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.62.jpg&#34;
+	width=&#34;1666&#34;
+	height=&#34;627&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.62_hu_be5b6ee98ee23d23.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.62_hu_f3909aa964c5b32e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;265&#34;
+		data-flex-basis=&#34;637px&#34;
+	
+&gt;&lt;br&gt;
+我们进行上传。&lt;br&gt;
+&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.63.jpg&#34;
+	width=&#34;808&#34;
+	height=&#34;938&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat3/2.63_hu_e26b837c63dc600c.jpg 480w, https://dongyuzzz5.github.io/p/phpchat3/2.63_hu_58f44bbcf2b1c837.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;86&#34;
+		data-flex-basis=&#34;206px&#34;
+	
+&gt;&lt;br&gt;
+可以看到已经上传成功，直接连接蚁剑就能getshell了。&lt;br&gt;
+png和jpg都需要用到代码生成图片。&lt;br&gt;
+gif则需要不断上传找到渲染后图片大小依旧不变的位置插入一句话木马，再上传图片。&lt;/p&gt;
 </description>
         </item>
         <item>
