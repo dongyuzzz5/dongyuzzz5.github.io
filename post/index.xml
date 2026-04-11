@@ -177,7 +177,234 @@ pcntl_exec()&lt;/li&gt;
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;2文件包含代码注入&#34;&gt;2.文件包含代码注入
-&lt;/h3&gt;</description>
+&lt;/h3&gt;&lt;p&gt;但文件包含函数(include、include_once、require、requirw_once)中包含输入变量时，可能导致代码注入。&lt;/p&gt;
+&lt;p&gt;也是创建个页面演示一下。&lt;br&gt;
+在WWW文件夹下创建文件demo4.php&lt;br&gt;
+写入下面代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;include&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;data&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后我们将下面这句协议进行get提交。&lt;br&gt;
+a=data:text/plain,&lt;?php%20phpinfo();?&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.6.jpg&#34;
+	width=&#34;1628&#34;
+	height=&#34;521&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.6_hu_c44a7bccb3be92e4.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.6_hu_ce1900be4b91d32e.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;312&#34;
+		data-flex-basis=&#34;749px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以看到直接getshell.&lt;br&gt;
+这个协议的意思其实就是传进去一个字符串。&lt;br&gt;
+通过在浏览器直接访问上面这个协议，页面输出的就是我们传递的内容。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.7.jpg&#34;
+	width=&#34;975&#34;
+	height=&#34;422&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.7_hu_d2dbfb18708e2316.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.7_hu_99a1986b46b04f1c.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;231&#34;
+		data-flex-basis=&#34;554px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;而这样若有文件包含漏洞，就相当于包含了一个本地文件。&lt;/p&gt;
+&lt;h3 id=&#34;3正则表达式代码注入&#34;&gt;3.正则表达式代码注入
+&lt;/h3&gt;&lt;p&gt;原理：&lt;span style=&#34;color: #e74c3c;&#34;&gt;preg_replace()&lt;/span&gt;函数：&lt;br&gt;
+当pattern中存在/e模式修饰符，匹配上时，即允许执行replacement中的命令。&lt;/p&gt;
+&lt;p&gt;preg_replace($pattern,$replacement,$subject,$limit,$count)&lt;br&gt;
+搜索subject中匹配pattern的部分，以replacement进行替换。&lt;/p&gt;
+&lt;p&gt;参数说明：&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;$pattern&lt;/span&gt;:要搜索的模式，可以是字符串或一个字符串数组。&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;$replacement&lt;/span&gt;:用于替换的字符串或字符串数组。&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;$subject&lt;/span&gt;:要搜索替换的目标字符串或字符串数组。&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;$limit&lt;/span&gt;:可选，对于每个模式用于每个subject字符串的最大可替代次数。默认是-1(无限制)。&lt;br&gt;
+&lt;span style=&#34;color: #e74c3c;&#34;&gt;$count&lt;/span&gt;:可选，为替换执行的次数。&lt;/p&gt;
+&lt;p&gt;我们也是创建一个demo5.php文件来举下例。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nx&#34;&gt;preg_replace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/test/e&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;data&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;THIS IS a test.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;代码意思就是当在“THIS IS a test.”中匹配到“test”时，就会执行中间这句命令。&lt;br&gt;
+但是/e 修饰符（eval 模式）在php7.0以上版本已被彻底移除。&lt;br&gt;
+所以但你在浏览器执行时，可能会遇到下面情况。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.8.jpg&#34;
+	width=&#34;1201&#34;
+	height=&#34;282&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.8_hu_9055c0a45681318b.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.8_hu_423806d4c81fc3.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;425&#34;
+		data-flex-basis=&#34;1022px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;需将php版本改到7.0以下。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.9.jpg&#34;
+	width=&#34;1085&#34;
+	height=&#34;488&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.9_hu_75487f559a9a7089.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.9_hu_66a688c7c6c04de8.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;222&#34;
+		data-flex-basis=&#34;533px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;再访问该URL&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.10.jpg&#34;
+	width=&#34;1374&#34;
+	height=&#34;681&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.10_hu_9c60a32b4d0c0bbc.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.10_hu_9fc34f11a0166883.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;201&#34;
+		data-flex-basis=&#34;484px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;4动态代码执行&#34;&gt;4.动态代码执行
+&lt;/h3&gt;&lt;p&gt;分为两种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(1)动态变量代码执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nv&#34;&gt;$dyn_func&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;dyn_func&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//system
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nv&#34;&gt;$argument&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;argument&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//dir
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nv&#34;&gt;$dyn_func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$argument&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//system(dir);
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;也就是说若代码中有类似这样的函数写法，那攻击者就可以通过传入两个参数，将其拼接在一起执行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.11.jpg&#34;
+	width=&#34;1579&#34;
+	height=&#34;622&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.11_hu_1336600b559886ba.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.11_hu_b94ad9063b3133eb.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;253&#34;
+		data-flex-basis=&#34;609px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(2)动态函数代码执行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nv&#34;&gt;$foobar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$_GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;foobar&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nv&#34;&gt;$dyn_func&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;create_function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;$foobar&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;echo &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$foobar&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nv&#34;&gt;$dyn_func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$argument&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我们先看攻击效果。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.12.jpg&#34;
+	width=&#34;1195&#34;
+	height=&#34;565&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.12_hu_79ae3d4d08a2aa0a.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.12_hu_c2ac7a3377feb8fe.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;211&#34;
+		data-flex-basis=&#34;507px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;先来解释下三句代码。&lt;br&gt;
+第一句是传入参数，第二句是创建函数(函数名无所谓)，第三句是调用函数(里面的参数无所谓，为空也行)。&lt;br&gt;
+说到底最关键的就是代码传入如函数是传入了下面这个参数。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.13.jpg&#34;
+	width=&#34;877&#34;
+	height=&#34;219&#34;
+	srcset=&#34;https://dongyuzzz5.github.io/p/phpchat26402/1.13_hu_20dc0a7832cfdf80.jpg 480w, https://dongyuzzz5.github.io/p/phpchat26402/1.13_hu_163c1cacb5578daf.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;400&#34;
+		data-flex-basis=&#34;961px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;5其他&#34;&gt;5.其他
+&lt;/h3&gt;&lt;p&gt;这里主要讲一个函数&lt;span style=&#34;color: #e74c3c;&#34;&gt;Array_map()&lt;/span&gt;&lt;br&gt;
+它的作用是将函数作用到每个值上面。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;?&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;myfunction&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	 &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$v&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nv&#34;&gt;$a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;nx&#34;&gt;print_r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;arry_map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;myfunction&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;?&amp;gt;&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可以自行在浏览器上输出结果，会看到1,4,9,16,25被放到数组中。&lt;br&gt;
+说明该函数将a数组中的每一个值，就在myfunction这个函数中过了一遍。&lt;/p&gt;
+&lt;h2 id=&#34;三-代码执行漏洞的防御&#34;&gt;三. 代码执行漏洞的防御
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;使用json保存数组，当读取时就不需要eval了&lt;/li&gt;
+&lt;li&gt;对于必须使用eval的地方，一定严格处理用户数据&lt;/li&gt;
+&lt;li&gt;字符串使用单引号包括可控符号，插入前使用addslashes转义&lt;/li&gt;
+&lt;li&gt;放弃使用preg_replace的e修饰符，使用preg_replace_callback()代替&lt;/li&gt;
+&lt;li&gt;若必须使用preg_replace的e修饰符，则必用单引号包裹正则匹配出的对象&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         <item>
         <title>PHP代码审计 --- CSRF漏洞</title>

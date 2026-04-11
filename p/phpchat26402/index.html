@@ -355,8 +355,12 @@
       <ol>
         <li><a href="#1代码执行函数">1.代码执行函数</a></li>
         <li><a href="#2文件包含代码注入">2.文件包含代码注入</a></li>
+        <li><a href="#3正则表达式代码注入">3.正则表达式代码注入</a></li>
+        <li><a href="#4动态代码执行">4.动态代码执行</a></li>
+        <li><a href="#5其他">5.其他</a></li>
       </ol>
     </li>
+    <li><a href="#三-代码执行漏洞的防御">三. 代码执行漏洞的防御</a></li>
   </ol>
 </nav>
         </div>
@@ -621,7 +625,234 @@ pcntl_exec()</li>
 	
 ></p>
 <h3 id="2文件包含代码注入">2.文件包含代码注入
-</h3>
+</h3><p>但文件包含函数(include、include_once、require、requirw_once)中包含输入变量时，可能导致代码注入。</p>
+<p>也是创建个页面演示一下。<br>
+在WWW文件夹下创建文件demo4.php<br>
+写入下面代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">	<span class="k">include</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后我们将下面这句协议进行get提交。<br>
+a=data:text/plain,<?php%20phpinfo();?></p>
+<p><img src="/p/phpchat26402/1.6.jpg"
+	width="1628"
+	height="521"
+	srcset="/p/phpchat26402/1.6_hu_c44a7bccb3be92e4.jpg 480w, /p/phpchat26402/1.6_hu_ce1900be4b91d32e.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="312"
+		data-flex-basis="749px"
+	
+></p>
+<p>可以看到直接getshell.<br>
+这个协议的意思其实就是传进去一个字符串。<br>
+通过在浏览器直接访问上面这个协议，页面输出的就是我们传递的内容。</p>
+<p><img src="/p/phpchat26402/1.7.jpg"
+	width="975"
+	height="422"
+	srcset="/p/phpchat26402/1.7_hu_d2dbfb18708e2316.jpg 480w, /p/phpchat26402/1.7_hu_99a1986b46b04f1c.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="231"
+		data-flex-basis="554px"
+	
+></p>
+<p>而这样若有文件包含漏洞，就相当于包含了一个本地文件。</p>
+<h3 id="3正则表达式代码注入">3.正则表达式代码注入
+</h3><p>原理：<span style="color: #e74c3c;">preg_replace()</span>函数：<br>
+当pattern中存在/e模式修饰符，匹配上时，即允许执行replacement中的命令。</p>
+<p>preg_replace($pattern,$replacement,$subject,$limit,$count)<br>
+搜索subject中匹配pattern的部分，以replacement进行替换。</p>
+<p>参数说明：<br>
+<span style="color: #e74c3c;">$pattern</span>:要搜索的模式，可以是字符串或一个字符串数组。<br>
+<span style="color: #e74c3c;">$replacement</span>:用于替换的字符串或字符串数组。<br>
+<span style="color: #e74c3c;">$subject</span>:要搜索替换的目标字符串或字符串数组。<br>
+<span style="color: #e74c3c;">$limit</span>:可选，对于每个模式用于每个subject字符串的最大可替代次数。默认是-1(无限制)。<br>
+<span style="color: #e74c3c;">$count</span>:可选，为替换执行的次数。</p>
+<p>我们也是创建一个demo5.php文件来举下例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">preg_replace</span><span class="p">(</span><span class="s2">&#34;/test/e&#34;</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span><span class="s2">&#34;THIS IS a test.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>代码意思就是当在“THIS IS a test.”中匹配到“test”时，就会执行中间这句命令。<br>
+但是/e 修饰符（eval 模式）在php7.0以上版本已被彻底移除。<br>
+所以但你在浏览器执行时，可能会遇到下面情况。</p>
+<p><img src="/p/phpchat26402/1.8.jpg"
+	width="1201"
+	height="282"
+	srcset="/p/phpchat26402/1.8_hu_9055c0a45681318b.jpg 480w, /p/phpchat26402/1.8_hu_423806d4c81fc3.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="425"
+		data-flex-basis="1022px"
+	
+></p>
+<p>需将php版本改到7.0以下。</p>
+<p><img src="/p/phpchat26402/1.9.jpg"
+	width="1085"
+	height="488"
+	srcset="/p/phpchat26402/1.9_hu_75487f559a9a7089.jpg 480w, /p/phpchat26402/1.9_hu_66a688c7c6c04de8.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="533px"
+	
+></p>
+<p>再访问该URL</p>
+<p><img src="/p/phpchat26402/1.10.jpg"
+	width="1374"
+	height="681"
+	srcset="/p/phpchat26402/1.10_hu_9c60a32b4d0c0bbc.jpg 480w, /p/phpchat26402/1.10_hu_9fc34f11a0166883.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="201"
+		data-flex-basis="484px"
+	
+></p>
+<h3 id="4动态代码执行">4.动态代码执行
+</h3><p>分为两种：</p>
+<ul>
+<li>(1)动态变量代码执行。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$dyn_func</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;dyn_func&#39;</span><span class="p">];</span>  <span class="c1">//system
+</span></span></span><span class="line"><span class="cl">	<span class="nv">$argument</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;argument&#39;</span><span class="p">];</span>  <span class="c1">//dir
+</span></span></span><span class="line"><span class="cl">	<span class="nv">$dyn_func</span><span class="p">(</span><span class="nv">$argument</span><span class="p">);</span>  <span class="c1">//system(dir);
+</span></span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>也就是说若代码中有类似这样的函数写法，那攻击者就可以通过传入两个参数，将其拼接在一起执行。</p>
+<p><img src="/p/phpchat26402/1.11.jpg"
+	width="1579"
+	height="622"
+	srcset="/p/phpchat26402/1.11_hu_1336600b559886ba.jpg 480w, /p/phpchat26402/1.11_hu_b94ad9063b3133eb.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="253"
+		data-flex-basis="609px"
+	
+></p>
+<ul>
+<li>(2)动态函数代码执行。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$foobar</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;foobar&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$dyn_func</span> <span class="o">=</span> <span class="nx">create_function</span><span class="p">(</span><span class="s1">&#39;$foobar&#39;</span><span class="p">,</span><span class="s2">&#34;echo </span><span class="si">$foobar</span><span class="s2">;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$dyn_func</span><span class="p">(</span><span class="nv">$argument</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们先看攻击效果。</p>
+<p><img src="/p/phpchat26402/1.12.jpg"
+	width="1195"
+	height="565"
+	srcset="/p/phpchat26402/1.12_hu_79ae3d4d08a2aa0a.jpg 480w, /p/phpchat26402/1.12_hu_c2ac7a3377feb8fe.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="211"
+		data-flex-basis="507px"
+	
+></p>
+<p>先来解释下三句代码。<br>
+第一句是传入参数，第二句是创建函数(函数名无所谓)，第三句是调用函数(里面的参数无所谓，为空也行)。<br>
+说到底最关键的就是代码传入如函数是传入了下面这个参数。</p>
+<p><img src="/p/phpchat26402/1.13.jpg"
+	width="877"
+	height="219"
+	srcset="/p/phpchat26402/1.13_hu_20dc0a7832cfdf80.jpg 480w, /p/phpchat26402/1.13_hu_163c1cacb5578daf.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="400"
+		data-flex-basis="961px"
+	
+></p>
+<h3 id="5其他">5.其他
+</h3><p>这里主要讲一个函数<span style="color: #e74c3c;">Array_map()</span><br>
+它的作用是将函数作用到每个值上面。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">	<span class="k">function</span> <span class="nf">myfunction</span><span class="p">(</span><span class="nv">$v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	 <span class="k">return</span><span class="p">(</span><span class="nv">$v</span><span class="o">*</span><span class="nv">$v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$a</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">print_r</span><span class="p">(</span><span class="nx">arry_map</span><span class="p">(</span><span class="s2">&#34;myfunction&#34;</span><span class="p">,</span><span class="nv">$a</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以自行在浏览器上输出结果，会看到1,4,9,16,25被放到数组中。<br>
+说明该函数将a数组中的每一个值，就在myfunction这个函数中过了一遍。</p>
+<h2 id="三-代码执行漏洞的防御">三. 代码执行漏洞的防御
+</h2><ul>
+<li>使用json保存数组，当读取时就不需要eval了</li>
+<li>对于必须使用eval的地方，一定严格处理用户数据</li>
+<li>字符串使用单引号包括可控符号，插入前使用addslashes转义</li>
+<li>放弃使用preg_replace的e修饰符，使用preg_replace_callback()代替</li>
+<li>若必须使用preg_replace的e修饰符，则必用单引号包裹正则匹配出的对象</li>
+</ul>
+
 </section>
 
 
@@ -877,7 +1108,7 @@ pcntl_exec()</li>
 
 
 
-<p>发布了 16 篇文章 | 共 60956 字</p>
+<p>发布了 16 篇文章 | 共 62134 字</p>
     </section>
     
    
